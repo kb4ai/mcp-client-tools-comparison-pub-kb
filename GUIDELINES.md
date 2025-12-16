@@ -134,3 +134,11 @@ features:
 2. Update `repo-commit` if analysis was based on specific commit
 3. Document significant findings in `ramblings/`
 4. Re-run `check-yaml.py` after changes
+5. Regenerate tables: `./scripts/generate-tables.py > comparisons/auto-generated.md`
+
+## Related Documents
+
+* [CONTRIBUTING.md](CONTRIBUTING.md) - Step-by-step contribution workflows
+* [PROCESS.md](PROCESS.md) - Research methodology and maintenance schedule
+* [spec.yaml](spec.yaml) - Full YAML schema specification
+* [comparisons/auto-generated.md](comparisons/auto-generated.md) - Generated comparison tables

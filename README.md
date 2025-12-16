@@ -12,6 +12,8 @@ MCP (Model Context Protocol) is a protocol for connecting AI models to external 
 * **gRPC bridges**: Convert protobuf/gRPC services to MCP or vice versa
 * **Enterprise gateways**: Production-ready proxies with security, aggregation, and orchestration
 
+**[View Full Comparison Tables →](comparisons/auto-generated.md)**
+
 ## Quick Stats
 
 | Metric | Count |
@@ -115,10 +117,15 @@ See [spec.yaml](spec.yaml) for the full schema.
 
 ## Contributing
 
+See **[CONTRIBUTING.md](CONTRIBUTING.md)** for detailed instructions.
+
+Quick start:
+
 1. Run `./scripts/clone-all.sh` to clone all repos
 2. Analyze a project and update its YAML file
 3. Run `./scripts/check-yaml.py` to validate
-4. Submit a PR
+4. Regenerate tables: `./scripts/generate-tables.py > comparisons/auto-generated.md`
+5. Submit a PR
 
 ## Security Considerations
 
