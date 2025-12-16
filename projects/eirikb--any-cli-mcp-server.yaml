@@ -1,0 +1,20 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/eirikb/any-cli-mcp-server"
+
+name: "any-cli-mcp-server"
+description: "MCP server that maps tools from existing CLI help output"
+
+category: "specialized-adapter"
+reputable-source: false
+
+transports:
+  stdio: true
+
+features:
+  - "Auto-maps tools from CLI --help output"
+  - "Works with any CLI tool"
+  - "Dynamic tool discovery"
+
+notes:
+  - "Innovative approach: parses CLI help to create MCP tools"
+  - "Zero-config for supported CLIs"

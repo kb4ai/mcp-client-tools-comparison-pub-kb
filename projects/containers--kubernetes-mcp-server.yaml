@@ -1,0 +1,24 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/containers/kubernetes-mcp-server"
+
+name: "kubernetes-mcp-server"
+description: "Native Go K8s/OpenShift MCP server implementation (not a kubectl wrapper)"
+language: "Go"
+
+category: "kubernetes-integration"
+reputable-source: true
+organization: "containers org"
+
+transports:
+  stdio: true
+
+features:
+  - "Native K8s API interaction (no kubectl/helm dependency)"
+  - "OpenShift support"
+  - "Helm Chart for deployment"
+  - "Zero external tool dependencies"
+
+notes:
+  - "Key differentiator: NOT a kubectl wrapper"
+  - "Direct K8s API server interaction"
+  - "Native performance"

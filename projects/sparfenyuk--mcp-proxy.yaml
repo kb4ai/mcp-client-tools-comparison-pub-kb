@@ -1,0 +1,32 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/sparfenyuk/mcp-proxy"
+
+name: "mcp-proxy"
+description: "Bidirectional bridge between Streamable HTTP and stdio MCP transports"
+language: "Python"
+stars: 2100
+license: "MIT"
+
+category: "http-bridge"
+reputable-source: false
+
+transports:
+  stdio: true
+  sse: true
+  http: true
+
+transport-direction: "bidirectional"
+
+features:
+  - "Bidirectional stdio↔HTTP/SSE bridging"
+  - "Dual mode operation (stdio→HTTP and HTTP→stdio)"
+  - "Docker support from v0.3.2+"
+  - "Claude Desktop compatible"
+
+installation:
+  pip: "mcp-proxy"
+  docker: "available"
+
+notes:
+  - "Most starred community project (~2.1k stars)"
+  - "High adoption rate"

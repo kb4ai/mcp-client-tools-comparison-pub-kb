@@ -1,0 +1,27 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/microsoft/mcp-gateway"
+
+name: "mcp-gateway"
+description: "K8s-native reverse proxy with session-aware routing and lifecycle management"
+language: "C#"
+stars: 386
+
+category: "enterprise-gateway"
+reputable-source: true
+organization: "Microsoft"
+
+transports:
+  stdio: true
+  http: true
+
+features:
+  - "Kubernetes-native design"
+  - "Session-aware routing"
+  - "Lifecycle management (deploy/update/delete)"
+  - "Telemetry integration"
+  - "Multi-tenancy support"
+
+notes:
+  - "Official Microsoft project"
+  - "Enterprise-focused"
+  - "Azure integration"

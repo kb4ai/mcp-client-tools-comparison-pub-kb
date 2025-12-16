@@ -1,0 +1,26 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/adhikasp/mcp-client-cli"
+
+name: "mcp-client-cli"
+description: "Simple CLI implementing MCP client, terminal alternative to Claude Desktop"
+language: "Python"
+stars: 655
+contributors: 5
+
+category: "cli-client"
+reputable-source: false
+
+transports:
+  stdio: true
+
+features:
+  - "LLM-agnostic (OpenAI, Groq, local LLMs)"
+  - "Minimalist design"
+  - "Terminal-based alternative to Claude Desktop"
+
+installation:
+  pip: "mcp-client-cli"
+
+notes:
+  - "Latest release: v1.0.5 (December 2, 2025)"
+  - "113 commits"

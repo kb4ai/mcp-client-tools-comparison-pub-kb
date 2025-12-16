@@ -1,0 +1,28 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/mcp-use/mcp-use-cli"
+
+name: "mcp-use-cli"
+description: "Chat-style MCP CLI with multi-provider LLM support and server management"
+language: "TypeScript"
+stars: 48
+archived: true
+
+category: "cli-client"
+reputable-source: false
+
+transports:
+  stdio: true
+
+features:
+  - "Natural language interaction"
+  - "Multi-provider LLM support"
+  - "Server management"
+  - "Connected servers act as tools for AI"
+
+installation:
+  npm: "@mcp-use/cli"
+
+notes:
+  - "ARCHIVED (Nov 24, 2025)"
+  - "Successor: @mcp-use/cli on npm (actively supported)"
+  - "Last release: v1.0.20 (July 1, 2025)"

@@ -1,0 +1,25 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/g0t4/mcp-server-commands"
+
+name: "mcp-server-commands"
+description: "MCP server to run arbitrary shell commands and scripts"
+
+category: "specialized-adapter"
+reputable-source: false
+
+transports:
+  stdio: true
+
+features:
+  - "Shell command execution"
+  - "Script running"
+  - "Exposes CLI to LLMs via MCP"
+
+security:
+  analyzed: false
+  notes:
+    - "Runs arbitrary shell commands - security implications"
+
+notes:
+  - "CLI-wrapping MCP server"
+  - "Bridges shell/CLI to MCP"

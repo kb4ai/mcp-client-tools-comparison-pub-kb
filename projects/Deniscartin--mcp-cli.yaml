@@ -1,0 +1,19 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/Deniscartin/mcp-cli"
+
+name: "mcp-cli (Deniscartin)"
+description: "CLI focused on managing MCP server configs, listing tools, and running queries"
+
+category: "cli-client"
+reputable-source: false
+
+transports:
+  stdio: true
+
+features:
+  - "Server config management"
+  - "Tool listing"
+  - "Query execution"
+
+notes:
+  - "Config-focused CLI"

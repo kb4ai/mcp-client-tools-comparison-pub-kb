@@ -1,0 +1,30 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/ConechoAI/nchan-mcp-transport"
+
+name: "nchan-mcp-transport"
+description: "High-performance WebSocket/SSE transport layer and gateway for MCP"
+language: "TypeScript"
+languages:
+  - "TypeScript"
+  - "Python"
+  - "JavaScript"
+stars: 28
+
+category: "websocket-bridge"
+reputable-source: false
+
+transports:
+  websocket: true
+  sse: true
+  http: true
+
+features:
+  - "Built on Nginx + Nchan + FastAPI"
+  - "Addresses HTTP+SSE limitations for long tasks"
+  - "Real-time communication"
+  - "Python + TypeScript SDKs"
+
+notes:
+  - "80 commits"
+  - "Created March 10, 2025"
+  - "Bridges WebSocket gap for Claude clients"

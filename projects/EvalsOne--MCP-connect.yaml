@@ -1,0 +1,23 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/EvalsOne/MCP-connect"
+
+name: "MCP-connect"
+description: "HTTP gateway exposing local stdio MCP servers via Streamable HTTP"
+language: "TypeScript"
+stars: 227
+
+category: "http-bridge"
+reputable-source: false
+
+transports:
+  stdio: true
+  http: true
+
+transport-direction: "stdio-to-http"
+
+features:
+  - "Dual-mode operation (Streamable HTTP or classic request/response)"
+  - "E2B sandbox deployment support"
+
+notes:
+  - "93 commits (active development)"

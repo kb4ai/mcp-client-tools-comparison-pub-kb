@@ -1,0 +1,29 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/wong2/mcp-cli"
+
+name: "mcp-cli (wong2)"
+description: "CLI inspector for MCP with scriptable automation"
+language: "JavaScript"
+stars: 396
+
+category: "cli-client"
+reputable-source: false
+
+transports:
+  stdio: true
+  sse: true
+  http: true
+
+authentication:
+  oauth: true
+
+features:
+  - "Scriptable automation (bypasses interactive prompts)"
+  - "Tool/resource/prompt enumeration"
+  - "OAuth authentication for SSE/HTTP servers"
+  - "Invocation support"
+
+notes:
+  - "63 commits"
+  - "Created December 5, 2024"
+  - "Automation-focused"

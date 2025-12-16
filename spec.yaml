@@ -1,0 +1,252 @@
+# YAML Schema Specification for MCP Wrapper Tool Analysis
+# All fields except those marked as REQUIRED are optional
+# last-update and repo-url are REQUIRED fields
+
+schema_version: "1.0"
+
+fields:
+  # === TRACKING FIELDS (first fields in every project YAML) ===
+  last-update:
+    type: string
+    format: "YYYY-MM-DD"
+    required: true
+    description: "Date when this YAML was last updated"
+
+  repo-commit:
+    type: string
+    description: "Git commit hash that analysis was based on"
+
+  repo-url:
+    type: string
+    format: url
+    required: true
+    description: "Full GitHub/GitLab URL"
+
+  # === BASIC INFO ===
+  name:
+    type: string
+    description: "Project name (defaults to repo name if not specified)"
+
+  description:
+    type: string
+    description: "Brief description of what the tool does"
+
+  language:
+    type: string
+    description: "Primary programming language"
+
+  languages:
+    type: array
+    items: string
+    description: "All languages used (from GitHub)"
+
+  license:
+    type: string
+    description: "License type (MIT, Apache-2.0, etc.)"
+
+  # === REPUTATION/TRUST METRICS ===
+  stars:
+    type: integer
+    description: "GitHub stars count (at time of last-update)"
+
+  forks:
+    type: integer
+    description: "GitHub forks count"
+
+  watchers:
+    type: integer
+    description: "GitHub watchers count"
+
+  contributors:
+    type: integer
+    description: "Number of contributors"
+
+  open-issues:
+    type: integer
+    description: "Number of open issues"
+
+  last-commit:
+    type: string
+    format: "YYYY-MM-DD"
+    description: "Date of most recent commit"
+
+  created:
+    type: string
+    format: "YYYY-MM-DD"
+    description: "Repository creation date"
+
+  reputable-source:
+    type: boolean
+    description: "From official/known organization (Anthropic, Microsoft, Docker, etc.)"
+
+  organization:
+    type: string
+    description: "Organization name if from reputable source"
+
+  archived:
+    type: boolean
+    description: "Is the repository archived?"
+
+  # === CATEGORY & TYPE ===
+  category:
+    type: string
+    enum:
+      - cli-client
+      - http-bridge
+      - websocket-bridge
+      - grpc-bridge
+      - rest-api-bridge
+      - proxy-aggregator
+      - enterprise-gateway
+      - docker-integration
+      - kubernetes-integration
+      - openapi-wrapper
+      - specialized-adapter
+      - official-tool
+    description: "Primary category of the tool"
+
+  secondary-categories:
+    type: array
+    items: string
+    description: "Additional categories if tool fits multiple"
+
+  # === TRANSPORT SUPPORT ===
+  transports:
+    type: object
+    properties:
+      stdio:
+        type: boolean
+        description: "Supports MCP stdio transport"
+      sse:
+        type: boolean
+        description: "Supports Server-Sent Events"
+      http:
+        type: boolean
+        description: "Supports HTTP/Streamable HTTP"
+      websocket:
+        type: boolean
+        description: "Supports WebSocket"
+      grpc:
+        type: boolean
+        description: "Supports gRPC/protobuf"
+    description: "Supported MCP transports"
+
+  transport-direction:
+    type: string
+    enum:
+      - stdio-to-http
+      - http-to-stdio
+      - bidirectional
+      - aggregator
+      - other
+    description: "Primary transport bridging direction"
+
+  # === AUTHENTICATION ===
+  authentication:
+    type: object
+    properties:
+      oauth:
+        type: boolean
+        description: "Supports OAuth/OAuth2"
+      api-key:
+        type: boolean
+        description: "Supports API key auth"
+      bearer:
+        type: boolean
+        description: "Supports Bearer token"
+      basic:
+        type: boolean
+        description: "Supports Basic auth"
+      custom:
+        type: string
+        description: "Custom auth mechanism description"
+    description: "Supported authentication methods"
+
+  # === FEATURES ===
+  features:
+    type: array
+    items: string
+    description: "List of notable features"
+
+  # === INSTALLATION ===
+  installation:
+    type: object
+    properties:
+      npm:
+        type: string
+        description: "npm package name"
+      pip:
+        type: string
+        description: "pip/PyPI package name"
+      brew:
+        type: string
+        description: "Homebrew formula/cask"
+      docker:
+        type: string
+        description: "Docker image"
+      binary:
+        type: boolean
+        description: "Provides pre-built binaries"
+      go-install:
+        type: string
+        description: "go install path"
+    description: "Installation methods available"
+
+  # === SECURITY ANALYSIS ===
+  security:
+    type: object
+    properties:
+      analyzed:
+        type: boolean
+        description: "Has security analysis been performed?"
+      analysis-commit:
+        type: string
+        description: "Commit hash security analysis was based on"
+      eval-usage:
+        type: string
+        enum: [none, safe, unsafe, needs-review]
+        description: "Use of eval/exec type functions"
+      subprocess-usage:
+        type: string
+        enum: [none, sanitized, unsafe, needs-review]
+        description: "Use of subprocess/shell commands"
+      network-isolation:
+        type: string
+        enum: [verified, partial, none, needs-review]
+        description: "Does it only connect to configured endpoints?"
+      input-validation:
+        type: string
+        enum: [thorough, basic, none, needs-review]
+        description: "Input validation/sanitization"
+      sandboxing:
+        type: boolean
+        description: "Supports sandboxing/isolation"
+      notes:
+        type: array
+        items: string
+        description: "Security-related notes/concerns"
+    description: "Security analysis results"
+
+  # === DOCUMENTATION ===
+  documentation:
+    type: object
+    properties:
+      readme:
+        type: boolean
+        description: "Has README"
+      api-docs:
+        type: boolean
+        description: "Has API documentation"
+      examples:
+        type: boolean
+        description: "Has examples"
+      tests:
+        type: boolean
+        description: "Has tests"
+    description: "Documentation quality indicators"
+
+  # === NOTES ===
+  notes:
+    type: array
+    items: string
+    description: "General notes about the project"

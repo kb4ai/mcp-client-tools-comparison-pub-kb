@@ -1,0 +1,29 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/modelcontextprotocol/inspector"
+
+name: "MCP Inspector"
+description: "Official visual testing tool for MCP servers from Anthropic"
+
+category: "official-tool"
+reputable-source: true
+organization: "Anthropic/MCP"
+
+transports:
+  stdio: true
+  sse: true
+  http: true
+
+features:
+  - "Visual testing interface"
+  - "Environment variable passing (-e key=value)"
+  - "Config file support"
+  - "Docker deployment available"
+  - "Customizable ports (default: 6274 for UI, 6277 for proxy)"
+
+installation:
+  npm: "@modelcontextprotocol/inspector"
+  docker: "ghcr.io/modelcontextprotocol/inspector"
+
+notes:
+  - "Official Anthropic/MCP team project"
+  - "Reference implementation"

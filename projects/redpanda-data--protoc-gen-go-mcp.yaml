@@ -1,0 +1,32 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/redpanda-data/protoc-gen-go-mcp"
+
+name: "protoc-gen-go-mcp"
+description: "protoc plugin generating MCP servers from gRPC/ConnectRPC APIs"
+language: "Go"
+stars: 177
+license: "Apache-2.0"
+
+category: "grpc-bridge"
+reputable-source: true
+organization: "Redpanda"
+
+transports:
+  stdio: true
+  grpc: true
+
+features:
+  - "Auto-generates JSON Schema for tool inputs from method descriptors"
+  - "Generates *.pb.mcp.go files per protobuf service"
+  - "Direct forwarding of MCP tool calls to gRPC clients"
+  - "Runtime LLM provider selection"
+  - "Uses mark3labs/mcp-go as MCP server runtime"
+
+documentation:
+  readme: true
+  tests: true
+
+notes:
+  - "Official Redpanda project"
+  - "52 commits"
+  - "Golden file testing, CI workflows"

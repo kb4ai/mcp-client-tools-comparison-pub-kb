@@ -1,0 +1,33 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/MladenSU/cli-mcp-server"
+
+name: "cli-mcp-server"
+description: "Secure CLI execution MCP server with command whitelisting and path validation"
+language: "Python"
+stars: 155
+
+category: "cli-client"
+reputable-source: false
+
+transports:
+  stdio: true
+
+features:
+  - "Command whitelisting"
+  - "Path validation"
+  - "Execution controls"
+  - "Controlled CLI access to LLMs"
+
+installation:
+  pip: "cli-mcp-server"
+
+security:
+  analyzed: false
+  notes:
+    - "Built-in security features (whitelisting, path restrictions)"
+    - "Designed for controlled CLI access"
+
+notes:
+  - "Created December 8, 2024"
+  - "30 commits"
+  - "PyPI + Smithery distribution"

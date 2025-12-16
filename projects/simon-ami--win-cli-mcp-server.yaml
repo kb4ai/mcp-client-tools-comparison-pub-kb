@@ -1,0 +1,26 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/simon-ami/win-cli-mcp-server"
+
+name: "win-cli-mcp-server"
+description: "Secure command-line MCP server for Windows (PowerShell/CMD/Git Bash, SSH, blocking rules)"
+
+category: "specialized-adapter"
+reputable-source: false
+
+transports:
+  stdio: true
+
+features:
+  - "Windows-specific (PowerShell, CMD, Git Bash)"
+  - "SSH support"
+  - "Blocking rules for security"
+  - "Secure command execution"
+
+security:
+  analyzed: false
+  notes:
+    - "Built-in blocking rules for security"
+    - "Windows-focused security model"
+
+notes:
+  - "Windows-specific CLI MCP server"

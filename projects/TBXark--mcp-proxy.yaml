@@ -1,0 +1,28 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/TBXark/mcp-proxy"
+
+name: "mcp-proxy (TBXark)"
+description: "Aggregates multiple MCP servers behind single HTTP entrypoint"
+language: "Go"
+stars: 592
+contributors: 6
+
+category: "proxy-aggregator"
+reputable-source: false
+
+transports:
+  stdio: true
+  sse: true
+  http: true
+
+transport-direction: "aggregator"
+
+features:
+  - "Multi-server aggregation"
+  - "Single HTTP endpoint for multiple backends"
+  - "Consolidates tools/prompts/resources"
+  - "SSE + Streamable HTTP support"
+
+notes:
+  - "85 commits"
+  - "Latest release: v0.43.0 (Nov 3, 2025)"

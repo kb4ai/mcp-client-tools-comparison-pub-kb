@@ -1,0 +1,136 @@
+# Research Process
+
+This document describes how we collect, analyze, and update data about MCP wrapper tools.
+
+## Workflow Overview
+
+```
+1. Discovery    → 2. Clone        → 3. Analyze     → 4. Document    → 5. Compare
+   (web search)     (clone-all.sh)    (manual+auto)    (YAML files)     (generate)
+```
+
+## Phase 1: Discovery
+
+Search for MCP wrapper tools using:
+
+* GitHub searches: "mcp cli", "mcp proxy", "mcp bridge"
+* Web searches: "MCP to REST", "MCP HTTP wrapper"
+* Community lists: awesome-mcp-servers, mcpservers.org
+* Official sources: modelcontextprotocol org, Anthropic
+
+Record findings in `ramblings/YYYY-MM-DD--{topic}.md`.
+
+## Phase 2: Clone Repositories
+
+```bash
+./scripts/clone-all.sh
+```
+
+This clones all repos listed in `projects/*.yaml` to `tmp/` directory (gitignored).
+
+## Phase 3: Analyze
+
+### Automated Analysis
+
+```bash
+# Validate YAML files
+./scripts/check-yaml.py
+
+# Generate comparison tables
+./scripts/generate-tables.py
+```
+
+### Manual Analysis
+
+For each repository, examine:
+
+1. **README.md**: Features, usage, installation
+2. **Code structure**: Architecture, dependencies
+3. **Security patterns**: Look for:
+   * `eval(`, `exec(`, `subprocess.` with user input
+   * Network calls to non-configured endpoints
+   * Input sanitization
+4. **Transport support**: Check for stdio, HTTP, SSE, WebSocket, gRPC
+
+## Phase 4: Document in YAML
+
+Create/update `projects/{owner}--{repo}.yaml`:
+
+```yaml
+last-update: "YYYY-MM-DD"
+repo-commit: "commit-hash"
+repo-url: "https://github.com/owner/repo"
+
+# ... other fields from spec.yaml
+```
+
+## Phase 5: Generate Comparisons
+
+```bash
+# Generate markdown tables from YAML data
+./scripts/generate-tables.py > comparisons/auto-generated.md
+```
+
+## Data Sources
+
+### Primary Fields
+
+| Field | Source |
+|-------|--------|
+| `stars`, `forks`, `watchers` | GitHub API or web scrape |
+| `last-commit` | `git log -1` or GitHub |
+| `repo-commit` | Current HEAD when analyzing |
+| `language`, `languages` | GitHub repo page |
+| `license` | GitHub or LICENSE file |
+
+### Analysis Fields
+
+| Field | Source |
+|-------|--------|
+| `transports.*` | README + code inspection |
+| `features` | README + code inspection |
+| `security.*` | Manual code review |
+| `authentication.*` | README + code inspection |
+
+## Using yq for Data Extraction
+
+```bash
+# List all projects with their stars
+yq '.stars // 0' projects/*.yaml | sort -rn
+
+# Get all HTTP-capable tools
+for f in projects/*.yaml; do
+  if yq -e '.transports.http == true' "$f" 2>/dev/null; then
+    echo "$f"
+  fi
+done
+
+# Generate simple table
+echo "| Project | Stars | Language |"
+echo "|---------|-------|----------|"
+for f in projects/*.yaml; do
+  name=$(yq '.name // ""' "$f")
+  stars=$(yq '.stars // 0' "$f")
+  lang=$(yq '.language // ""' "$f")
+  echo "| $name | $stars | $lang |"
+done
+```
+
+## Freshness Policy
+
+* Re-check star counts monthly
+* Re-analyze repos when major versions released
+* Always update `last-update` when modifying YAML
+* Track `repo-commit` for security analysis versioning
+
+## Security Analysis Checklist
+
+When performing security analysis:
+
+- [ ] Search for `eval(`, `exec(`, `compile(`
+- [ ] Search for `subprocess`, `os.system`, `shell=True`
+- [ ] Check if user input flows to command execution
+- [ ] Verify network calls only to configured endpoints
+- [ ] Check for input validation on tool parameters
+- [ ] Look for sandboxing/isolation options
+- [ ] Document findings in `security.notes` array

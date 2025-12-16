@@ -1,0 +1,25 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/docker/mcp-gateway"
+
+name: "Docker MCP Gateway"
+description: "Docker MCP CLI plugin and gateway for managing MCP server lifecycle in containers"
+language: "Go"
+
+category: "docker-integration"
+reputable-source: true
+organization: "Docker"
+
+transports:
+  stdio: true
+  http: true
+
+features:
+  - "Container-based isolation"
+  - "Minimal host privileges for npx/uvx servers"
+  - "Server management (list, inspect, call tools)"
+  - "Secrets management via Docker Desktop"
+  - "Unified interface for AI model access"
+
+notes:
+  - "Official Docker integration"
+  - "Enterprise-grade security"

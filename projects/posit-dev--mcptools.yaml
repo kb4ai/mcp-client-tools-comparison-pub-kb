@@ -1,0 +1,23 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/posit-dev/mcptools"
+
+name: "mcptools (R)"
+description: "R package implementing MCP (R as server and client, integrates with Claude/Copilot configs)"
+language: "R"
+
+category: "cli-client"
+reputable-source: true
+organization: "Posit"
+
+transports:
+  stdio: true
+
+features:
+  - "R as MCP server"
+  - "R as MCP client"
+  - "Claude Desktop integration"
+  - "GitHub Copilot integration"
+
+notes:
+  - "Official Posit (RStudio) project"
+  - "R language ecosystem"

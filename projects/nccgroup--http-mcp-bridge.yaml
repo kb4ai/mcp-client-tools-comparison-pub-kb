@@ -1,0 +1,24 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/nccgroup/http-mcp-bridge"
+
+name: "http-mcp-bridge"
+description: "HTTP server bridging HTTP/1.1 requests and SSE for security testing"
+language: "Python"
+
+category: "http-bridge"
+reputable-source: true
+organization: "NCC Group"
+
+transports:
+  stdio: true
+  sse: true
+  http: true
+
+features:
+  - "Security testing focused"
+  - "HTTP security tool integration (Burp Suite, OWASP ZAP)"
+  - "HTTP+SSE transport bridging"
+
+notes:
+  - "From NCC Group (security research firm)"
+  - "Designed for security testing of MCP servers"

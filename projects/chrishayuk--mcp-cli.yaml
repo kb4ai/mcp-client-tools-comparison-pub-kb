@@ -1,0 +1,30 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/chrishayuk/mcp-cli"
+
+name: "mcp-cli"
+description: "Feature-rich CLI with chat, interactive shell, and command-line modes"
+language: "Python"
+stars: 1800
+license: "MIT"
+
+category: "cli-client"
+reputable-source: false
+
+transports:
+  stdio: true
+
+features:
+  - "Multiple modes: chat, interactive shell, command-line, direct execution"
+  - "LLM integration with Ollama by default"
+  - "Privacy-focused local operation (no API keys required)"
+  - "Streaming responses with reasoning visibility"
+  - "Concurrent tool execution"
+  - "Production middleware (timeouts, retries, circuit breakers)"
+
+installation:
+  pip: "mcp-cli"
+
+notes:
+  - "Requires Python 3.11+"
+  - "~1.8k stars"
+  - "v0.11 current"

@@ -1,0 +1,22 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/acehoss/mcp-gateway"
+
+name: "mcp-gateway (acehoss)"
+description: "REST API exposure with OpenAPI/Swagger compatibility"
+language: "TypeScript"
+stars: 128
+
+category: "rest-api-bridge"
+reputable-source: false
+
+transports:
+  stdio: true
+  http: true
+
+features:
+  - "OpenAPI/Swagger compatibility"
+  - "Optimized for OpenAI custom GPTs"
+  - "Containerized environment support"
+
+notes:
+  - "Good for GPT Actions/custom GPTs integration"

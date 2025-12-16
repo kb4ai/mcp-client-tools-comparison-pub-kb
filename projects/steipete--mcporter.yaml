@@ -1,0 +1,22 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/steipete/mcporter"
+
+name: "mcporter"
+description: "TypeScript runtime + CLI for MCP with list, call, config import, and emit-ts type/client generation"
+language: "TypeScript"
+
+category: "cli-client"
+reputable-source: false
+
+transports:
+  stdio: true
+
+features:
+  - "list command for server introspection"
+  - "call command for tool invocation"
+  - "Config import support"
+  - "emit-ts for TypeScript type/client generation"
+
+notes:
+  - "TypeScript/Node runtime"
+  - "Code generation capabilities"

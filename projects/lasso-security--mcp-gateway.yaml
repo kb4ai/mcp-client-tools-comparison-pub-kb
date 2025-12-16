@@ -1,0 +1,24 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/lasso-security/mcp-gateway"
+
+name: "Lasso MCP Gateway"
+description: "Security-first gateway with guardrail plugins for MCP servers"
+
+category: "enterprise-gateway"
+reputable-source: true
+organization: "Lasso Security"
+
+transports:
+  stdio: true
+  http: true
+
+features:
+  - "PII masking"
+  - "Token/secret filtering"
+  - "Prompt injection detection"
+  - "Harmful content blocking"
+  - "Security scanner for malicious server detection (v1.1.0+)"
+
+notes:
+  - "Security-focused enterprise gateway"
+  - "First open-source security gateway for MCP"

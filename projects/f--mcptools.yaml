@@ -1,0 +1,32 @@
+last-update: "2025-12-16"
+repo-url: "https://github.com/f/mcptools"
+
+name: "mcptools"
+description: "Industrial-strength CLI for discovering, calling, managing MCP tools/resources/prompts"
+language: "Go"
+stars: 1400
+
+category: "cli-client"
+reputable-source: false
+
+transports:
+  stdio: true
+  http: true
+
+features:
+  - "Interactive shell mode (persistent connection)"
+  - "Mock server capabilities"
+  - "Proxy to shell scripts"
+  - "TypeScript project scaffolding"
+  - "Web interface"
+  - "Homebrew distribution"
+
+installation:
+  brew: "f/mcptools"
+  go-install: "github.com/f/mcptools"
+  binary: true
+
+notes:
+  - "Binary name: mcp (alias: mcpt)"
+  - "Created March 25, 2025"
+  - "~1.4k stars"
