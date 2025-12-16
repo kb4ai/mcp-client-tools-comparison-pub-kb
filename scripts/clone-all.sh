@@ -51,13 +51,16 @@ success_count=0
 skip_count=0
 fail_count=0
 
+# Increment helper (works with set -e)
+incr() { eval "$1=\$((\$$1 + 1))" || true; }
+
 for yaml_file in "${yaml_files[@]}"; do
     # Extract repo URL
     repo_url=$(yq '.repo-url // ""' "$yaml_file")
 
     if [[ -z "$repo_url" ]]; then
         echo "⚠️  Skipping $yaml_file: no repo-url found"
-        ((skip_count++))
+        incr skip_count
         continue
     fi
 
@@ -74,14 +77,14 @@ for yaml_file in "${yaml_files[@]}"; do
             echo "📥 Updating $repo_path..."
             if (cd "$target_dir" && git pull --quiet); then
                 echo "   ✅ Updated"
-                ((success_count++))
+                incr success_count
             else
                 echo "   ❌ Update failed"
-                ((fail_count++))
+                incr fail_count
             fi
         else
             echo "⏭️  Skipping $repo_path (already exists)"
-            ((skip_count++))
+            incr skip_count
         fi
         continue
     fi
@@ -97,10 +100,10 @@ for yaml_file in "${yaml_files[@]}"; do
         # Record the commit hash
         commit=$(cd "$target_dir" && git rev-parse HEAD)
         echo "   ✅ Cloned (commit: ${commit:0:7})"
-        ((success_count++))
+        incr success_count
     else
         echo "   ❌ Clone failed"
-        ((fail_count++))
+        incr fail_count
     fi
 done
 
