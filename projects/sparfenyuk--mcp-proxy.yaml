@@ -1,4 +1,5 @@
 last-update: "2025-12-16"
+repo-commit: "8fd255a"
 repo-url: "https://github.com/sparfenyuk/mcp-proxy"
 
 name: "mcp-proxy"
@@ -17,16 +18,43 @@ transports:
 
 transport-direction: "bidirectional"
 
+authentication:
+  oauth: true
+  bearer: true
+
 features:
   - "Bidirectional stdio↔HTTP/SSE bridging"
   - "Dual mode operation (stdio→HTTP and HTTP→stdio)"
   - "Docker support from v0.3.2+"
   - "Claude Desktop compatible"
+  - "OAuth2 client credentials support"
+  - "Named servers configuration"
+  - "CORS configuration"
+  - "Stateless mode for streamable HTTP"
 
 installation:
   pip: "mcp-proxy"
   docker: "available"
 
+security:
+  analyzed: true
+  analysis-commit: "8fd255a"
+  eval-usage: "none"
+  subprocess-usage: "safe"
+  network-isolation: "verified"
+  input-validation: "thorough"
+  notes:
+    - "No eval() or exec() calls"
+    - "Uses subprocess properly via MCP SDK"
+    - "SSL verification options available"
+
+documentation:
+  readme: true
+  api-docs: true
+  examples: true
+  tests: true
+
 notes:
   - "Most starred community project (~2.1k stars)"
   - "High adoption rate"
+  - "Version 0.10.0"

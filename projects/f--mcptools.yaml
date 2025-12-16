@@ -1,16 +1,19 @@
 last-update: "2025-12-16"
+repo-commit: "543732d"
 repo-url: "https://github.com/f/mcptools"
 
 name: "mcptools"
 description: "Industrial-strength CLI for discovering, calling, managing MCP tools/resources/prompts"
 language: "Go"
 stars: 1400
+license: "MIT"
 
 category: "cli-client"
 reputable-source: false
 
 transports:
   stdio: true
+  sse: true
   http: true
 
 features:
@@ -20,13 +23,34 @@ features:
   - "TypeScript project scaffolding"
   - "Web interface"
   - "Homebrew distribution"
+  - "Guard mode for access control filtering"
+  - "Multiple output formats (table, JSON, pretty)"
+  - "Configuration scanning across applications"
 
 installation:
   brew: "f/mcptools"
   go-install: "github.com/f/mcptools"
   binary: true
 
+security:
+  analyzed: true
+  analysis-commit: "543732d"
+  eval-usage: "none"
+  subprocess-usage: "safe"
+  network-isolation: "verified"
+  input-validation: "thorough"
+  notes:
+    - "No injection vulnerabilities detected"
+    - "Guard mode for resource restriction"
+    - "Pattern matching for access control"
+
+documentation:
+  readme: true
+  examples: true
+  tests: true
+
 notes:
   - "Binary name: mcp (alias: mcpt)"
   - "Created March 25, 2025"
   - "~1.4k stars"
+  - "10 test files"

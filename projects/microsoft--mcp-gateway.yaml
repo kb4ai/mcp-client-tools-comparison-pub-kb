@@ -1,10 +1,13 @@
 last-update: "2025-12-16"
+repo-commit: "b014856"
 repo-url: "https://github.com/microsoft/mcp-gateway"
 
 name: "mcp-gateway"
 description: "K8s-native reverse proxy with session-aware routing and lifecycle management"
 language: "C#"
 stars: 386
+license: "MIT"
+last-commit: "2025-12-15"
 
 category: "enterprise-gateway"
 reputable-source: true
@@ -14,14 +17,44 @@ transports:
   stdio: true
   http: true
 
+authentication:
+  oauth: true
+  bearer: true
+
 features:
-  - "Kubernetes-native design"
-  - "Session-aware routing"
+  - "Kubernetes-native design (StatefulSets, headless services)"
+  - "Session-aware routing with stateful sessions"
   - "Lifecycle management (deploy/update/delete)"
   - "Telemetry integration"
   - "Multi-tenancy support"
+  - "Entra ID (Azure AD) authentication"
+  - "RBAC authorization"
+  - "Tool Gateway Router for intelligent routing"
+  - "RESTful APIs for adapter/tool management"
+
+security:
+  analyzed: true
+  analysis-commit: "b014856"
+  eval-usage: "none"
+  subprocess-usage: "safe"
+  network-isolation: "verified"
+  input-validation: "thorough"
+  sandboxing: true
+  notes:
+    - "No dangerous code patterns"
+    - "Bearer token authentication via Entra ID"
+    - "RBAC for fine-grained control"
+    - "Container isolation"
+
+documentation:
+  readme: true
+  api-docs: true
+  examples: true
+  tests: true
 
 notes:
   - "Official Microsoft project"
   - "Enterprise-focused"
   - "Azure integration"
+  - ".NET 8 based"
+  - "11+ test files"
