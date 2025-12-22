@@ -33,10 +33,15 @@ installation:
   binary: true
 
 authentication:
-  bearer-token: true
+  bearer-token: false  # --headers flag only works with 'configs set', not direct commands
   env-var-auth: true
   auth-notes:
-    - "Auth via env vars and CLI flags"
+    - "STDIO: env vars work via config files"
+    - "HTTP: --headers flag only available in 'configs set' command, not 'tools'/'call'"
+    - "HTTP: headers in aliases.json not read when using aliased servers"
+    - "HTTP: config system designed for IDE configs (Cursor, VSCode), not standalone CLI"
+    - "LIMITATION: No documented way to pass Authorization headers with direct HTTP commands"
+    - "See: Linear MCP auth case study in ramblings/"
 
 security:
   analyzed: true

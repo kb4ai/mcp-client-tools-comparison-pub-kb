@@ -910,6 +910,97 @@ curl http://localhost:8080/mcp/v1/tools \
   -H "Authorization: Bearer test-token"
 ```
 
+#### 4. CLI Tools Can't Pass Headers to HTTP MCP Servers
+
+**Symptoms:**
+
+* CLI tool works with STDIO servers but not HTTP
+* `--headers` flag not recognized or ignored
+* Config files with headers don't work
+* `401 Unauthorized` when connecting to remote MCP servers (e.g., Linear, GitHub)
+
+**Case Study: Linear MCP with mcptools**
+
+Linear's MCP server (`https://mcp.linear.app/mcp`) requires OAuth authentication. Claude CLI can authenticate and store credentials in `~/.claude/.credentials.json`, but mcptools can't use those credentials:
+
+```bash
+# This fails - --headers not available for 'tools' command
+mcptools tools https://mcp.linear.app/mcp --headers "Authorization=Bearer <token>"
+
+# This fails - headers in aliases.json ignored
+mcptools alias add linear https://mcp.linear.app/mcp
+# Then edit ~/.mcpt/aliases.json to add headers... still 401
+
+# This fails - config system designed for IDEs, not standalone CLI
+mcptools configs set cursor my-api https://api.example.com/mcp --headers "..."
+# No "cursor" config exists on Linux CLI-only setup
+```
+
+**Root Cause:**
+
+Many CLI tools (including mcptools) have HTTP transport support but:
+
+* Auth flags only work in config-management commands, not direct commands
+* Config system assumes IDE integration (Cursor, VS Code)
+* No documented way to pass headers for standalone HTTP connections
+
+**Workarounds:**
+
+**Option 1: Use wong2/mcp-cli (supports OAuth natively)**
+
+```bash
+npm install -g @anthropic/mcp-cli
+mcp-cli connect https://mcp.linear.app/mcp
+# Handles OAuth flow automatically
+```
+
+**Option 2: Use sparfenyuk/mcp-proxy as intermediary**
+
+```bash
+pip install mcp-proxy
+# Configure proxy with auth, then connect CLI to local proxy
+mcp-proxy --backend https://mcp.linear.app/mcp \
+  --auth-header "Authorization: Bearer <token>" \
+  --listen 127.0.0.1:8000
+
+# Then connect mcptools to local proxy (no auth needed)
+mcptools tools http://127.0.0.1:8000
+```
+
+**Option 3: Use Claude CLI for HTTP servers**
+
+```bash
+# Claude CLI handles OAuth natively
+claude mcp add --transport http linear-server https://mcp.linear.app/mcp
+# Complete OAuth flow in browser
+claude mcp list-tools linear-server
+```
+
+**Option 4: Direct curl for testing**
+
+```bash
+# Extract token from Claude CLI credentials
+TOKEN=$(jq -r '.mcpOAuth | to_entries[0].value.accessToken' ~/.claude/.credentials.json)
+
+# Call MCP server directly
+curl -X POST https://mcp.linear.app/mcp \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+```
+
+**CLI Tool HTTP Auth Support Matrix:**
+
+| Tool | HTTP Transport | OAuth Flow | Manual Headers | Practical HTTP Auth |
+|------|:--------------:|:----------:|:--------------:|:-------------------:|
+| wong2/mcp-cli | ✅ | ✅ | ❓ | ✅ Works |
+| sparfenyuk/mcp-proxy | ✅ | ✅ | ✅ | ✅ Works |
+| f/mcptools | ✅ | ❌ | ⚠️ Config only | ❌ Broken |
+| chrishayuk/mcp-cli | ❌ | ❌ | N/A | ❌ STDIO only |
+| Claude CLI | ✅ | ✅ | N/A | ✅ Works |
+
+**Legend:** ⚠️ = Partial/config-only, ❓ = Untested
+
 ### Debug Tips
 
 #### Enable Debug Logging
