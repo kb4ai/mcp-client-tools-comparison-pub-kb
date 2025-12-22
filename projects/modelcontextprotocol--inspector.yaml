@@ -15,10 +15,21 @@ transports:
 
 features:
   - "Visual testing interface"
+  - "CLI mode (--cli flag) for non-interactive use"
+  - "Custom headers via --header flag (e.g., Authorization: Bearer)"
   - "Environment variable passing (-e key=value)"
   - "Config file support"
   - "Docker deployment available"
   - "Customizable ports (default: 6274 for UI, 6277 for proxy)"
+
+authentication:
+  bearer-token: true
+  custom-header: true
+  auth-notes:
+    - "CLI mode: npx @modelcontextprotocol/inspector --cli --url <url> --header 'Authorization: Bearer <token>' tools"
+    - "Supports multiple --header flags for custom headers"
+    - "Works with OAuth tokens from Claude CLI credentials"
+    - "GitHub issue #879: custom header improvements requested"
 
 installation:
   npm: "@modelcontextprotocol/inspector"

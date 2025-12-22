@@ -946,28 +946,72 @@ Many CLI tools (including mcptools) have HTTP transport support but:
 
 **Workarounds:**
 
-**Option 1: Use wong2/mcp-cli (supports OAuth natively)**
+**Option 1: MCP Inspector CLI mode (Recommended - Official Tool)**
+
+The official MCP Inspector has a CLI mode with native `--header` support:
 
 ```bash
-npm install -g @anthropic/mcp-cli
-mcp-cli connect https://mcp.linear.app/mcp
-# Handles OAuth flow automatically
+# List tools with bearer token
+npx @modelcontextprotocol/inspector --cli \
+  --url https://mcp.linear.app/mcp \
+  --header "Authorization: Bearer <token>" \
+  tools
+
+# Call a tool
+npx @modelcontextprotocol/inspector --cli \
+  --url https://mcp.linear.app/mcp \
+  --header "Authorization: Bearer <token>" \
+  call search_issues --params '{"query": "bug"}'
+
+# Using token from Claude CLI credentials
+TOKEN=$(jq -r '.mcpOAuth | to_entries[0].value.accessToken' ~/.claude/.credentials.json)
+npx @modelcontextprotocol/inspector --cli \
+  --url https://mcp.linear.app/mcp \
+  --header "Authorization: Bearer $TOKEN" \
+  tools
 ```
 
-**Option 2: Use sparfenyuk/mcp-proxy as intermediary**
+**Option 2: Linear API Key (Linear-specific)**
+
+Linear supports direct API key authentication instead of OAuth:
+
+```bash
+# Generate API key from Linear Settings → API
+# Use lin_api_xxxxx format
+npx @modelcontextprotocol/inspector --cli \
+  --url https://mcp.linear.app/mcp \
+  --header "Authorization: Bearer lin_api_xxxxxx" \
+  tools
+```
+
+**Option 3: stdio-to-http adapter (For mcptools compatibility)**
+
+Use `@pyroprompts/mcp-stdio-to-streamable-http-adapter` to bridge:
+
+```bash
+# Create wrapper script: ~/.local/bin/linear-mcp
+#!/bin/bash
+export URI="https://mcp.linear.app/mcp"
+export BEARER_TOKEN="$(jq -r '.mcpOAuth | to_entries[0].value.accessToken' ~/.claude/.credentials.json)"
+exec npx @pyroprompts/mcp-stdio-to-streamable-http-adapter "$@"
+
+# Make executable and use with mcptools
+chmod +x ~/.local/bin/linear-mcp
+mcptools tools ~/.local/bin/linear-mcp
+mcptools shell ~/.local/bin/linear-mcp
+```
+
+**Option 4: sparfenyuk/mcp-proxy as intermediary**
 
 ```bash
 pip install mcp-proxy
-# Configure proxy with auth, then connect CLI to local proxy
-mcp-proxy --backend https://mcp.linear.app/mcp \
-  --auth-header "Authorization: Bearer <token>" \
-  --listen 127.0.0.1:8000
+TOKEN=$(jq -r '.mcpOAuth | to_entries[0].value.accessToken' ~/.claude/.credentials.json)
 
-# Then connect mcptools to local proxy (no auth needed)
-mcptools tools http://127.0.0.1:8000
+# Use with --api-access-token flag
+mcptools tools mcp-proxy --api-access-token "$TOKEN" https://mcp.linear.app/sse
 ```
 
-**Option 3: Use Claude CLI for HTTP servers**
+**Option 5: Claude CLI for HTTP servers**
 
 ```bash
 # Claude CLI handles OAuth natively
@@ -976,25 +1020,58 @@ claude mcp add --transport http linear-server https://mcp.linear.app/mcp
 claude mcp list-tools linear-server
 ```
 
-**Option 4: Direct curl for testing**
+**Option 6: Direct curl with full JSON-RPC workflow**
 
 ```bash
-# Extract token from Claude CLI credentials
 TOKEN=$(jq -r '.mcpOAuth | to_entries[0].value.accessToken' ~/.claude/.credentials.json)
 
-# Call MCP server directly
+# Step 1: Initialize session
 curl -X POST https://mcp.linear.app/mcp \
-  -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "initialize",
+    "params": {
+      "protocolVersion": "2025-06-18",
+      "capabilities": {},
+      "clientInfo": {"name": "curl-client", "version": "1.0"}
+    }
+  }'
+
+# Step 2: Send initialized notification
+curl -X POST https://mcp.linear.app/mcp \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{"jsonrpc": "2.0", "method": "notifications/initialized", "params": {}}'
+
+# Step 3: List tools
+curl -X POST https://mcp.linear.app/mcp \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{"jsonrpc": "2.0", "id": 2, "method": "tools/list", "params": {}}'
+
+# Step 4: Call a tool
+curl -X POST https://mcp.linear.app/mcp \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 3,
+    "method": "tools/call",
+    "params": {"name": "search_issues", "arguments": {"query": "bug"}}
+  }'
 ```
 
 **CLI Tool HTTP Auth Support Matrix:**
 
 | Tool | HTTP Transport | OAuth Flow | Manual Headers | Practical HTTP Auth |
 |------|:--------------:|:----------:|:--------------:|:-------------------:|
+| MCP Inspector | ✅ | ❌ | ✅ `--header` | ✅ **Recommended** |
 | wong2/mcp-cli | ✅ | ✅ | ❓ | ✅ Works |
 | sparfenyuk/mcp-proxy | ✅ | ✅ | ✅ | ✅ Works |
+| stdio-http-adapter | ✅ | ❌ | ✅ env var | ✅ mcptools bridge |
 | f/mcptools | ✅ | ❌ | ⚠️ Config only | ❌ Broken |
 | chrishayuk/mcp-cli | ❌ | ❌ | N/A | ❌ STDIO only |
 | Claude CLI | ✅ | ✅ | N/A | ✅ Works |
