@@ -56,7 +56,7 @@ def generate_overview_table(projects):
     # Sort by stars (descending), None values last
     sorted_projects = sorted(
         projects,
-        key=lambda p: (p.get('stars') is not None, p.get('stars', 0)),
+        key=lambda p: (p.get('stars') is not None, p.get('stars') or 0),
         reverse=True
     )
 
@@ -101,7 +101,7 @@ def generate_by_category(projects):
     for category in sorted(by_category.keys()):
         cat_projects = sorted(
             by_category[category],
-            key=lambda p: (p.get('stars') is not None, p.get('stars', 0)),
+            key=lambda p: (p.get('stars') is not None, p.get('stars') or 0),
             reverse=True
         )
 
@@ -141,7 +141,7 @@ def generate_transport_matrix(projects):
 
     sorted_projects = sorted(
         projects,
-        key=lambda p: (p.get('stars') is not None, p.get('stars', 0)),
+        key=lambda p: (p.get('stars') is not None, p.get('stars') or 0),
         reverse=True
     )
 
@@ -208,7 +208,7 @@ def generate_stats(projects):
             reputable_count += 1
         if p.get('stars'):
             has_stars += 1
-            total_stars += p.get('stars', 0)
+            total_stars += p.get('stars') or 0
 
     lines = []
     lines.append("## Summary Statistics")
