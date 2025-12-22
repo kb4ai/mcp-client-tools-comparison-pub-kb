@@ -139,6 +139,10 @@ When evaluating these tools, we check for:
 
 See [comparisons/security.md](comparisons/security.md) for detailed analysis.
 
+## Research Resources
+
+* [Perplexity: MCP Server Wrappers & REST Adapters](https://www.perplexity.ai/search/wrapping-mcp-servers-into-cli-0jIuIvdPSregFphOEGCWbw) - Initial research on wrapping MCP servers into CLI tools and exposing REST servers as MCP
+
 ## License
 
 This research repository is released under MIT License.
