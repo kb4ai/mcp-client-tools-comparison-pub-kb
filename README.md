@@ -60,9 +60,10 @@ Projects from established organizations:
 
 ## Detailed Comparisons
 
-* [comparisons/features.md](comparisons/features.md) - Feature comparison
-* [comparisons/security.md](comparisons/security.md) - Security analysis
-* [comparisons/transports.md](comparisons/transports.md) - Transport support details
+* **[Auto-generated comparison tables](comparisons/auto-generated.md)** - Full comparison data
+* Feature comparison *(coming soon)*
+* Security analysis *(coming soon)*
+* Transport support details *(coming soon)*
 
 ## Project Data
 
@@ -136,7 +137,7 @@ When evaluating these tools, we check for:
 * **Input validation**: Proper sanitization of user input?
 * **Sandboxing**: Container/isolation support?
 
-See [comparisons/security.md](comparisons/security.md) for detailed analysis.
+See [comparisons/auto-generated.md](comparisons/auto-generated.md) for current analysis.
 
 ## License
 
