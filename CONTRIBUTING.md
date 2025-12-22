@@ -397,6 +397,218 @@ What to do with this information...
 chmod +x scripts/*.sh scripts/*.py
 ```
 
+## Creating & Updating Comparison Files
+
+The `comparisons/` directory contains detailed analysis documents. Here's how to create and maintain them.
+
+### Comparison File Types
+
+| File | Content | Generation Method |
+|------|---------|-------------------|
+| `auto-generated.md` | Overview tables, stats | Fully automated via `generate-tables.py` |
+| `features.md` | Feature comparison by category | Semi-automated + manual curation |
+| `security.md` | Security analysis results | Manual analysis + YAML data |
+| `transports.md` | Transport support details | Semi-automated from YAML |
+
+### Creating features.md
+
+This file compares features across project categories.
+
+**Data Sources:**
+- `features` array in each project YAML
+- README analysis from cloned repos
+- Ramblings research notes
+
+**Structure:**
+```markdown
+# Feature Comparison
+
+## Overview
+Brief summary of feature landscape.
+
+## By Category
+
+### CLI Clients
+| Project | Key Features | Language | Stars |
+|---------|--------------|----------|-------|
+| ... | ... | ... | ... |
+
+### HTTP Bridges
+...
+
+## Feature Matrix
+Cross-cutting features across all projects.
+
+## Unique Capabilities
+Standout features that differentiate projects.
+```
+
+**Update Process:**
+1. Run `./scripts/generate-tables.py --by-category` for base data
+2. Review each project's `features` array in YAML
+3. Group similar features across projects
+4. Highlight unique/differentiating features
+5. Add context from README analysis
+
+### Creating security.md
+
+This file documents security analysis findings. **Requires manual code review.**
+
+**Data Sources:**
+- `security.*` fields in project YAML
+- Manual code analysis (grep patterns from "Analyzing a Repository")
+- Ramblings security notes
+
+**Structure:**
+```markdown
+# Security Analysis
+
+## Methodology
+How we analyze security properties.
+
+## Analysis Checklist
+- [ ] eval/exec usage patterns
+- [ ] subprocess/shell command handling
+- [ ] Network isolation verification
+- [ ] Input validation assessment
+- [ ] Sandboxing support
+
+## Findings by Category
+
+### Safe Projects (No Dangerous Patterns)
+Projects with verified safe code patterns.
+
+### Projects Requiring Careful Configuration
+Tools that intentionally execute commands (with user approval).
+
+### Security-Focused Projects
+Tools with built-in security features (PII detection, RBAC, etc.)
+
+## Detailed Analysis
+
+### project-name
+- **Analyzed Commit:** abc1234
+- **eval-usage:** none/safe/unsafe
+- **subprocess-usage:** sanitized/unsafe
+- **Network Isolation:** verified/partial/none
+- **Notes:** Specific observations
+```
+
+**Update Process:**
+1. Clone repos: `./scripts/clone-all.sh`
+2. Run security grep patterns (see "Security Analysis" section above)
+3. Manually review flagged code paths
+4. Update project YAML with findings
+5. Summarize in security.md
+
+**Security Analysis Priority:**
+1. High-star projects (most users at risk)
+2. Projects handling sensitive data
+3. Projects with HTTP/network exposure
+4. Projects from non-reputable sources
+
+### Creating transports.md
+
+This file details transport protocol support.
+
+**Data Sources:**
+- `transports.*` fields in project YAML
+- `transport-direction` field
+- README/code analysis for implementation details
+
+**Structure:**
+```markdown
+# Transport Support Details
+
+## Transport Overview
+| Transport | Description | Projects |
+|-----------|-------------|----------|
+| stdio | Standard I/O (universal) | 27 |
+| HTTP | HTTP/Streamable HTTP | 14 |
+| SSE | Server-Sent Events | 8 |
+| WebSocket | WebSocket protocol | 2 |
+| gRPC | gRPC/protobuf | 1 |
+
+## By Transport Type
+
+### stdio
+All projects support stdio as the baseline MCP transport.
+
+### HTTP Bridges
+Projects that expose stdio MCP servers via HTTP.
+
+| Project | Direction | Auth Support | Notes |
+|---------|-----------|--------------|-------|
+| ... | stdio→http | bearer | ... |
+
+### SSE (Server-Sent Events)
+...
+
+### WebSocket
+...
+
+### gRPC
+...
+
+## Transport Combinations
+Common transport combinations and use cases.
+
+## Implementation Notes
+Technical details about transport implementations.
+```
+
+**Update Process:**
+1. Run `./scripts/generate-tables.py --by-transport` for base matrix
+2. Review each project's transport implementation
+3. Document direction (stdio→http, http→stdio, bidirectional)
+4. Note authentication requirements per transport
+5. Add implementation-specific details
+
+### Keeping Comparisons Updated
+
+**When to Update:**
+- After adding new projects
+- After updating project YAML with new analysis
+- Monthly during maintenance cycle
+- After significant project releases
+
+**Update Workflow:**
+```bash
+# 1. Regenerate auto-generated.md
+./scripts/generate-tables.py > comparisons/auto-generated.md
+
+# 2. Check if manual comparisons need updates
+git diff projects/  # See what changed
+
+# 3. Update affected comparison files
+# - If features changed → update features.md
+# - If security analyzed → update security.md
+# - If transports changed → update transports.md
+
+# 4. Commit all changes together
+git add comparisons/
+git commit -m "Update comparison files
+
+* Regenerated auto-generated.md
+* Updated features.md with new project features
+* Added security analysis for X projects"
+```
+
+### Placeholder Files (.empty.md)
+
+Files with `.empty.md` suffix are templates awaiting content:
+- They define the expected structure
+- They're renamed to `.md` once populated
+- Keep the `.empty.md` version as a template reference
+
+```bash
+# When ready to populate:
+cp comparisons/features.empty.md comparisons/features.md
+# Edit features.md with actual content
+git add comparisons/features.md
+git commit -m "Create features.md comparison document"
+```
+
 ## Questions?
 
 If you have questions about the process, check:
