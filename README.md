@@ -11,6 +11,7 @@ A comprehensive comparison of tools in the **MCP (Model Context Protocol)** ecos
 | **Bridge MCP across transports** | [Transport Bridges](#-transport-bridges) |
 | **Deploy enterprise MCP infrastructure** | [Enterprise Tools](#-enterprise--cloud) |
 | **Convert gRPC/protobuf to MCP** | [gRPC Bridge](#-grpc-bridge) |
+| **Understand MCP authentication** | [Authentication Guide](comparisons/authentication.md) |
 | **See security analysis** | [Security Analysis](comparisons/security.md) |
 | **Browse all tools** | [Full Comparison](comparisons/auto-generated.md) |
 
@@ -113,6 +114,7 @@ Unique use cases and integrations.
 * **[Feature comparison](comparisons/features.md)** - Features by category, cross-cutting analysis
 * **[Security analysis](comparisons/security.md)** - Code patterns, recommendations, per-project findings
 * **[Transport support](comparisons/transports.md)** - Protocol matrix, implementation details
+* **[Authentication guide](comparisons/authentication.md)** - OAuth 2.1, env vars, gateway auth bridging
 
 ## 🔧 For Contributors
 
