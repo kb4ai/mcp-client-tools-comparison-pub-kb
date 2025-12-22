@@ -23,6 +23,13 @@ features:
   - "Consolidates tools/prompts/resources"
   - "SSE + Streamable HTTP support"
 
+authentication:
+  bearer-token: true
+  auth-injection: true
+  auth-notes:
+    - "Multi-server aggregator with token hierarchy"
+    - "Proxy-level + server-specific auth"
+
 notes:
   - "85 commits"
   - "Latest release: v0.43.0 (Nov 3, 2025)"

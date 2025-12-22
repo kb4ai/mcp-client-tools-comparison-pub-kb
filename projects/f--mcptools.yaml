@@ -32,6 +32,12 @@ installation:
   go-install: "github.com/f/mcptools"
   binary: true
 
+authentication:
+  bearer-token: true
+  env-var-auth: true
+  auth-notes:
+    - "Auth via env vars and CLI flags"
+
 security:
   analyzed: true
   analysis-commit: "543732d"

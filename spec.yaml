@@ -182,25 +182,111 @@ fields:
     description: "Associated cloud platform if applicable"
 
   # === AUTHENTICATION ===
+  # Based on MCP OAuth 2.1 spec (2025-06-18, 2025-11-25) and real-world implementations
   authentication:
     type: object
     properties:
-      oauth:
+      # --- Supported Auth Methods ---
+      oauth2:
         type: boolean
-        description: "Supports OAuth/OAuth2"
+        description: "Supports OAuth 2.0/2.1 flows"
+      oauth2-pkce:
+        type: boolean
+        description: "Supports OAuth 2.1 with PKCE (mandatory per spec)"
+      bearer-token:
+        type: boolean
+        description: "Supports Bearer token auth (Authorization: Bearer)"
       api-key:
         type: boolean
-        description: "Supports API key auth"
-      bearer:
+        description: "Supports API key auth (X-API-Key header)"
+      basic-auth:
         type: boolean
-        description: "Supports Bearer token"
-      basic:
+        description: "Supports HTTP Basic authentication"
+      custom-header:
         type: boolean
-        description: "Supports Basic auth"
-      custom:
+        description: "Supports custom auth headers"
+
+      # --- OAuth 2.1 Spec Compliance ---
+      dynamic-client-registration:
+        type: boolean
+        description: "Supports Dynamic Client Registration (RFC 7591)"
+      cimd:
+        type: boolean
+        description: "Supports Client ID Metadata Documents (CIMD)"
+      resource-indicators:
+        type: boolean
+        description: "Supports Resource Indicators (RFC 8707) for token audience"
+      token-refresh:
+        type: boolean
+        description: "Supports automatic token refresh"
+      step-up-auth:
+        type: boolean
+        description: "Supports step-up authorization (insufficient_scope handling)"
+
+      # --- Auth Bridging (for gateways/proxies) ---
+      auth-bridging:
+        type: boolean
+        description: "Can bridge auth for backends that don't support OAuth"
+      auth-injection:
+        type: boolean
+        description: "Can inject auth headers for upstream MCP servers"
+      token-exchange:
+        type: boolean
+        description: "Supports OAuth Token Exchange (RFC 8693)"
+      vault-integration:
+        type: boolean
+        description: "Integrates with HashiCorp Vault or similar for credentials"
+
+      # --- Enterprise Auth ---
+      entra-id:
+        type: boolean
+        description: "Supports Microsoft Entra ID (Azure AD)"
+      saml:
+        type: boolean
+        description: "Supports SAML SSO"
+      oidc:
+        type: boolean
+        description: "Supports OpenID Connect"
+      rbac:
+        type: boolean
+        description: "Supports Role-Based Access Control"
+      multi-tenant:
+        type: boolean
+        description: "Supports multi-tenant authentication"
+
+      # --- Environment Variable Auth (STDIO transport) ---
+      env-var-auth:
+        type: boolean
+        description: "Supports auth via environment variables (STDIO pattern)"
+      env-var-names:
+        type: array
+        items: string
+        description: "Environment variable names for auth (e.g., GITHUB_TOKEN, API_KEY)"
+
+      # --- Notes ---
+      auth-notes:
+        type: array
+        items: string
+        description: "Additional authentication-related notes"
+    description: "Supported authentication methods and capabilities"
+
+  # === AUTH TRANSPORT COMPATIBILITY ===
+  auth-transports:
+    type: object
+    properties:
+      stdio:
         type: string
-        description: "Custom auth mechanism description"
-    description: "Supported authentication methods"
+        enum: [env-vars, none, n/a]
+        description: "Auth method for STDIO transport (env-vars per spec)"
+      http:
+        type: string
+        enum: [oauth2, bearer, api-key, basic, none, n/a]
+        description: "Auth method for HTTP transport"
+      sse:
+        type: string
+        enum: [oauth2, bearer, api-key, basic, none, n/a]
+        description: "Auth method for SSE transport"
+    description: "Authentication methods per transport type"
 
   # === FEATURES ===
   features:

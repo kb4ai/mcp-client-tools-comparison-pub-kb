@@ -24,6 +24,13 @@ features:
 installation:
   pip: "mcp-cli"
 
+authentication:
+  bearer-token: true
+  api-key: true
+  env-var-auth: true
+  auth-notes:
+    - "Custom header support via CLI flags"
+
 notes:
   - "Requires Python 3.11+"
   - "~1.8k stars"

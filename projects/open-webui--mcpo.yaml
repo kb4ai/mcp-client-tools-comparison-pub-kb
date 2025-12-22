@@ -24,6 +24,15 @@ features:
   - "Interactive API documentation"
   - "Official recommendation from Open WebUI team"
 
+authentication:
+  oauth2: true
+  oauth2-pkce: true
+  dynamic-client-registration: true
+  bearer-token: true
+  auth-notes:
+    - "Full OAuth 2.1 with DCR"
+    - "Requires WEBUI_SECRET_KEY env var"
+
 documentation:
   readme: true
   api-docs: true

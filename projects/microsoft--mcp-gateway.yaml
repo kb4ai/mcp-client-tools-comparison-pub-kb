@@ -18,8 +18,18 @@ transports:
   http: true
 
 authentication:
-  oauth: true
-  bearer: true
+  oauth2: true
+  oauth2-pkce: true
+  entra-id: true
+  bearer-token: true
+  rbac: true
+  multi-tenant: true
+  auth-bridging: true
+  auth-injection: true
+  auth-notes:
+    - "Envoy-based with session-aware routing"
+    - "Dual-plane auth: data + control"
+    - "Gateway terminates auth"
 
 features:
   - "Kubernetes-native design (StatefulSets, headless services)"

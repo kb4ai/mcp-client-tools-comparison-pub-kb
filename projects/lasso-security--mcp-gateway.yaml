@@ -19,6 +19,14 @@ features:
   - "Harmful content blocking"
   - "Security scanner for malicious server detection (v1.1.0+)"
 
+authentication:
+  bearer-token: true
+  api-key: true
+  rbac: true
+  auth-notes:
+    - "Plugin-based security (PII detection, prompt injection)"
+    - "Xetrack audit logging"
+
 notes:
   - "Security-focused enterprise gateway"
   - "First open-source security gateway for MCP"

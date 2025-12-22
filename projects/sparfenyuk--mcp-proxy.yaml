@@ -19,8 +19,13 @@ transports:
 transport-direction: "bidirectional"
 
 authentication:
-  oauth: true
-  bearer: true
+  oauth2: true
+  bearer-token: true
+  api-key: true
+  auth-injection: true
+  auth-notes:
+    - "--api-access-token flag"
+    - "MCP_PROXY_API_TOKEN env var"
 
 features:
   - "Bidirectional stdio↔HTTP/SSE bridging"
