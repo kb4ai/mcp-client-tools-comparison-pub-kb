@@ -1,8 +1,8 @@
-# YAML Schema Specification for MCP Wrapper Tool Analysis
+# YAML Schema Specification for MCP Ecosystem Tool Analysis
 # All fields except those marked as REQUIRED are optional
 # last-update and repo-url are REQUIRED fields
 
-schema_version: "1.0"
+schema_version: "1.1"
 
 fields:
   # === TRACKING FIELDS (first fields in every project YAML) ===
@@ -91,18 +91,30 @@ fields:
   category:
     type: string
     enum:
-      - cli-client
-      - http-bridge
-      - websocket-bridge
-      - grpc-bridge
-      - rest-api-bridge
-      - proxy-aggregator
-      - enterprise-gateway
-      - docker-integration
-      - kubernetes-integration
-      - openapi-wrapper
-      - specialized-adapter
-      - official-tool
+      # --- MCP Clients & CLI Tools ---
+      - cli-client              # CLI interfaces for interacting with MCP servers
+      - official-tool           # Official Anthropic/MCP tools (Inspector, etc.)
+
+      # --- Transport Bridges ---
+      - http-bridge             # stdio ↔ HTTP/SSE conversion
+      - websocket-bridge        # stdio ↔ WebSocket
+      - grpc-bridge             # MCP ↔ gRPC/protobuf
+      - rest-api-bridge         # OpenAI-compatible REST API bridges
+
+      # --- OpenAPI ↔ MCP Conversion ---
+      - openapi-to-mcp          # Convert OpenAPI specs → MCP servers (make APIs AI-callable)
+      - mcp-to-openapi          # Expose MCP servers as REST/OpenAPI (MCPO, etc.)
+      - mcp-framework           # Frameworks for building MCP servers (FastMCP, Spring AI)
+
+      # --- Infrastructure & Enterprise ---
+      - proxy-aggregator        # Multi-server proxy/aggregator
+      - enterprise-gateway      # Production-ready gateway with security/RBAC
+      - cloud-integration       # Cloud platform integrations (Azure APIM, etc.)
+      - docker-integration      # Docker-native MCP tools
+      - kubernetes-integration  # Kubernetes-native MCP tools
+
+      # --- Other ---
+      - specialized-adapter     # CLI wrappers, adapters for specific use cases
     description: "Primary category of the tool"
 
   secondary-categories:
@@ -140,6 +152,34 @@ fields:
       - aggregator
       - other
     description: "Primary transport bridging direction"
+
+  # === CONVERSION (for OpenAPI ↔ MCP tools) ===
+  conversion-direction:
+    type: string
+    enum:
+      - openapi-to-mcp      # REST API → MCP server
+      - mcp-to-openapi      # MCP server → REST API
+      - bidirectional       # Both directions
+    description: "For conversion tools, which direction they convert"
+
+  input-format:
+    type: string
+    description: "Input format accepted (e.g., 'OpenAPI 3.0', 'Swagger 2.0', 'MCP stdio')"
+
+  output-format:
+    type: string
+    description: "Output format produced (e.g., 'MCP server', 'REST API', 'OpenAPI spec')"
+
+  # === CLOUD/PLATFORM ===
+  cloud-platform:
+    type: string
+    enum:
+      - azure
+      - aws
+      - gcp
+      - self-hosted
+      - any
+    description: "Associated cloud platform if applicable"
 
   # === AUTHENTICATION ===
   authentication:

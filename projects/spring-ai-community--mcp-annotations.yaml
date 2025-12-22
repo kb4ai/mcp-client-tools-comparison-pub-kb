@@ -1,0 +1,45 @@
+last-update: "2025-12-22"
+repo-url: "https://github.com/spring-ai-community/mcp-annotations"
+
+name: "mcp-annotations"
+description: "Java/Spring AI annotations for MCP server development with OpenAPI integration"
+language: "Java"
+stars: null  # TODO: Update with actual star count
+
+category: "mcp-framework"
+conversion-direction: "openapi-to-mcp"
+input-format: "OpenAPI 3.0, Spring annotations"
+output-format: "MCP server"
+reputable-source: true
+organization: "Spring AI Community"
+
+transports:
+  stdio: true
+  http: true
+
+features:
+  - "Java annotation-based MCP servers"
+  - "Spring framework integration"
+  - "OpenAPI automatic generation"
+  - "Spring Boot auto-configuration"
+  - "Enterprise Java ecosystem"
+  - "Type-safe annotation processing"
+
+installation:
+  maven: "org.springframework.ai:mcp-annotations"
+  gradle: true
+
+documentation:
+  readme: true
+  examples: true
+  tests: true
+  javadoc: true
+
+notes:
+  - "Spring AI ecosystem project"
+  - "Java/Spring Boot native approach"
+  - "Annotation-driven development"
+  - "Enterprise Java focus"
+  - "Auto-generates OpenAPI from annotations"
+  - "Reverse of typical conversion flow"
+  - "Spring configuration and dependency injection support"

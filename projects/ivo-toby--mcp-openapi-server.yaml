@@ -1,0 +1,36 @@
+last-update: "2025-12-22"
+repo-url: "https://github.com/ivo-toby/mcp-openapi-server"
+
+name: "mcp-openapi-server"
+description: "OpenAPI server implementation for MCP"
+language: "TypeScript"
+stars: null  # TODO: Update with actual star count
+
+category: "openapi-to-mcp"
+conversion-direction: "openapi-to-mcp"
+input-format: "OpenAPI 3.0"
+output-format: "MCP server"
+reputable-source: false
+
+transports:
+  stdio: true
+  http: true
+
+features:
+  - "Server implementation approach"
+  - "OpenAPI spec serving"
+  - "TypeScript-based"
+  - "Runtime OpenAPI integration"
+
+installation:
+  npm: null  # TODO: Verify package availability
+
+documentation:
+  readme: true
+  examples: false
+  tests: false
+
+notes:
+  - "Server-focused implementation"
+  - "Runtime OpenAPI spec consumption"
+  - "TypeScript implementation"

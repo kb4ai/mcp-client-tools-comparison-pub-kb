@@ -1,0 +1,57 @@
+last-update: "2025-12-22"
+service-url: "https://azure.microsoft.com/en-us/products/api-management"
+
+name: "Azure API Management MCP"
+description: "Cloud-based API management service with native MCP integration"
+service-type: "cloud-integration"
+cloud-platform: "azure"
+reputable-source: true
+organization: "Microsoft"
+
+category: "cloud-integration"
+conversion-direction: "bidirectional"
+input-format: "MCP stdio/HTTP"
+output-format: "Azure API Management endpoints"
+
+transports:
+  stdio: true
+  http: true
+
+authentication:
+  oauth: true
+  bearer: true
+  api-key: true
+
+features:
+  - "Native Azure integration"
+  - "Enterprise-grade API gateway"
+  - "Built-in authentication and authorization"
+  - "Rate limiting and quotas"
+  - "API versioning and lifecycle management"
+  - "Developer portal"
+  - "Analytics and monitoring"
+  - "Policy-based transformations"
+  - "Multi-region deployment"
+
+security:
+  analyzed: true
+  notes:
+    - "Enterprise security features"
+    - "Azure Active Directory integration"
+    - "RBAC support"
+    - "Network isolation options"
+    - "Managed service with Microsoft SLA"
+
+documentation:
+  readme: true
+  api-docs: true
+  examples: true
+  enterprise-docs: true
+
+notes:
+  - "Cloud service, not open-source repository"
+  - "Part of Microsoft Azure platform"
+  - "Enterprise pricing model"
+  - "Requires Azure subscription"
+  - "Official Microsoft support available"
+  - "Integrates with broader Azure ecosystem"

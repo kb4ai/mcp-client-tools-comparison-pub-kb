@@ -1,71 +1,122 @@
-# MCP Wrapper Tools Comparison
+# MCP Ecosystem Tools Comparison
 
-A comprehensive comparison of tools that wrap **MCP (Model Context Protocol) servers** and expose them as CLI tools, REST APIs, WebSocket servers, gRPC services, or other interfaces.
+A comprehensive comparison of tools in the **MCP (Model Context Protocol)** ecosystem - from CLI clients to transport bridges to enterprise gateways.
 
-## What is MCP?
+## 🎯 Quick Navigation
 
-MCP (Model Context Protocol) is a protocol for connecting AI models to external tools and data sources. This repository catalogs and compares tools that:
+| I want to... | Go here |
+|--------------|---------|
+| **Use a CLI with MCP servers** | [CLI Clients](#-cli-clients) |
+| **Expose my MCP server as REST/HTTP** | [REST API Bridges](#-rest-api-bridges) |
+| **Bridge MCP across transports** | [Transport Bridges](#-transport-bridges) |
+| **Deploy enterprise MCP infrastructure** | [Enterprise Tools](#-enterprise--cloud) |
+| **Convert gRPC/protobuf to MCP** | [gRPC Bridge](#-grpc-bridge) |
+| **See security analysis** | [Security Analysis](comparisons/security.md) |
+| **Browse all tools** | [Full Comparison](comparisons/auto-generated.md) |
 
-* **CLI clients**: Run MCP servers and interact with them from the command line
-* **HTTP/SSE bridges**: Expose stdio MCP servers via HTTP or Server-Sent Events
-* **WebSocket bridges**: Enable WebSocket access to MCP servers
-* **gRPC bridges**: Convert protobuf/gRPC services to MCP or vice versa
-* **Enterprise gateways**: Production-ready proxies with security, aggregation, and orchestration
+## 📊 Ecosystem Overview
 
-**[View Full Comparison Tables →](comparisons/auto-generated.md)**
+| Category | Projects | Description |
+|----------|----------|-------------|
+| CLI Clients | 10 | Command-line interfaces for MCP |
+| Transport Bridges | 8 | stdio ↔ HTTP/SSE/WebSocket |
+| REST API Bridges | 2 | Expose MCP as REST with OpenAPI |
+| Enterprise Gateways | 2 | Production infrastructure |
+| Specialized Adapters | 3 | CLI wrapping, command execution |
+| Total | 27 | All tracked projects |
 
-## Quick Stats
+**Top projects:** 9,000+ combined GitHub stars • 8 reputable/official sources
 
-| Metric | Count |
-|--------|------:|
-| Total projects tracked | 27 |
-| Reputable/official sources | 8 |
-| Combined GitHub stars | ~9,000+ |
+## 💻 CLI Clients
 
-## Top Projects by Stars
+Interactive command-line tools for working with MCP servers.
 
-| Project | Stars | Language | Category |
+| Project | Stars | Language | Key Features |
+|---------|------:|----------|--------------|
+| [chrishayuk/mcp-cli](https://github.com/chrishayuk/mcp-cli) | 1.8k | Python | Chat, interactive shell, command-line |
+| [f/mcptools](https://github.com/f/mcptools) | 1.4k | Go | Industrial-strength, discovery, management |
+| [adhikasp/mcp-client-cli](https://github.com/adhikasp/mcp-client-cli) | 655 | Python | Simple, terminal alternative to Claude Desktop |
+| [wong2/mcp-cli](https://github.com/wong2/mcp-cli) | 396 | JavaScript | Inspector, scriptable automation |
+| [MladenSU/cli-mcp-server](https://github.com/MladenSU/cli-mcp-server) | 155 | Python | Secure CLI execution, command whitelisting |
+| [mcp-use/mcp-use-cli](https://github.com/mcp-use/mcp-use-cli) | 48 | TypeScript | Chat-style, multi-provider LLM support |
+
+**[View all CLI clients →](comparisons/auto-generated.md#cli-client)**
+
+## 🔄 REST API Bridges
+
+Expose MCP servers as REST APIs with OpenAPI/Swagger compatibility.
+
+| Project | Stars | Language | Best For |
 |---------|------:|----------|----------|
-| [sparfenyuk/mcp-proxy](https://github.com/sparfenyuk/mcp-proxy) | ~2.1k | Python | HTTP bridge |
-| [chrishayuk/mcp-cli](https://github.com/chrishayuk/mcp-cli) | ~1.8k | Python | CLI client |
-| [f/mcptools](https://github.com/f/mcptools) | ~1.4k | Go | CLI client |
-| [SecretiveShell/MCP-Bridge](https://github.com/SecretiveShell/MCP-Bridge) | ~880 | Python | REST bridge |
-| [adhikasp/mcp-client-cli](https://github.com/adhikasp/mcp-client-cli) | ~655 | Python | CLI client |
-| [TBXark/mcp-proxy](https://github.com/TBXark/mcp-proxy) | ~590 | Go | Proxy/aggregator |
+| [SecretiveShell/MCP-Bridge](https://github.com/SecretiveShell/MCP-Bridge) | 882 | Python | OpenAI-compatible endpoints |
+| [acehoss/mcp-gateway](https://github.com/acehoss/mcp-gateway) | 128 | TypeScript | Custom GPTs, OpenAPI/Swagger |
 
-## Official/Reputable Sources
+**Key use cases:**
 
-Projects from established organizations:
+* Integrate MCP servers with GPT Actions and custom GPTs
+* Provide OpenAPI-compatible REST endpoints
+* Enable web applications to call MCP tools
 
-| Project | Organization | Category |
+## 🔌 Transport Bridges
+
+Bridge between stdio MCP and HTTP/SSE/WebSocket transports.
+
+| Project | Stars | Type | Transports |
+|---------|------:|------|------------|
+| [sparfenyuk/mcp-proxy](https://github.com/sparfenyuk/mcp-proxy) | 2.1k | Python | stdio ↔ HTTP/SSE |
+| [TBXark/mcp-proxy](https://github.com/TBXark/mcp-proxy) | 592 | Go | Proxy aggregator + HTTP/SSE |
+| [EvalsOne/MCP-connect](https://github.com/EvalsOne/MCP-connect) | 227 | TypeScript | stdio ↔ HTTP gateway |
+| [ConechoAI/nchan-mcp-transport](https://github.com/ConechoAI/nchan-mcp-transport) | 28 | TypeScript | WebSocket/SSE high-performance |
+| [nccgroup/http-mcp-bridge](https://github.com/nccgroup/http-mcp-bridge) | - | Python | HTTP/SSE (security testing) |
+| [supercorp-ai/supergateway](https://github.com/supercorp-ai/supergateway) | - | TypeScript | Multi-protocol adapter |
+
+**[Full Transport Details →](comparisons/transports.md)**
+
+## 🏢 Enterprise & Cloud
+
+Production-ready gateways from major organizations.
+
+| Project | Organization | Features |
 |---------|--------------|----------|
-| [MCP Inspector](https://github.com/modelcontextprotocol/inspector) | Anthropic/MCP | Official tool |
-| [mcp-gateway](https://github.com/microsoft/mcp-gateway) | Microsoft | Enterprise gateway |
-| [mcp-gateway](https://github.com/docker/mcp-gateway) | Docker | Container integration |
-| [protoc-gen-go-mcp](https://github.com/redpanda-data/protoc-gen-go-mcp) | Redpanda | gRPC bridge |
-| [http-mcp-bridge](https://github.com/nccgroup/http-mcp-bridge) | NCC Group | Security testing |
-| [mcp-gateway](https://github.com/lasso-security/mcp-gateway) | Lasso Security | Security gateway |
-| [mcptools](https://github.com/posit-dev/mcptools) | Posit (RStudio) | R client |
-| [kubernetes-mcp-server](https://github.com/containers/kubernetes-mcp-server) | containers org | K8s integration |
+| [microsoft/mcp-gateway](https://github.com/microsoft/mcp-gateway) | Microsoft | K8s-native, session-aware routing, lifecycle management |
+| [lasso-security/mcp-gateway](https://github.com/lasso-security/mcp-gateway) | Lasso Security | Security-first, guardrail plugins |
+| [docker/mcp-gateway](https://github.com/docker/mcp-gateway) | Docker | Docker CLI plugin, container integration |
 
-## Transport Support
+**Enterprise features:**
 
-| Transport | Projects |
-|-----------|----------|
-| stdio | 27 (all) |
-| HTTP | 14 |
-| SSE | 8 |
-| WebSocket | 2 |
-| gRPC | 1 |
+* Kubernetes integration and orchestration
+* Security guardrails and policy enforcement
+* Session management and routing
+* Production observability
 
-## Detailed Comparisons
+## ⚙️ gRPC Bridge
 
-* **[Auto-generated comparison tables](comparisons/auto-generated.md)** - Full comparison data
+Convert between gRPC/protobuf and MCP.
+
+| Project | Organization | Description |
+|---------|--------------|-------------|
+| [redpanda-data/protoc-gen-go-mcp](https://github.com/redpanda-data/protoc-gen-go-mcp) | Redpanda | protoc plugin: gRPC → MCP servers |
+
+## 🔍 Specialized Adapters
+
+Unique use cases and integrations.
+
+| Project | Type | Description |
+|---------|------|-------------|
+| [eirikb/any-cli-mcp-server](https://github.com/eirikb/any-cli-mcp-server) | CLI wrapping | Auto-generate MCP tools from CLI help text |
+| [g0t4/mcp-server-commands](https://github.com/g0t4/mcp-server-commands) | Command execution | Run arbitrary shell commands via MCP |
+| [containers/kubernetes-mcp-server](https://github.com/containers/kubernetes-mcp-server) | K8s native | Native Go Kubernetes/OpenShift server |
+
+## 📚 Detailed Comparisons
+
+* **[Auto-generated tables](comparisons/auto-generated.md)** - Full comparison data with all projects
 * **[Feature comparison](comparisons/features.md)** - Features by category, cross-cutting analysis
 * **[Security analysis](comparisons/security.md)** - Code patterns, recommendations, per-project findings
 * **[Transport support](comparisons/transports.md)** - Protocol matrix, implementation details
 
-## Project Data
+## 🔧 For Contributors
+
+### Project Data Schema
 
 Each project is documented in a YAML file under `projects/`:
 
@@ -80,9 +131,9 @@ transports:
   http: true
 ```
 
-See [spec.yaml](spec.yaml) for the full schema.
+See **[spec.yaml](spec.yaml)** for the full schema.
 
-## Scripts
+### Scripts
 
 | Script | Purpose |
 |--------|---------|
@@ -102,7 +153,7 @@ See [spec.yaml](spec.yaml) for the full schema.
 ./scripts/generate-tables.py --reputable-only
 ```
 
-## Repository Structure
+### Repository Structure
 
 ```
 ├── README.md                    # This file
@@ -116,7 +167,7 @@ See [spec.yaml](spec.yaml) for the full schema.
 └── tmp/                         # Cloned repos (gitignored)
 ```
 
-## Contributing
+### Contributing
 
 See **[CONTRIBUTING.md](CONTRIBUTING.md)** for detailed instructions.
 
@@ -128,7 +179,7 @@ Quick start:
 4. Regenerate tables: `./scripts/generate-tables.py > comparisons/auto-generated.md`
 5. Submit a PR
 
-## Security Considerations
+## 🔒 Security Considerations
 
 When evaluating these tools, we check for:
 
@@ -137,12 +188,12 @@ When evaluating these tools, we check for:
 * **Input validation**: Proper sanitization of user input?
 * **Sandboxing**: Container/isolation support?
 
-See [comparisons/security.md](comparisons/security.md) for detailed analysis.
+**[Full Security Analysis →](comparisons/security.md)**
 
-## Research Resources
+## 📖 Research Resources
 
 * [Perplexity: MCP Server Wrappers & REST Adapters](https://www.perplexity.ai/search/wrapping-mcp-servers-into-cli-0jIuIvdPSregFphOEGCWbw) - Initial research on wrapping MCP servers into CLI tools and exposing REST servers as MCP
 
-## License
+## 📄 License
 
 This research repository is released under MIT License.

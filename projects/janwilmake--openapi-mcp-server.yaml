@@ -1,0 +1,35 @@
+last-update: "2025-12-22"
+repo-url: "https://github.com/janwilmake/openapi-mcp-server"
+
+name: "openapi-mcp-server"
+description: "OpenAPI to MCP server implementation"
+language: "TypeScript"
+stars: null  # TODO: Update with actual star count
+
+category: "openapi-to-mcp"
+conversion-direction: "openapi-to-mcp"
+input-format: "OpenAPI 3.0"
+output-format: "MCP server"
+reputable-source: false
+
+transports:
+  stdio: true
+  http: false
+
+features:
+  - "Direct OpenAPI to MCP conversion"
+  - "TypeScript implementation"
+  - "Server generation"
+
+installation:
+  npm: null  # TODO: Verify package availability
+
+documentation:
+  readme: true
+  examples: false
+  tests: false
+
+notes:
+  - "Alternative OpenAPI → MCP implementation"
+  - "TypeScript-based"
+  - "Community contribution"

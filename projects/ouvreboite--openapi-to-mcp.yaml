@@ -1,0 +1,36 @@
+last-update: "2025-12-22"
+repo-url: "https://github.com/ouvreboite/openapi-to-mcp"
+
+name: "openapi-to-mcp"
+description: "TypeScript-based OpenAPI to MCP server converter, fastest path for conversion"
+language: "TypeScript"
+stars: null  # TODO: Update with actual star count
+
+category: "openapi-to-mcp"
+conversion-direction: "openapi-to-mcp"
+input-format: "OpenAPI 3.0"
+output-format: "MCP server"
+reputable-source: false
+
+transports:
+  stdio: true
+  http: false
+
+features:
+  - "NPM package for easy distribution"
+  - "Fast conversion path"
+  - "TypeScript type safety"
+  - "Direct OpenAPI spec consumption"
+
+installation:
+  npm: "openapi-to-mcp"
+
+documentation:
+  readme: true
+  examples: false
+  tests: false
+
+notes:
+  - "Fastest path for OpenAPI → MCP conversion"
+  - "TypeScript-based implementation"
+  - "Designed for quick integration"

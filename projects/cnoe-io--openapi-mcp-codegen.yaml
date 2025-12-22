@@ -1,0 +1,39 @@
+last-update: "2025-12-22"
+repo-url: "https://github.com/cnoe-io/openapi-mcp-codegen"
+
+name: "openapi-mcp-codegen"
+description: "Python-based OpenAPI to MCP code generator, Cisco-backed, enterprise CI/CD focus"
+language: "Python"
+stars: null  # TODO: Update with actual star count
+
+category: "openapi-to-mcp"
+conversion-direction: "openapi-to-mcp"
+input-format: "OpenAPI 3.0"
+output-format: "MCP server"
+reputable-source: true
+organization: "CNOE (Cisco)"
+
+transports:
+  stdio: true
+  http: false
+
+features:
+  - "Code generation approach"
+  - "Enterprise CI/CD integration"
+  - "Python-based tooling"
+  - "Cisco-backed development"
+  - "Designed for enterprise workflows"
+
+installation:
+  pip: "openapi-mcp-codegen"
+
+documentation:
+  readme: true
+  examples: true
+  tests: true
+
+notes:
+  - "Enterprise-focused solution"
+  - "Backed by Cisco (CNOE initiative)"
+  - "CI/CD pipeline integration"
+  - "Production-ready code generation"

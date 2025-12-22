@@ -1,0 +1,40 @@
+last-update: "2025-12-22"
+repo-url: "https://github.com/jlowin/fastmcp"
+
+name: "fastmcp"
+description: "Python framework for building MCP servers with OpenAPI support"
+language: "Python"
+stars: null  # TODO: Update with actual star count
+
+category: "mcp-framework"
+conversion-direction: "openapi-to-mcp"
+input-format: "OpenAPI 3.0"
+output-format: "MCP server"
+reputable-source: false
+
+transports:
+  stdio: true
+  http: true
+
+features:
+  - "Full MCP server framework"
+  - "OpenAPI integration support"
+  - "FastAPI-inspired design"
+  - "Python-native implementation"
+  - "Decorator-based server definition"
+  - "Built-in validation"
+
+installation:
+  pip: "fastmcp"
+
+documentation:
+  readme: true
+  examples: true
+  tests: true
+
+notes:
+  - "Framework approach, not just converter"
+  - "Supports building custom MCP servers"
+  - "OpenAPI as one input method"
+  - "Similar to FastAPI philosophy"
+  - "More flexible than pure conversion tools"

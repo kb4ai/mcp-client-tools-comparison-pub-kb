@@ -1,0 +1,36 @@
+last-update: "2025-12-22"
+repo-url: "https://github.com/open-webui/mcpo"
+
+name: "mcpo"
+description: "MCP-to-OpenAPI proxy server with automatic OpenAPI spec generation and Swagger UI"
+language: "Python"
+license: "MIT"
+
+category: "mcp-to-openapi"
+conversion-direction: "mcp-to-openapi"
+input-format: "MCP stdio"
+output-format: "REST API with OpenAPI spec"
+reputable-source: true
+organization: "Open WebUI"
+
+transports:
+  stdio: true
+  http: true
+
+features:
+  - "Swagger UI included"
+  - "Auto-generates OpenAPI spec from MCP tools"
+  - "Converts MCP stdio servers to REST endpoints"
+  - "Interactive API documentation"
+  - "Official recommendation from Open WebUI team"
+
+documentation:
+  readme: true
+  api-docs: true
+  examples: true
+
+notes:
+  - "Official Open WebUI project for MCP-to-OpenAPI conversion"
+  - "Enables using MCP servers as REST APIs"
+  - "Provides web UI for exploring and testing converted APIs"
+  - "Part of Open WebUI ecosystem"

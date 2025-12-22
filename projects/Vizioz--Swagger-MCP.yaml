@@ -1,0 +1,38 @@
+last-update: "2025-12-22"
+repo-url: "https://github.com/Vizioz/Swagger-MCP"
+
+name: "Swagger-MCP"
+description: "TypeScript-based Swagger/OpenAPI exploration and MCP integration"
+language: "TypeScript"
+stars: null  # TODO: Update with actual star count
+
+category: "openapi-to-mcp"
+conversion-direction: "openapi-to-mcp"
+input-format: "OpenAPI 2.0/3.0, Swagger"
+output-format: "MCP server"
+reputable-source: false
+
+transports:
+  stdio: true
+  http: false
+
+features:
+  - "Swagger 2.0 support"
+  - "OpenAPI 3.0 support"
+  - "TypeScript type safety"
+  - "API exploration capabilities"
+  - "Interactive API discovery"
+
+installation:
+  npm: null  # TODO: Verify package name
+
+documentation:
+  readme: true
+  examples: false
+  tests: false
+
+notes:
+  - "Supports both Swagger and OpenAPI formats"
+  - "Focus on API exploration"
+  - "TypeScript-based implementation"
+  - "Interactive discovery features"

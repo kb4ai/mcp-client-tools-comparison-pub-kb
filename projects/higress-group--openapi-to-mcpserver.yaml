@@ -1,0 +1,40 @@
+last-update: "2025-12-22"
+repo-url: "https://github.com/higress-group/openapi-to-mcpserver"
+
+name: "openapi-to-mcpserver"
+description: "OpenAPI to MCP server converter from Chinese community (Higress/Alibaba ecosystem)"
+language: "Go"
+stars: null  # TODO: Update with actual star count
+
+category: "openapi-to-mcp"
+conversion-direction: "openapi-to-mcp"
+input-format: "OpenAPI 3.0"
+output-format: "MCP server"
+reputable-source: false
+organization: "Higress Group"
+
+transports:
+  stdio: true
+  http: true
+
+features:
+  - "Go-based implementation"
+  - "Part of Higress ecosystem"
+  - "Chinese community contribution"
+  - "Cloud-native focus"
+  - "Alibaba Cloud Gateway integration"
+
+installation:
+  go-install: "github.com/higress-group/openapi-to-mcpserver"
+
+documentation:
+  readme: true
+  examples: true
+  tests: false
+
+notes:
+  - "From Higress (Alibaba Cloud Native)"
+  - "Chinese community origin"
+  - "Go implementation for performance"
+  - "Cloud gateway ecosystem integration"
+  - "Part of larger API gateway project"
