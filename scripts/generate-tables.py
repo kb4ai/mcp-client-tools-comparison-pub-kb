@@ -54,6 +54,33 @@ def format_transports(transports):
     return ", ".join(enabled)
 
 
+def format_org_project_cell(project):
+    """Format project name as [org/repo](url) link.
+
+    Extracts org and repo from filename (format: owner--repo.yaml) which is
+    the canonical source. Falls back to just the project name if the filename
+    doesn't follow the expected format.
+    """
+    repo_url = project.get('repo-url', '')
+    filename = project.get('_filename', '')
+
+    # Extract org/repo from filename (format: owner--repo)
+    if filename and '--' in filename:
+        parts = filename.split('--', 1)
+        org = parts[0]
+        repo = parts[1]
+        display_name = f"{org}/{repo}"
+    else:
+        # Fallback to name field if filename doesn't have --
+        display_name = project.get('name', project.get('_filename', 'Unknown'))
+
+    # Create markdown link if URL available
+    if repo_url:
+        return f"[{display_name}]({repo_url})"
+    else:
+        return display_name
+
+
 def generate_overview_table(projects):
     """Generate main overview table sorted by stars."""
     # Sort by stars (descending), None values last
@@ -66,24 +93,17 @@ def generate_overview_table(projects):
     lines = []
     lines.append("## Overview: All Projects by Stars")
     lines.append("")
-    lines.append("| Project | Stars | Language | Category | Transports |")
-    lines.append("|---------|------:|----------|----------|------------|")
+    lines.append("| Org/Project | Stars | Language | Category | Transports |")
+    lines.append("|-------------|------:|----------|----------|------------|")
 
     for p in sorted_projects:
-        name = p.get('name', p.get('_filename', 'Unknown'))
-        repo_url = p.get('repo-url', '')
+        name_cell = format_org_project_cell(p)
         stars = p.get('stars', '')
         if stars == '':
             stars = '?'
         lang = p.get('language', '')
         category = p.get('category', '')
         transports = format_transports(p.get('transports', {}))
-
-        # Make name a link
-        if repo_url:
-            name_cell = f"[{name}]({repo_url})"
-        else:
-            name_cell = name
 
         lines.append(f"| {name_cell} | {stars} | {lang} | {category} | {transports} |")
 
@@ -110,22 +130,16 @@ def generate_by_category(projects):
 
         lines.append(f"### {category.replace('-', ' ').title()}")
         lines.append("")
-        lines.append("| Project | Stars | Language | Description |")
-        lines.append("|---------|------:|----------|-------------|")
+        lines.append("| Org/Project | Stars | Language | Description |")
+        lines.append("|-------------|------:|----------|-------------|")
 
         for p in cat_projects:
-            name = p.get('name', p.get('_filename', 'Unknown'))
-            repo_url = p.get('repo-url', '')
+            name_cell = format_org_project_cell(p)
             stars = p.get('stars', '?')
             lang = p.get('language', '')
             desc = p.get('description', '')[:60]
             if len(p.get('description', '')) > 60:
                 desc += '...'
-
-            if repo_url:
-                name_cell = f"[{name}]({repo_url})"
-            else:
-                name_cell = name
 
             lines.append(f"| {name_cell} | {stars} | {lang} | {desc} |")
 
@@ -139,8 +153,8 @@ def generate_transport_matrix(projects):
     lines = []
     lines.append("## Transport Support Matrix")
     lines.append("")
-    lines.append("| Project | stdio | SSE | HTTP | WebSocket | gRPC |")
-    lines.append("|---------|:-----:|:---:|:----:|:---------:|:----:|")
+    lines.append("| Org/Project | stdio | SSE | HTTP | WebSocket | gRPC |")
+    lines.append("|-------------|:-----:|:---:|:----:|:---------:|:----:|")
 
     sorted_projects = sorted(
         projects,
@@ -149,14 +163,8 @@ def generate_transport_matrix(projects):
     )
 
     for p in sorted_projects:
-        name = p.get('name', p.get('_filename', 'Unknown'))
-        repo_url = p.get('repo-url', '')
+        name_cell = format_org_project_cell(p)
         transports = p.get('transports', {})
-
-        if repo_url:
-            name_cell = f"[{name}]({repo_url})"
-        else:
-            name_cell = name
 
         def check(t):
             return "✓" if transports.get(t) else ""
@@ -173,24 +181,17 @@ def generate_reputable_sources(projects):
     lines = []
     lines.append("## Reputable/Official Sources")
     lines.append("")
-    lines.append("| Project | Organization | Category | Description |")
-    lines.append("|---------|--------------|----------|-------------|")
+    lines.append("| Org/Project | Category | Description |")
+    lines.append("|-------------|----------|-------------|")
 
     for p in sorted(reputable, key=lambda p: p.get('organization', '')):
-        name = p.get('name', p.get('_filename', 'Unknown'))
-        repo_url = p.get('repo-url', '')
-        org = p.get('organization', '')
+        name_cell = format_org_project_cell(p)
         category = p.get('category', '')
         desc = p.get('description', '')[:50]
         if len(p.get('description', '')) > 50:
             desc += '...'
 
-        if repo_url:
-            name_cell = f"[{name}]({repo_url})"
-        else:
-            name_cell = name
-
-        lines.append(f"| {name_cell} | {org} | {category} | {desc} |")
+        lines.append(f"| {name_cell} | {category} | {desc} |")
 
     return "\n".join(lines)
 
@@ -202,8 +203,8 @@ def generate_authentication_matrix(projects):
     lines.append("")
     lines.append("Projects with documented authentication capabilities:")
     lines.append("")
-    lines.append("| Project | OAuth 2.0 | PKCE | Bearer | API Key | Headers | Keychain | Notes |")
-    lines.append("|---------|:---------:|:----:|:------:|:-------:|:-------:|:--------:|-------|")
+    lines.append("| Org/Project | OAuth 2.0 | PKCE | Bearer | API Key | Headers | Keychain | Notes |")
+    lines.append("|-------------|:---------:|:----:|:------:|:-------:|:-------:|:--------:|-------|")
 
     # Filter to projects with authentication data
     auth_projects = [p for p in projects if p.get('authentication')]
@@ -215,14 +216,8 @@ def generate_authentication_matrix(projects):
     )
 
     for p in sorted_projects:
-        name = p.get('name', p.get('_filename', 'Unknown'))
-        repo_url = p.get('repo-url', '')
+        name_cell = format_org_project_cell(p)
         auth = p.get('authentication', {})
-
-        if repo_url:
-            name_cell = f"[{name}]({repo_url})"
-        else:
-            name_cell = name
 
         def check(field):
             val = auth.get(field)
@@ -274,18 +269,12 @@ def generate_enterprise_auth_table(projects):
     lines = []
     lines.append("## Enterprise Authentication Features")
     lines.append("")
-    lines.append("| Project | Entra ID | RBAC | Multi-Tenant | Auth Bridging | OIDC |")
-    lines.append("|---------|:--------:|:----:|:------------:|:-------------:|:----:|")
+    lines.append("| Org/Project | Entra ID | RBAC | Multi-Tenant | Auth Bridging | OIDC |")
+    lines.append("|-------------|:--------:|:----:|:------------:|:-------------:|:----:|")
 
     for p in sorted(enterprise, key=lambda x: x.get('organization', '')):
-        name = p.get('name', p.get('_filename', 'Unknown'))
-        repo_url = p.get('repo-url', '')
+        name_cell = format_org_project_cell(p)
         auth = p.get('authentication', {})
-
-        if repo_url:
-            name_cell = f"[{name}]({repo_url})"
-        else:
-            name_cell = name
 
         def check(field):
             return "✓" if auth.get(field) else ""
@@ -313,8 +302,8 @@ def generate_installation_methods_table(projects):
     lines = []
     lines.append("## Installation Methods")
     lines.append("")
-    lines.append("| Project | npm | pip | brew | docker | go install |")
-    lines.append("|---------|:---:|:---:|:----:|:------:|:----------:|")
+    lines.append("| Org/Project | npm | pip | brew | docker | go install |")
+    lines.append("|-------------|:---:|:---:|:----:|:------:|:----------:|")
 
     sorted_projects = sorted(
         install_projects,
@@ -323,14 +312,8 @@ def generate_installation_methods_table(projects):
     )
 
     for p in sorted_projects:
-        name = p.get('name', p.get('_filename', 'Unknown'))
-        repo_url = p.get('repo-url', '')
+        name_cell = format_org_project_cell(p)
         install = p.get('installation', {})
-
-        if repo_url:
-            name_cell = f"[{name}]({repo_url})"
-        else:
-            name_cell = name
 
         def check_install(method):
             return "✓" if install.get(method) else ""
