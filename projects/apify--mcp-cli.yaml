@@ -1,0 +1,115 @@
+# Apify MCP CLI - Universal command-line client for MCP
+# Analysis based on commit c069dcb32b34203a3a8805359c8b0d4e84cde1a6 (2026-01-09)
+
+last-update: "2025-12-22"
+repo-commit: "c069dcb32b34203a3a8805359c8b0d4e84cde1a6"
+repo-url: "https://github.com/apify/mcp-cli"
+
+name: "mcpc"
+description: "Universal MCP CLI with full OAuth 2.1, persistent sessions, HTTP/stdio, and AI sandbox proxy"
+language: "TypeScript"
+languages:
+  - TypeScript
+stars: 167
+forks: 5
+license: "Apache-2.0"
+open-issues: 2
+last-commit: "2026-01-09"
+created: "2025-12-09"
+
+category: "cli-client"
+reputable-source: true
+organization: "Apify"
+
+transports:
+  stdio: true
+  http: true
+  sse: false  # Explicitly not supported per README: "HTTP with SSE: Legacy, not supported"
+
+# Comprehensive authentication support - best-in-class for CLI tools
+authentication:
+  oauth2: true
+  oauth2-pkce: true  # Full OAuth 2.1 with PKCE
+  bearer-token: true  # Via --header flag
+  api-key: true  # Via --header flag
+  custom-header: true  # --header "Name: Value" syntax
+  token-refresh: true  # Automatic token refresh
+  env-var-auth: true  # ${VAR_NAME} substitution in config files
+
+  # Credential storage
+  auth-notes:
+    - "BEST-IN-CLASS: Full OAuth 2.1 flow with PKCE and automatic token refresh"
+    - "Bearer token: mcpc --header 'Authorization: Bearer ${TOKEN}' <server> tools-list"
+    - "OAuth login: mcpc <server> login [--profile <name>]"
+    - "OS keychain integration for secure credential storage"
+    - "Named auth profiles for multiple accounts per server"
+    - "Config file headers with env var substitution: ${APIFY_TOKEN}"
+    - "Auth precedence: CLI flags > profiles > config > unauthenticated"
+    - "Browser-based OAuth login (never auto-initiated for security)"
+
+auth-transports:
+  stdio: env-vars
+  http: oauth2
+
+features:
+  - "Full OAuth 2.1 with PKCE and automatic token refresh"
+  - "Bearer token via --header flag (works with Linear, GitHub, etc.)"
+  - "Persistent session management with named sessions (@session)"
+  - "MCP proxy server for AI sandbox credential isolation"
+  - "JSON output mode (--json) for scripting and AI agent integration"
+  - "Interactive shell mode"
+  - "Config file support (Claude Desktop, VS Code compatible)"
+  - "OS keychain credential storage"
+  - "Schema validation for tool calls"
+  - "Multiple auth profiles per server"
+  - "Auto-type parsing for arguments (key:=value)"
+  - "Environment variable substitution in configs"
+  - "Session lifecycle management (live/crashed/expired)"
+  - "Bridge process for MCP protocol handling"
+  - "HTTPS auto-upgrade for remote servers"
+
+installation:
+  npm: "@apify/mcpc"
+
+security:
+  analyzed: true
+  analysis-commit: "c069dcb32b34203a3a8805359c8b0d4e84cde1a6"
+  eval-usage: "none"
+  subprocess-usage: "safe"  # Bridge processes for stdio servers
+  network-isolation: "verified"  # Only connects to configured servers
+  input-validation: "thorough"  # Schema validation support
+  sandboxing: true  # Proxy server feature for AI sandboxes
+  notes:
+    - "OAuth tokens stored in OS keychain, never on disk"
+    - "Credentials never logged, even in verbose mode"
+    - "Proxy server isolates credentials from AI clients"
+    - "HTTPS enforced for remote servers"
+    - "OAuth callback binds to 127.0.0.1 only"
+    - "File permissions set to 0600 (user-only)"
+    - "No secrets visible in process listings"
+    - "Config files contain metadata only, never tokens"
+
+documentation:
+  readme: true
+  api-docs: true
+  examples: true
+  tests: true  # Assumed based on project maturity
+
+# References to specific features in README
+# All references based on README.md at commit c069dcb
+code-references:
+  bearer-token-usage: "README.md: mcpc --header 'Authorization: Bearer ${TOKEN}' <server> tools-list"
+  oauth-login: "README.md: mcpc <server> login [--profile <name>]"
+  session-connect: "README.md: mcpc <target> connect @<session-name>"
+  proxy-server: "README.md: mcpc <server> connect @<session> --proxy [host:]port"
+  json-output: "README.md: mcpc --json @apify tools-call search-actors"
+  config-file: "~/.vscode/mcp.json or ~/.mcpc/sessions.json"
+
+notes:
+  - "RECOMMENDED for HTTP MCP auth - has --header flag that actually works"
+  - "Solves the Linear MCP auth problem directly"
+  - "Binary name: mcpc (not mcp to avoid conflicts)"
+  - "Requires libsecret on Linux for keychain support"
+  - "Exit codes: 0=success, 1=client error, 2=server error, 3=network, 4=auth"
+  - "Session state stored in ~/.mcpc/"
+  - "Created by Apify (reputable open-source company)"

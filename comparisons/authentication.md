@@ -946,7 +946,34 @@ Many CLI tools (including mcptools) have HTTP transport support but:
 
 **Workarounds:**
 
-**Option 1: MCP Inspector CLI mode (Recommended - Official Tool)**
+**Option 1: Apify mcpc (Best Overall - Full OAuth + Headers)**
+
+The most feature-complete MCP CLI with full OAuth 2.1 + PKCE AND working `--header` flag:
+
+```bash
+# Install
+npm install -g @apify/mcpc
+
+# Bearer token via --header (works directly!)
+mcpc --header "Authorization: Bearer $TOKEN" https://mcp.linear.app/mcp tools-list
+
+# Full OAuth 2.1 flow (recommended for persistent use)
+mcpc https://mcp.linear.app/mcp login
+mcpc @linear tools-list
+
+# Named session with proxy for AI sandbox
+mcpc https://mcp.linear.app/mcp connect @linear --proxy 8080
+# AI agent can now access localhost:8080 without seeing credentials
+```
+
+Key advantages:
+- Full OAuth 2.1 with PKCE and automatic token refresh
+- `--header` flag works on all commands (not just config)
+- OS keychain credential storage
+- Persistent named sessions
+- Proxy mode for AI credential isolation
+
+**Option 2: MCP Inspector CLI mode (Official Tool)**
 
 The official MCP Inspector has a CLI mode with native `--header` support:
 
@@ -1068,7 +1095,8 @@ curl -X POST https://mcp.linear.app/mcp \
 
 | Tool | HTTP Transport | OAuth Flow | Manual Headers | Practical HTTP Auth |
 |------|:--------------:|:----------:|:--------------:|:-------------------:|
-| MCP Inspector | ✅ | ❌ | ✅ `--header` | ✅ **Recommended** |
+| **apify/mcpc** | ✅ | ✅ PKCE | ✅ `--header` | ✅ **Best Overall** |
+| MCP Inspector | ✅ | ❌ | ✅ `--header` | ✅ Official |
 | wong2/mcp-cli | ✅ | ✅ | ❓ | ✅ Works |
 | sparfenyuk/mcp-proxy | ✅ | ✅ | ✅ | ✅ Works |
 | stdio-http-adapter | ✅ | ❌ | ✅ env var | ✅ mcptools bridge |

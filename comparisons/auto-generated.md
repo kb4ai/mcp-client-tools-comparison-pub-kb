@@ -1,12 +1,12 @@
 ## Summary Statistics
 
-- **Total projects:** 37
-- **Reputable sources:** 12
-- **Combined stars:** 8,974 (from 14 projects with star data)
+- **Total projects:** 38
+- **Reputable sources:** 13
+- **Combined stars:** 9,141 (from 15 projects with star data)
 
 ### By Category
 
-- cli-client: 10
+- cli-client: 11
 - openapi-to-mcp: 6
 - http-bridge: 4
 - specialized-adapter: 3
@@ -24,7 +24,7 @@
 
 ### By Language
 
-- TypeScript: 10
+- TypeScript: 11
 - Python: 9
 - unknown: 8
 - Go: 6
@@ -47,6 +47,7 @@
 | [mcp-gateway](https://github.com/microsoft/mcp-gateway) | 386 | C# | enterprise-gateway | stdio, http |
 | [MCP-connect](https://github.com/EvalsOne/MCP-connect) | 227 | TypeScript | http-bridge | stdio, http |
 | [protoc-gen-go-mcp](https://github.com/redpanda-data/protoc-gen-go-mcp) | 177 | Go | grpc-bridge | stdio, grpc |
+| [mcpc](https://github.com/apify/mcp-cli) | 167 | TypeScript | cli-client | stdio, http |
 | [cli-mcp-server](https://github.com/MladenSU/cli-mcp-server) | 155 | Python | cli-client | stdio |
 | [mcp-gateway (acehoss)](https://github.com/acehoss/mcp-gateway) | 128 | TypeScript | rest-api-bridge | stdio, http |
 | [mcp-use-cli](https://github.com/mcp-use/mcp-use-cli) | 48 | TypeScript | cli-client | stdio |
@@ -80,6 +81,7 @@
 | Project | Organization | Category | Description |
 |---------|--------------|----------|-------------|
 | [MCP Inspector](https://github.com/modelcontextprotocol/inspector) | Anthropic/MCP | official-tool | Official visual testing tool for MCP servers from ... |
+| [mcpc](https://github.com/apify/mcp-cli) | Apify | cli-client | Universal MCP CLI with full OAuth 2.1, persistent ... |
 | [openapi-mcp-codegen](https://github.com/cnoe-io/openapi-mcp-codegen) | CNOE (Cisco) | openapi-to-mcp | Python-based OpenAPI to MCP code generator, Cisco-... |
 | [Docker MCP Gateway](https://github.com/docker/mcp-gateway) | Docker | docker-integration | Docker MCP CLI plugin and gateway for managing MCP... |
 | [Lasso MCP Gateway](https://github.com/lasso-security/mcp-gateway) | Lasso Security | enterprise-gateway | Security-first gateway with guardrail plugins for ... |
@@ -106,6 +108,7 @@
 | [mcp-gateway](https://github.com/microsoft/mcp-gateway) | ✓ |  | ✓ |  |  |
 | [MCP-connect](https://github.com/EvalsOne/MCP-connect) | ✓ |  | ✓ |  |  |
 | [protoc-gen-go-mcp](https://github.com/redpanda-data/protoc-gen-go-mcp) | ✓ |  |  |  | ✓ |
+| [mcpc](https://github.com/apify/mcp-cli) | ✓ |  | ✓ |  |  |
 | [cli-mcp-server](https://github.com/MladenSU/cli-mcp-server) | ✓ |  |  |  |  |
 | [mcp-gateway (acehoss)](https://github.com/acehoss/mcp-gateway) | ✓ |  | ✓ |  |  |
 | [mcp-use-cli](https://github.com/mcp-use/mcp-use-cli) | ✓ |  |  |  |  |
@@ -144,6 +147,7 @@
 | [mcptools](https://github.com/f/mcptools) | 1400 | Go | Industrial-strength CLI for discovering, calling, managing M... |
 | [mcp-client-cli](https://github.com/adhikasp/mcp-client-cli) | 655 | Python | Simple CLI implementing MCP client, terminal alternative to ... |
 | [mcp-cli (wong2)](https://github.com/wong2/mcp-cli) | 396 | JavaScript | CLI inspector for MCP with scriptable automation |
+| [mcpc](https://github.com/apify/mcp-cli) | 167 | TypeScript | Universal MCP CLI with full OAuth 2.1, persistent sessions, ... |
 | [cli-mcp-server](https://github.com/MladenSU/cli-mcp-server) | 155 | Python | Secure CLI execution MCP server with command whitelisting an... |
 | [mcp-use-cli](https://github.com/mcp-use/mcp-use-cli) | 48 | TypeScript | Chat-style MCP CLI with multi-provider LLM support and serve... |
 | [mcp-cli (Deniscartin)](https://github.com/Deniscartin/mcp-cli) | ? |  | CLI focused on managing MCP server configs, listing tools, a... |
