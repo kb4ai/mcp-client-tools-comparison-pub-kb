@@ -55,7 +55,7 @@ def format_transports(transports):
 
 
 def format_org_project_cell(project):
-    """Format project name as [org/repo](url) link.
+    """Format project name as [org/repo](url) [y](yaml) link.
 
     Extracts org and repo from filename (format: owner--repo.yaml) which is
     the canonical source. Falls back to just the project name if the filename
@@ -74,11 +74,14 @@ def format_org_project_cell(project):
         # Fallback to name field if filename doesn't have --
         display_name = project.get('name', project.get('_filename', 'Unknown'))
 
-    # Create markdown link if URL available
+    # Build YAML file link
+    yaml_link = f"[y](projects/{filename}.yaml)" if filename else ""
+
+    # Create markdown link with repo URL and YAML link
     if repo_url:
-        return f"[{display_name}]({repo_url})"
+        return f"[{display_name}]({repo_url}) {yaml_link}".strip()
     else:
-        return display_name
+        return f"{display_name} {yaml_link}".strip()
 
 
 def generate_overview_table(projects):
