@@ -1,0 +1,38 @@
+# Simple Laptop Chooser Example
+# Demonstrates basic decision tree structure
+# Based on user's HTML example
+
+tree:
+  id: laptop-chooser
+  title: "Choose a Laptop"
+  description: "Simple example decision tree for laptop selection"
+
+  metadata:
+    version: "1.0.0"
+    source: "Example from user request"
+
+  root:
+    question: "Do you need portability?"
+    branches:
+
+      - condition: "Yes - prioritize lightweight"
+        next:
+          question: "Do you need all-day battery?"
+          branches:
+            - condition: "Yes"
+              next:
+                leaf: "Ultrabook / MacBook Air-class device"
+            - condition: "No - battery less important"
+              next:
+                leaf: "Thin-and-light with mid battery"
+
+      - condition: "No - portability not critical"
+        next:
+          question: "Do you game or do GPU-heavy work?"
+          branches:
+            - condition: "Yes"
+              next:
+                leaf: "Gaming laptop / workstation with dedicated GPU"
+            - condition: "No"
+              next:
+                leaf: "Larger screen productivity laptop / desktop"

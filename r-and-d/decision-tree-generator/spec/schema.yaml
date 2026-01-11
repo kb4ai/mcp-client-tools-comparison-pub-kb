@@ -1,0 +1,88 @@
+# Decision Tree YAML Schema
+# Version: 0.1.0
+#
+# This schema defines the structure for decision trees that can be
+# deterministically rendered to multiple output formats.
+
+schema-version: "0.1.0"
+
+# Root structure
+tree:
+  # Unique identifier for this decision tree (used in generated IDs)
+  id: string  # required, kebab-case, e.g., "mcp-tool-chooser"
+
+  # Human-readable title
+  title: string  # required
+
+  # Optional description
+  description: string  # optional
+
+  # Optional metadata for provenance
+  metadata:
+    generated-from: string  # e.g., "projects/*.yaml"
+    generated-at: string    # ISO 8601 timestamp (for tracking, excluded from hash)
+    version: string         # semantic version of tree content
+
+  # The root node of the decision tree
+  root: node  # required
+
+# Node types
+node:
+  # Decision node - asks a question with multiple branches
+  question: string          # The question to ask
+  branches: list[branch]    # List of possible answers/paths
+
+  # OR Leaf node - terminal recommendation
+  leaf: string              # The recommendation/answer
+
+  # OR Leaf with structured data
+  leaf-structured:
+    recommendation: string  # Primary recommendation text
+    projects: list[string]  # List of project identifiers
+    links: list[link]       # Optional links for more info
+    notes: string           # Optional additional notes
+
+branch:
+  # The condition/answer that leads to this branch
+  condition: string  # required, e.g., "Yes", "CLI interface", ">1000 stars"
+
+  # What happens next - either another node or a leaf
+  next: node  # required - can be question node or leaf node
+
+  # Optional: filter expression for auto-generation from data
+  filter: string  # e.g., "category == 'cli-client'"
+
+link:
+  text: string
+  url: string
+
+# Example valid tree structure:
+#
+# tree:
+#   id: example
+#   title: "Example Decision Tree"
+#   root:
+#     question: "First question?"
+#     branches:
+#       - condition: "Option A"
+#         next:
+#           question: "Follow-up for A?"
+#           branches:
+#             - condition: "Yes"
+#               next:
+#                 leaf: "Recommendation A1"
+#             - condition: "No"
+#               next:
+#                 leaf: "Recommendation A2"
+#       - condition: "Option B"
+#         next:
+#           leaf: "Recommendation B"
+
+# Determinism guarantees:
+#
+# 1. Branch order is preserved from YAML (first branch = first in output)
+# 2. No auto-sorting unless explicitly requested
+# 3. IDs are generated deterministically: {tree-id}-{path} where path is
+#    the sequence of branch indices (e.g., "example-0-1" for first branch,
+#    then second sub-branch)
+# 4. All renderers must produce identical output for identical input

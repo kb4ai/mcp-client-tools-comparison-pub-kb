@@ -1,0 +1,202 @@
+# MCP Ecosystem Tool Chooser
+# Decision tree to help users select the right MCP tool for their needs
+#
+# This tree is hand-crafted based on the project categories and features
+# documented in ../../../projects/*.yaml
+
+tree:
+  id: mcp-tool-chooser
+  title: "Choose an MCP Ecosystem Tool"
+  description: "Interactive guide to selecting the right tool from 38+ MCP ecosystem projects"
+
+  metadata:
+    version: "1.0.0"
+    source: "Hand-crafted based on projects/*.yaml analysis"
+
+  root:
+    question: "What's your primary use case?"
+    branches:
+
+      - condition: "CLI - Interactive command-line usage"
+        next:
+          question: "Do you need LLM integration (chat with AI)?"
+          branches:
+            - condition: "Yes - Chat interface with LLM"
+              next:
+                question: "Which LLM provider?"
+                branches:
+                  - condition: "OpenAI-compatible (OpenAI, Groq, local)"
+                    next:
+                      leaf-structured:
+                        recommendation: "Use adhikasp/mcp-client-cli"
+                        projects:
+                          - adhikasp/mcp-client-cli
+                        notes: "LLM-agnostic, supports OpenAI, Groq, and local LLMs"
+                  - condition: "Multiple providers / flexible"
+                    next:
+                      leaf-structured:
+                        recommendation: "Use chrishayuk/mcp-cli"
+                        projects:
+                          - chrishayuk/mcp-cli
+                        notes: "1.8k stars, multiple modes: chat, interactive shell, command-line"
+
+            - condition: "No - Just call MCP tools directly"
+              next:
+                question: "Need scriptable/automation support?"
+                branches:
+                  - condition: "Yes - Scripting and automation"
+                    next:
+                      leaf-structured:
+                        recommendation: "Use wong2/mcp-cli"
+                        projects:
+                          - wong2/mcp-cli
+                        notes: "Scriptable automation, bypasses interactive prompts"
+                  - condition: "No - Interactive shell is fine"
+                    next:
+                      leaf-structured:
+                        recommendation: "Use f/mcptools"
+                        projects:
+                          - f/mcptools
+                        notes: "1.4k stars, Go-based, interactive shell with persistent connection"
+
+      - condition: "REST API - Expose MCP as HTTP endpoints"
+        next:
+          question: "Need OpenAPI/Swagger documentation?"
+          branches:
+            - condition: "Yes - Full OpenAPI spec"
+              next:
+                leaf-structured:
+                  recommendation: "Use acehoss/mcp-gateway"
+                  projects:
+                    - acehoss/mcp-gateway
+                  notes: "REST API exposure with automatic OpenAPI/Swagger generation"
+            - condition: "OpenAI-compatible API format"
+              next:
+                leaf-structured:
+                  recommendation: "Use SecretiveShell/MCP-Bridge"
+                  projects:
+                    - SecretiveShell/MCP-Bridge
+                  notes: "882 stars, middleware providing OpenAI-compatible endpoints"
+
+      - condition: "Transport Bridge - stdio ↔ HTTP/SSE/WebSocket"
+        next:
+          question: "Which transport do you need?"
+          branches:
+            - condition: "SSE (Server-Sent Events)"
+              next:
+                leaf-structured:
+                  recommendation: "Use sparfenyuk/mcp-proxy"
+                  projects:
+                    - sparfenyuk/mcp-proxy
+                  notes: "2.1k stars, most popular transport bridge"
+            - condition: "WebSocket"
+              next:
+                question: "Need Nginx/scalable infrastructure?"
+                branches:
+                  - condition: "Yes - Production scale"
+                    next:
+                      leaf-structured:
+                        recommendation: "Use ConechoAI/nchan-mcp-transport"
+                        projects:
+                          - ConechoAI/nchan-mcp-transport
+                        notes: "Nchan-based, supports WebSocket, SSE, HTTP"
+                  - condition: "No - Simple WebSocket"
+                    next:
+                      leaf-structured:
+                        recommendation: "Use supercorp-ai/supergateway"
+                        projects:
+                          - supercorp-ai/supergateway
+                        notes: "stdio to SSE/WebSocket bridge"
+            - condition: "HTTP (stateless)"
+              next:
+                leaf-structured:
+                  recommendation: "Use EvalsOne/MCP-connect or nccgroup/http-mcp-bridge"
+                  projects:
+                    - EvalsOne/MCP-connect
+                    - nccgroup/http-mcp-bridge
+                  notes: "Both support stdio to HTTP bridging"
+
+      - condition: "Enterprise - Production infrastructure"
+        next:
+          question: "What's your deployment environment?"
+          branches:
+            - condition: "Kubernetes"
+              next:
+                leaf-structured:
+                  recommendation: "Use microsoft/mcp-gateway"
+                  projects:
+                    - microsoft/mcp-gateway
+                  notes: "Kubernetes-native with StatefulSets, headless services"
+            - condition: "Docker/Containers"
+              next:
+                leaf-structured:
+                  recommendation: "Use docker/mcp-gateway"
+                  projects:
+                    - docker/mcp-gateway
+                  notes: "Official Docker gateway with container-based isolation"
+            - condition: "Azure cloud"
+              next:
+                leaf-structured:
+                  recommendation: "Use Azure API Management MCP integration"
+                  projects:
+                    - microsoft/azure-api-management-mcp
+                  notes: "Native Azure integration"
+            - condition: "Security-focused (PII, guardrails)"
+              next:
+                leaf-structured:
+                  recommendation: "Use lasso-security/mcp-gateway"
+                  projects:
+                    - lasso-security/mcp-gateway
+                  notes: "PII masking, security guardrails"
+
+      - condition: "OpenAPI ↔ MCP Conversion"
+        next:
+          question: "Which direction?"
+          branches:
+            - condition: "OpenAPI → MCP (expose REST as MCP)"
+              next:
+                leaf: "See openapi-to-mcp category in comparisons/auto-generated.md"
+            - condition: "MCP → OpenAPI (generate OpenAPI from MCP)"
+              next:
+                leaf: "See mcp-to-openapi category in comparisons/auto-generated.md"
+
+      - condition: "gRPC/Protobuf - Convert gRPC to MCP"
+        next:
+          leaf-structured:
+            recommendation: "Use redpanda-data/protoc-gen-go-mcp"
+            projects:
+              - redpanda-data/protoc-gen-go-mcp
+            notes: "protoc plugin generating MCP servers from gRPC/Connect service definitions"
+
+      - condition: "Specialized - CLI wrapping, Windows, Kubernetes"
+        next:
+          question: "What specialization?"
+          branches:
+            - condition: "Wrap existing CLI tools as MCP"
+              next:
+                leaf-structured:
+                  recommendation: "Use eirikb/any-cli-mcp-server"
+                  projects:
+                    - eirikb/any-cli-mcp-server
+                  notes: "Maps tools from existing CLI help output to MCP"
+            - condition: "Windows PowerShell/CMD"
+              next:
+                leaf-structured:
+                  recommendation: "Use simon-ami/win-cli-mcp-server"
+                  projects:
+                    - simon-ami/win-cli-mcp-server
+                  notes: "Secure Windows CLI server for PowerShell and CMD"
+            - condition: "Kubernetes/OpenShift"
+              next:
+                leaf-structured:
+                  recommendation: "Use containers/kubernetes-mcp-server"
+                  projects:
+                    - containers/kubernetes-mcp-server
+                  notes: "Native Go K8s/OpenShift MCP server"
+            - condition: "Run arbitrary shell commands"
+              next:
+                leaf-structured:
+                  recommendation: "Use g0t4/mcp-server-commands"
+                  projects:
+                    - g0t4/mcp-server-commands
+                  notes: "MCP server to run shell commands and scripts"
