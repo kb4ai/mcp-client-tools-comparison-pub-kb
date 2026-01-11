@@ -11,7 +11,11 @@ from pathlib import Path
 # Add decision_tree to path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from decision_tree import load_tree, validate_tree, render_mermaid, render_html, render_graphviz
+from decision_tree import (
+    load_tree, validate_tree, render_mermaid, render_html, render_graphviz,
+    extract_referenced_items, find_paths_to_item, check_coverage,
+    generate_coverage_report, get_all_tree_items, get_all_tree_projects,
+)
 
 
 def sha256(text: str) -> str:
@@ -177,6 +181,58 @@ def test_example_files():
         print(f"  ✓ {yaml_file.name}")
 
 
+def test_coverage_functions():
+    """Test coverage analysis functions."""
+    print("Testing coverage functions...")
+
+    # Extract items from simple tree
+    root = SIMPLE_TREE['tree']['root']
+    items = extract_referenced_items(root)
+    assert 'Result A' in items, "FAIL: Missing Result A"
+    assert 'Result B1' in items, "FAIL: Missing Result B1"
+    assert 'Result B2' in items, "FAIL: Missing Result B2"
+    print("  ✓ extract_referenced_items finds all leaves")
+
+    # Paths are correct
+    assert items['Result A'][0] == ['Option A'], f"FAIL: Wrong path for Result A: {items['Result A']}"
+    assert items['Result B1'][0] == ['Option B', 'Yes'], f"FAIL: Wrong path for Result B1"
+    print("  ✓ Paths are correctly extracted")
+
+    # find_paths_to_item
+    paths = find_paths_to_item(SIMPLE_TREE, 'Result B2')
+    assert len(paths) == 1, "FAIL: Should find one path"
+    assert paths[0] == ['Option B', 'No'], "FAIL: Wrong path"
+    print("  ✓ find_paths_to_item works")
+
+    # check_coverage - all covered
+    required = ['Result A', 'Result B1']
+    result = check_coverage(SIMPLE_TREE, required)
+    assert result['coverage_percent'] == 100.0, "FAIL: Should be 100% covered"
+    assert len(result['missing']) == 0, "FAIL: Should have no missing"
+    print("  ✓ check_coverage reports 100% when all covered")
+
+    # check_coverage - some missing
+    required = ['Result A', 'Nonexistent']
+    result = check_coverage(SIMPLE_TREE, required)
+    assert 'Nonexistent' in result['missing'], "FAIL: Should detect missing item"
+    assert result['coverage_percent'] == 50.0, "FAIL: Should be 50% covered"
+    print("  ✓ check_coverage detects missing items")
+
+    # generate_coverage_report
+    required = ['Result A', 'Missing1', 'Missing2']
+    lines, all_covered = generate_coverage_report(SIMPLE_TREE, required)
+    assert all_covered is False, "FAIL: Should report not all covered"
+    warning_lines = [l for l in lines if l.startswith('WARNING')]
+    assert len(warning_lines) == 2, f"FAIL: Should have 2 warnings, got {len(warning_lines)}"
+    print("  ✓ generate_coverage_report produces warnings")
+
+    # get_all_tree_items
+    all_items = get_all_tree_items(SIMPLE_TREE)
+    assert isinstance(all_items, set), "FAIL: Should return set"
+    assert 'Result A' in all_items, "FAIL: Should contain Result A"
+    print("  ✓ get_all_tree_items works")
+
+
 def main():
     """Run all tests."""
     print("=" * 60)
@@ -194,6 +250,8 @@ def main():
         test_output_content()
         print()
         test_example_files()
+        print()
+        test_coverage_functions()
         print()
         print("=" * 60)
         print("ALL TESTS PASSED ✓")

@@ -10,10 +10,14 @@ Outputs:
 Usage:
     ./scripts/generate-decision-tree.py
     ./scripts/generate-decision-tree.py --dry-run
+    ./scripts/generate-decision-tree.py --check-coverage
 """
 
 import sys
+import re
 from pathlib import Path
+
+import yaml
 
 # Add decision_tree package to path
 SCRIPT_DIR = Path(__file__).parent
@@ -22,12 +26,14 @@ DECISION_TREE_DIR = PROJECT_ROOT / "r-and-d" / "decision-tree-generator"
 sys.path.insert(0, str(DECISION_TREE_DIR))
 
 from decision_tree import load_tree, render_mermaid, render_mermaid_split, render_html
+from decision_tree import check_coverage, generate_coverage_report, get_all_tree_projects
 
 # Paths
 TREE_SOURCE = DECISION_TREE_DIR / "examples" / "mcp-tool-chooser.yaml"
 OUTPUT_MERMAID = PROJECT_ROOT / "comparisons" / "decision-tree.md"
 OUTPUT_UNFOLDABLE = PROJECT_ROOT / "comparisons" / "decision-tree-unfoldable.md"
 OUTPUT_HTML = PROJECT_ROOT / "comparisons" / "decision-tree-interactive.html"
+PROJECTS_DIR = PROJECT_ROOT / "projects"
 
 
 def generate_mermaid_markdown(tree_data: dict, split: bool = True) -> str:
@@ -213,8 +219,69 @@ def _render_details_tree(node: dict, depth: int = 0, is_root: bool = False) -> s
     return '\n'.join(lines)
 
 
+def load_projects_from_yaml() -> list:
+    """Load all project YAML files and extract org/repo names.
+
+    Returns:
+        List of project names in 'org/repo' format
+    """
+    projects = []
+
+    if not PROJECTS_DIR.exists():
+        return projects
+
+    for yaml_file in sorted(PROJECTS_DIR.glob('*.yaml')):
+        try:
+            with open(yaml_file) as f:
+                data = yaml.safe_load(f)
+
+            repo_url = data.get('repo-url', '')
+            # Extract org/repo from GitHub URL
+            # e.g., "https://github.com/adhikasp/mcp-client-cli" -> "adhikasp/mcp-client-cli"
+            match = re.search(r'github\.com/([^/]+/[^/]+)', repo_url)
+            if match:
+                projects.append(match.group(1))
+        except Exception as e:
+            print(f"Warning: Failed to parse {yaml_file}: {e}", file=sys.stderr)
+
+    return projects
+
+
+def run_coverage_check(tree_data: dict, verbose: bool = False) -> bool:
+    """Check that all projects in projects/ are covered by the decision tree.
+
+    Args:
+        tree_data: Loaded decision tree
+        verbose: If True, print covered items too
+
+    Returns:
+        True if all projects are covered, False if any are missing
+    """
+    projects = load_projects_from_yaml()
+
+    if not projects:
+        print("No projects found in projects/ directory")
+        return True
+
+    lines, all_covered = generate_coverage_report(tree_data, projects, verbose=verbose)
+
+    # Print the report lines
+    for line in lines:
+        print(line)
+
+    if all_covered:
+        print(f"\n✓ All {len(projects)} projects are covered by the decision tree")
+    else:
+        result = check_coverage(tree_data, projects)
+        print(f"\n✗ Coverage: {result['coverage_percent']:.1f}% ({len(result['covered'])}/{len(projects)})")
+
+    return all_covered
+
+
 def main():
     dry_run = '--dry-run' in sys.argv
+    check_only = '--check-coverage' in sys.argv
+    verbose = '--verbose' in sys.argv or '-v' in sys.argv
 
     if not TREE_SOURCE.exists():
         print(f"Error: Tree source not found: {TREE_SOURCE}")
@@ -222,6 +289,12 @@ def main():
 
     print(f"Loading tree from: {TREE_SOURCE}")
     tree_data = load_tree(TREE_SOURCE)
+
+    # If only checking coverage, run check and exit
+    if check_only:
+        print("\n=== Coverage Check ===")
+        all_covered = run_coverage_check(tree_data, verbose=verbose)
+        sys.exit(0 if all_covered else 1)
 
     # Generate Mermaid markdown
     mermaid_md = generate_mermaid_markdown(tree_data)
@@ -250,8 +323,16 @@ def main():
         OUTPUT_HTML.write_text(html)
         print(f"Generated: {OUTPUT_HTML}")
 
+    # Run coverage check (always, after generation)
+    print("\n=== Coverage Check ===")
+    all_covered = run_coverage_check(tree_data, verbose=verbose)
+
     if not dry_run:
-        print("\nDone! Files ready for git commit.")
+        if all_covered:
+            print("\nDone! Files ready for git commit.")
+        else:
+            print("\nDone! Files generated but some projects are not in the decision tree.")
+            print("Consider updating r-and-d/decision-tree-generator/examples/mcp-tool-chooser.yaml")
 
 
 if __name__ == '__main__':

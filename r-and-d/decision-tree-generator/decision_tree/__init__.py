@@ -24,8 +24,16 @@ from .loader import load_tree, validate_tree
 from .mermaid import render_mermaid, render_mermaid_split
 from .graphviz import render_graphviz
 from .html_details import render_html
+from .coverage import (
+    extract_referenced_items,
+    find_paths_to_item,
+    check_coverage,
+    generate_coverage_report,
+    get_all_tree_items,
+    get_all_tree_projects,
+)
 
-__version__ = '0.2.0'
+__version__ = '0.2.1'
 __all__ = [
     'load_tree',
     'validate_tree',
@@ -33,4 +41,11 @@ __all__ = [
     'render_mermaid_split',
     'render_graphviz',
     'render_html',
+    # Coverage analysis
+    'extract_referenced_items',
+    'find_paths_to_item',
+    'check_coverage',
+    'generate_coverage_report',
+    'get_all_tree_items',
+    'get_all_tree_projects',
 ]
