@@ -6,7 +6,7 @@ A comprehensive comparison of tools in the **MCP (Model Context Protocol)** ecos
 
 | I want to... | Go here |
 |--------------|---------|
-| **Find the right tool for me** | [Interactive Decision Tree](comparisons/decision-tree.md) |
+| **Find the right tool for me** | [Decision Tree](comparisons/decision-tree-unfoldable.md) ·  [Flowchart](comparisons/decision-tree.md) |
 | **Use a CLI with MCP servers** | [CLI Clients](#-cli-clients) |
 | **Expose my MCP server as REST/HTTP** | [REST API Bridges](#-rest-api-bridges) |
 | **Bridge MCP across transports** | [Transport Bridges](#-transport-bridges) |
@@ -82,7 +82,8 @@ Unique use cases and integrations.
 
 ## Detailed Comparisons
 
-* **[Decision tree guide](comparisons/decision-tree.md)** - Interactive flowchart to find the right tool
+* **[Decision tree (unfoldable)](comparisons/decision-tree-unfoldable.md)** - Click-to-expand guide
+* **[Decision tree (flowchart)](comparisons/decision-tree.md)** - Mermaid diagram view
 * **[Auto-generated tables](comparisons/auto-generated.md)** - Full comparison data with all projects
 * **[Feature comparison](comparisons/features.md)** - Features by category, cross-cutting analysis
 * **[Security analysis](comparisons/security.md)** - Code patterns, recommendations, per-project findings
