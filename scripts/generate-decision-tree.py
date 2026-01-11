@@ -21,7 +21,7 @@ PROJECT_ROOT = SCRIPT_DIR.parent
 DECISION_TREE_DIR = PROJECT_ROOT / "r-and-d" / "decision-tree-generator"
 sys.path.insert(0, str(DECISION_TREE_DIR))
 
-from decision_tree import load_tree, render_mermaid, render_html
+from decision_tree import load_tree, render_mermaid, render_mermaid_split, render_html
 
 # Paths
 TREE_SOURCE = DECISION_TREE_DIR / "examples" / "mcp-tool-chooser.yaml"
@@ -30,39 +30,74 @@ OUTPUT_UNFOLDABLE = PROJECT_ROOT / "comparisons" / "decision-tree-unfoldable.md"
 OUTPUT_HTML = PROJECT_ROOT / "comparisons" / "decision-tree-interactive.html"
 
 
-def generate_mermaid_markdown(tree_data: dict) -> str:
-    """Generate markdown file with Mermaid decision tree."""
+def generate_mermaid_markdown(tree_data: dict, split: bool = True) -> str:
+    """Generate markdown file with Mermaid decision tree.
+
+    Args:
+        tree_data: Tree dict with 'tree' key
+        split: If True, split into overview + per-category sections (default)
+    """
     title = tree_data['tree'].get('title', 'Decision Tree')
     description = tree_data['tree'].get('description', '')
-    mermaid = render_mermaid(tree_data, direction='TD')
 
-    return f"""# {title}
+    if not split:
+        # Single large diagram (legacy mode)
+        mermaid = render_mermaid(tree_data, direction='TD')
+        return f"""# {title}
 
 {description}
-
-## Interactive Decision Tree
-
-Use this flowchart to find the right MCP ecosystem tool for your needs.
 
 ```mermaid
 {mermaid.strip()}
 ```
 
-## How to Use
-
-1. Start at the top: "What's your primary use case?"
-2. Follow the arrows based on your answers
-3. Arrive at a recommended tool
-
-## Need More Details?
-
-* [Full comparison tables](auto-generated.md)
-* [Security analysis](security.md)
-* [Authentication guide](authentication.md)
-
 ---
 *Auto-generated from `r-and-d/decision-tree-generator/examples/mcp-tool-chooser.yaml`*
 """
+
+    # Split mode: overview + sections
+    split_data = render_mermaid_split(tree_data, direction='TD')
+
+    lines = []
+    lines.append(f'# {title}')
+    lines.append('')
+    lines.append(description)
+    lines.append('')
+    lines.append('## Quick Navigation')
+    lines.append('')
+    lines.append('Click a category below to jump to its decision tree:')
+    lines.append('')
+
+    # Table of contents
+    for section in split_data['sections']:
+        anchor = section['id']
+        lines.append(f'* [{section["condition"]}](#{anchor})')
+    lines.append('')
+
+    # Overview diagram
+    lines.append('## Overview')
+    lines.append('')
+    lines.append('```mermaid')
+    lines.append(split_data['overview'].strip())
+    lines.append('```')
+    lines.append('')
+
+    # Individual sections
+    for section in split_data['sections']:
+        lines.append(f'## {section["condition"]} {{#{section["id"]}}}')
+        lines.append('')
+        lines.append('```mermaid')
+        lines.append(section['mermaid'].strip())
+        lines.append('```')
+        lines.append('')
+
+    lines.append('---')
+    lines.append('')
+    lines.append('**Other views:** [Unfoldable Tree](decision-tree-unfoldable.md) | [Full Tables](auto-generated.md)')
+    lines.append('')
+    lines.append('*Auto-generated from `r-and-d/decision-tree-generator/examples/mcp-tool-chooser.yaml`*')
+
+    return '\n'.join(lines)
 
 
 def generate_html_page(tree_data: dict) -> str:
