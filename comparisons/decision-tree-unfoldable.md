@@ -1,6 +1,6 @@
 # Choose an MCP Ecosystem Tool
 
-Interactive guide to selecting the right tool from 38+ MCP ecosystem projects
+Interactive guide to selecting the right tool from 37 MCP ecosystem projects
 
 ## Interactive Guide
 
@@ -13,10 +13,10 @@ Interactive guide to selecting the right tool from 38+ MCP ecosystem projects
 <summary>│  ├─ 📂 CLI - Interactive command-line usage</summary>
 
 <details>
-<summary>│  │  ├─ ❓ Do you need LLM integration (chat with AI)?</summary>
+<summary>│  │  ├─ ❓ What's your main goal?</summary>
 
 <details>
-<summary>│  │  │  ├─ 📂 Yes - Chat interface with LLM</summary>
+<summary>│  │  │  ├─ 📂 Chat with AI using MCP tools</summary>
 
 <details>
 <summary>│  │  │  │  ├─ ❓ Which LLM provider?</summary>
@@ -33,7 +33,7 @@ Interactive guide to selecting the right tool from 38+ MCP ecosystem projects
 </details>
 
 <details>
-<summary>│  │  │  │  │  └─ 📌 Multiple providers / flexible</summary>
+<summary>│  │  │  │  │  ├─ 📌 Multiple providers / flexible</summary>
 
 │  │  │  │  │  │
 │  │  │  │  │  ├── ✅ **Use chrishayuk/mcp-cli**
@@ -43,17 +43,28 @@ Interactive guide to selecting the right tool from 38+ MCP ecosystem projects
 
 </details>
 
+<details>
+<summary>│  │  │  │  │  └─ 📌 Multi-provider with server management</summary>
+
+│  │  │  │  │  │
+│  │  │  │  │  ├── ✅ **Use mcp-use/mcp-use-cli**
+│  │  │  │  │  │   • `mcp-use/mcp-use-cli`
+│  │  │  │  │  │
+│  │  │  │  │  └── *Chat-style CLI with multi-provider LLM support (archived but functional)*
+
+</details>
+
 </details>
 </details>
 
 <details>
-<summary>│  │  │  └─ 📂 No - Just call MCP tools directly</summary>
+<summary>│  │  │  ├─ 📂 Call MCP tools directly (no LLM)</summary>
 
 <details>
-<summary>│  │  │  │  ├─ ❓ Need scriptable/automation support?</summary>
+<summary>│  │  │  │  ├─ ❓ What feature matters most?</summary>
 
 <details>
-<summary>│  │  │  │  │  ├─ 📌 Yes - Scripting and automation</summary>
+<summary>│  │  │  │  │  ├─ 📌 Scripting and automation</summary>
 
 │  │  │  │  │  │
 │  │  │  │  │  ├── ✅ **Use wong2/mcp-cli**
@@ -64,7 +75,7 @@ Interactive guide to selecting the right tool from 38+ MCP ecosystem projects
 </details>
 
 <details>
-<summary>│  │  │  │  │  └─ 📌 No - Interactive shell is fine</summary>
+<summary>│  │  │  │  │  ├─ 📌 Interactive exploration</summary>
 
 │  │  │  │  │  │
 │  │  │  │  │  ├── ✅ **Use f/mcptools**
@@ -74,7 +85,63 @@ Interactive guide to selecting the right tool from 38+ MCP ecosystem projects
 
 </details>
 
+<details>
+<summary>│  │  │  │  │  └─ 📌 Server inspection (list tools/prompts/resources)</summary>
+
+│  │  │  │  │  │
+│  │  │  │  │  ├── ✅ **Use winterfx/mcpcli or Deniscartin/mcp-cli**
+│  │  │  │  │  │   • `winterfx/mcpcli`
+│  │  │  │  │  │   • `Deniscartin/mcp-cli`
+│  │  │  │  │  │
+│  │  │  │  │  └── *Inspection-focused CLIs for listing and managing MCP server capabilities*
+
 </details>
+
+</details>
+</details>
+
+<details>
+<summary>│  │  │  ├─ 📌 HTTP transport with OAuth authentication</summary>
+
+│  │  │  │
+│  │  │  ├── ✅ **Use apify/mcp-cli (mcpc)**
+│  │  │  │   • `apify/mcp-cli`
+│  │  │  │
+│  │  │  └── *BEST-IN-CLASS OAuth 2.1 support, --header flag, OS keychain storage, persistent sessions*
+
+</details>
+
+<details>
+<summary>│  │  │  ├─ 📌 TypeScript type generation from MCP</summary>
+
+│  │  │  │
+│  │  │  ├── ✅ **Use steipete/mcporter**
+│  │  │  │   • `steipete/mcporter`
+│  │  │  │
+│  │  │  └── *emit-ts generates TypeScript types and clients from MCP server definitions*
+
+</details>
+
+<details>
+<summary>│  │  │  ├─ 📌 R language ecosystem</summary>
+
+│  │  │  │
+│  │  │  ├── ✅ **Use posit-dev/mcptools**
+│  │  │  │   • `posit-dev/mcptools`
+│  │  │  │
+│  │  │  └── *Official Posit project - R as both MCP server and client, integrates with Claude/Copilot*
+
+</details>
+
+<details>
+<summary>│  │  │  └─ 📌 Expose CLI commands TO LLMs (MCP server)</summary>
+
+│  │  │  │
+│  │  │  ├── ✅ **Use MladenSU/cli-mcp-server**
+│  │  │  │   • `MladenSU/cli-mcp-server`
+│  │  │  │
+│  │  │  └── *Secure CLI execution with command whitelisting and path validation for LLM access*
+
 </details>
 
 </details>
@@ -84,10 +151,10 @@ Interactive guide to selecting the right tool from 38+ MCP ecosystem projects
 <summary>│  ├─ 📂 REST API - Expose MCP as HTTP endpoints</summary>
 
 <details>
-<summary>│  │  ├─ ❓ Need OpenAPI/Swagger documentation?</summary>
+<summary>│  │  ├─ ❓ What API format do you need?</summary>
 
 <details>
-<summary>│  │  │  ├─ 📌 Yes - Full OpenAPI spec</summary>
+<summary>│  │  │  ├─ 📌 Full OpenAPI/Swagger spec generation</summary>
 
 │  │  │  │
 │  │  │  ├── ✅ **Use acehoss/mcp-gateway**
@@ -115,7 +182,7 @@ Interactive guide to selecting the right tool from 38+ MCP ecosystem projects
 <summary>│  ├─ 📂 Transport Bridge - stdio ↔ HTTP/SSE/WebSocket</summary>
 
 <details>
-<summary>│  │  ├─ ❓ Which transport do you need?</summary>
+<summary>│  │  ├─ ❓ Which transport protocol?</summary>
 
 <details>
 <summary>│  │  │  ├─ 📌 SSE (Server-Sent Events)</summary>
@@ -124,7 +191,7 @@ Interactive guide to selecting the right tool from 38+ MCP ecosystem projects
 │  │  │  ├── ✅ **Use sparfenyuk/mcp-proxy**
 │  │  │  │   • `sparfenyuk/mcp-proxy`
 │  │  │  │
-│  │  │  └── *2.1k stars, most popular transport bridge*
+│  │  │  └── *2.1k stars, most popular transport bridge, bidirectional stdio↔HTTP*
 
 </details>
 
@@ -132,27 +199,27 @@ Interactive guide to selecting the right tool from 38+ MCP ecosystem projects
 <summary>│  │  │  ├─ 📂 WebSocket</summary>
 
 <details>
-<summary>│  │  │  │  ├─ ❓ Need Nginx/scalable infrastructure?</summary>
+<summary>│  │  │  │  ├─ ❓ Need production-scale infrastructure?</summary>
 
 <details>
-<summary>│  │  │  │  │  ├─ 📌 Yes - Production scale</summary>
+<summary>│  │  │  │  │  ├─ 📌 Yes - Nginx/Nchan scalability</summary>
 
 │  │  │  │  │  │
 │  │  │  │  │  ├── ✅ **Use ConechoAI/nchan-mcp-transport**
 │  │  │  │  │  │   • `ConechoAI/nchan-mcp-transport`
 │  │  │  │  │  │
-│  │  │  │  │  └── *Nchan-based, supports WebSocket, SSE, HTTP*
+│  │  │  │  │  └── *High-performance Nchan-based, supports WebSocket, SSE, HTTP*
 
 </details>
 
 <details>
-<summary>│  │  │  │  │  └─ 📌 No - Simple WebSocket</summary>
+<summary>│  │  │  │  │  └─ 📌 No - Simple WebSocket bridge</summary>
 
 │  │  │  │  │  │
 │  │  │  │  │  ├── ✅ **Use supercorp-ai/supergateway**
 │  │  │  │  │  │   • `supercorp-ai/supergateway`
 │  │  │  │  │  │
-│  │  │  │  │  └── *stdio to SSE/WebSocket bridge*
+│  │  │  │  │  └── *Multi-protocol adapter: stdio↔SSE, stdio↔WS, SSE↔stdio*
 
 </details>
 
@@ -167,7 +234,7 @@ Interactive guide to selecting the right tool from 38+ MCP ecosystem projects
 │  │  │  │   • `EvalsOne/MCP-connect`
 │  │  │  │   • `nccgroup/http-mcp-bridge`
 │  │  │  │
-│  │  │  └── *Both support stdio to HTTP bridging*
+│  │  │  └── *Both support stdio to HTTP bridging; nccgroup focused on security testing*
 
 </details>
 
@@ -187,7 +254,7 @@ Interactive guide to selecting the right tool from 38+ MCP ecosystem projects
 │  │  │  ├── ✅ **Use microsoft/mcp-gateway**
 │  │  │  │   • `microsoft/mcp-gateway`
 │  │  │  │
-│  │  │  └── *Kubernetes-native with StatefulSets, headless services*
+│  │  │  └── *K8s-native with StatefulSets, headless services, session-aware routing*
 
 </details>
 
@@ -198,7 +265,7 @@ Interactive guide to selecting the right tool from 38+ MCP ecosystem projects
 │  │  │  ├── ✅ **Use docker/mcp-gateway**
 │  │  │  │   • `docker/mcp-gateway`
 │  │  │  │
-│  │  │  └── *Official Docker gateway with container-based isolation*
+│  │  │  └── *Official Docker gateway with container-based isolation and lifecycle management*
 
 </details>
 
@@ -206,21 +273,32 @@ Interactive guide to selecting the right tool from 38+ MCP ecosystem projects
 <summary>│  │  │  ├─ 📌 Azure cloud</summary>
 
 │  │  │  │
-│  │  │  ├── ✅ **Use Azure API Management MCP integration**
+│  │  │  ├── ✅ **Use microsoft/azure-api-management-mcp**
 │  │  │  │   • `microsoft/azure-api-management-mcp`
 │  │  │  │
-│  │  │  └── *Native Azure integration*
+│  │  │  └── *Native Azure integration, cloud-based API management service*
 
 </details>
 
 <details>
-<summary>│  │  │  └─ 📌 Security-focused (PII, guardrails)</summary>
+<summary>│  │  │  ├─ 📌 Security-focused (PII masking, guardrails)</summary>
 
 │  │  │  │
 │  │  │  ├── ✅ **Use lasso-security/mcp-gateway**
 │  │  │  │   • `lasso-security/mcp-gateway`
 │  │  │  │
-│  │  │  └── *PII masking, security guardrails*
+│  │  │  └── *Security-first gateway with guardrail plugins, PII masking*
+
+</details>
+
+<details>
+<summary>│  │  │  └─ 📌 Multi-server aggregation</summary>
+
+│  │  │  │
+│  │  │  ├── ✅ **Use TBXark/mcp-proxy**
+│  │  │  │   • `TBXark/mcp-proxy`
+│  │  │  │
+│  │  │  └── *592 stars, aggregates multiple MCP servers behind single HTTP endpoint*
 
 </details>
 
@@ -234,18 +312,78 @@ Interactive guide to selecting the right tool from 38+ MCP ecosystem projects
 <summary>│  │  ├─ ❓ Which direction?</summary>
 
 <details>
-<summary>│  │  │  ├─ 📌 OpenAPI → MCP (expose REST as MCP)</summary>
+<summary>│  │  │  ├─ 📂 OpenAPI → MCP (expose REST APIs as MCP tools)</summary>
 
-│  │  │  │
-│  │  │  └── ✅ **See openapi-to-mcp category in comparisons/auto-generated.md**
+<details>
+<summary>│  │  │  │  ├─ ❓ What's your priority?</summary>
+
+<details>
+<summary>│  │  │  │  │  ├─ 📌 Quick TypeScript solution</summary>
+
+│  │  │  │  │  │
+│  │  │  │  │  ├── ✅ **Use ouvreboite/openapi-to-mcp**
+│  │  │  │  │  │   • `ouvreboite/openapi-to-mcp`
+│  │  │  │  │  │
+│  │  │  │  │  └── *Fastest path for OpenAPI to MCP, npm package, TypeScript-based*
 
 </details>
 
 <details>
-<summary>│  │  │  └─ 📌 MCP → OpenAPI (generate OpenAPI from MCP)</summary>
+<summary>│  │  │  │  │  ├─ 📌 Swagger 2.0 support (legacy APIs)</summary>
+
+│  │  │  │  │  │
+│  │  │  │  │  ├── ✅ **Use Vizioz/Swagger-MCP**
+│  │  │  │  │  │   • `Vizioz/Swagger-MCP`
+│  │  │  │  │  │
+│  │  │  │  │  └── *Supports both Swagger 2.0 and OpenAPI 3.0*
+
+</details>
+
+<details>
+<summary>│  │  │  │  │  ├─ 📌 Enterprise / CI/CD integration</summary>
+
+│  │  │  │  │  │
+│  │  │  │  │  ├── ✅ **Use cnoe-io/openapi-mcp-codegen**
+│  │  │  │  │  │   • `cnoe-io/openapi-mcp-codegen`
+│  │  │  │  │  │
+│  │  │  │  │  └── *Cisco-backed, Python-based code generator, enterprise CI/CD focus*
+
+</details>
+
+<details>
+<summary>│  │  │  │  │  ├─ 📌 Go-based / Cloud gateway ecosystem</summary>
+
+│  │  │  │  │  │
+│  │  │  │  │  ├── ✅ **Use higress-group/openapi-to-mcpserver**
+│  │  │  │  │  │   • `higress-group/openapi-to-mcpserver`
+│  │  │  │  │  │
+│  │  │  │  │  └── *Go implementation, Alibaba Cloud Gateway / Higress ecosystem*
+
+</details>
+
+<details>
+<summary>│  │  │  │  │  └─ 📌 Runtime server (no code generation)</summary>
+
+│  │  │  │  │  │
+│  │  │  │  │  ├── ✅ **Use ivo-toby/mcp-openapi-server or janwilmake/openapi-mcp-server**
+│  │  │  │  │  │   • `ivo-toby/mcp-openapi-server`
+│  │  │  │  │  │   • `janwilmake/openapi-mcp-server`
+│  │  │  │  │  │
+│  │  │  │  │  └── *TypeScript runtime servers that serve OpenAPI specs as MCP*
+
+</details>
+
+</details>
+</details>
+
+<details>
+<summary>│  │  │  └─ 📌 MCP → OpenAPI (generate REST API from MCP)</summary>
 
 │  │  │  │
-│  │  │  └── ✅ **See mcp-to-openapi category in comparisons/auto-generated.md**
+│  │  │  ├── ✅ **Use open-webui/mcpo**
+│  │  │  │   • `open-webui/mcpo`
+│  │  │  │
+│  │  │  └── *MCP-to-OpenAPI proxy with automatic spec generation and Swagger UI*
 
 </details>
 
@@ -259,12 +397,12 @@ Interactive guide to selecting the right tool from 38+ MCP ecosystem projects
 │  ├── ✅ **Use redpanda-data/protoc-gen-go-mcp**
 │  │   • `redpanda-data/protoc-gen-go-mcp`
 │  │
-│  └── *protoc plugin generating MCP servers from gRPC/Connect service definitions*
+│  └── *protoc plugin generating MCP servers from gRPC/ConnectRPC service definitions*
 
 </details>
 
 <details>
-<summary>│  └─ 📂 Specialized - CLI wrapping, Windows, Kubernetes</summary>
+<summary>│  ├─ 📂 Specialized - CLI wrapping, Windows, Kubernetes</summary>
 
 <details>
 <summary>│  │  ├─ ❓ What specialization?</summary>
@@ -276,7 +414,7 @@ Interactive guide to selecting the right tool from 38+ MCP ecosystem projects
 │  │  │  ├── ✅ **Use eirikb/any-cli-mcp-server**
 │  │  │  │   • `eirikb/any-cli-mcp-server`
 │  │  │  │
-│  │  │  └── *Maps tools from existing CLI help output to MCP*
+│  │  │  └── *Maps tools from existing CLI help output to MCP automatically*
 
 </details>
 
@@ -287,18 +425,18 @@ Interactive guide to selecting the right tool from 38+ MCP ecosystem projects
 │  │  │  ├── ✅ **Use simon-ami/win-cli-mcp-server**
 │  │  │  │   • `simon-ami/win-cli-mcp-server`
 │  │  │  │
-│  │  │  └── *Secure Windows CLI server for PowerShell and CMD*
+│  │  │  └── *Secure Windows CLI server for PowerShell, CMD, Git Bash with blocking rules*
 
 </details>
 
 <details>
-<summary>│  │  │  ├─ 📌 Kubernetes/OpenShift</summary>
+<summary>│  │  │  ├─ 📌 Kubernetes/OpenShift management</summary>
 
 │  │  │  │
 │  │  │  ├── ✅ **Use containers/kubernetes-mcp-server**
 │  │  │  │   • `containers/kubernetes-mcp-server`
 │  │  │  │
-│  │  │  └── *Native Go K8s/OpenShift MCP server*
+│  │  │  └── *Native Go K8s/OpenShift MCP server (not a kubectl wrapper)*
 
 </details>
 
@@ -316,6 +454,48 @@ Interactive guide to selecting the right tool from 38+ MCP ecosystem projects
 </details>
 </details>
 
+<details>
+<summary>│  ├─ 📂 Framework - Build MCP servers from scratch</summary>
+
+<details>
+<summary>│  │  ├─ ❓ Which programming language?</summary>
+
+<details>
+<summary>│  │  │  ├─ 📌 Python</summary>
+
+│  │  │  │
+│  │  │  ├── ✅ **Use jlowin/fastmcp**
+│  │  │  │   • `jlowin/fastmcp`
+│  │  │  │
+│  │  │  └── *FastAPI-inspired Python framework with decorator-based server definition*
+
+</details>
+
+<details>
+<summary>│  │  │  └─ 📌 Java / Spring</summary>
+
+│  │  │  │
+│  │  │  ├── ✅ **Use spring-ai-community/mcp-annotations**
+│  │  │  │   • `spring-ai-community/mcp-annotations`
+│  │  │  │
+│  │  │  └── *Spring AI annotations for enterprise Java MCP development with OpenAPI*
+
+</details>
+
+</details>
+</details>
+
+<details>
+<summary>│  └─ 📌 Testing/Debugging - Inspect and test MCP servers</summary>
+
+│  │
+│  ├── ✅ **Use modelcontextprotocol/inspector**
+│  │   • `modelcontextprotocol/inspector`
+│  │
+│  └── *Official Anthropic visual testing tool with CLI and web UI modes*
+
+</details>
+
 </details>
 
 ---
@@ -323,3 +503,5 @@ Interactive guide to selecting the right tool from 38+ MCP ecosystem projects
 **Other views:** [Mermaid Flowchart](decision-tree.md) | [Full comparison tables](auto-generated.md) | [Security analysis](security.md)
 
 *Auto-generated from `r-and-d/decision-tree-generator/examples/mcp-tool-chooser.yaml`*
+
+*Generated: 2026-01-11T17:07:02+01:00 | Source commit: 1fb70a9*

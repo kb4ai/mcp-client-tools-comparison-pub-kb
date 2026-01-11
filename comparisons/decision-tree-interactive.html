@@ -58,9 +58,9 @@
     <details>
       <summary>CLI - Interactive command-line usage</summary>
       <details>
-        <summary>Do you need LLM integration (chat with AI)?</summary>
+        <summary>What&#x27;s your main goal?</summary>
         <details>
-          <summary>Yes - Chat interface with LLM</summary>
+          <summary>Chat with AI using MCP tools</summary>
           <details>
             <summary>Which LLM provider?</summary>
             <div class="leaf-structured">
@@ -77,36 +77,79 @@
               </ul>
               <p class="notes"><em>1.8k stars, multiple modes: chat, interactive shell, command-line</em></p>
             </div>
+            <div class="leaf-structured">
+              <p><strong>Multi-provider with server management</strong> → Use mcp-use/mcp-use-cli</p>
+              <ul class="projects">
+                <li>mcp-use/mcp-use-cli</li>
+              </ul>
+              <p class="notes"><em>Chat-style CLI with multi-provider LLM support (archived but functional)</em></p>
+            </div>
           </details>
         </details>
         <details>
-          <summary>No - Just call MCP tools directly</summary>
+          <summary>Call MCP tools directly (no LLM)</summary>
           <details>
-            <summary>Need scriptable/automation support?</summary>
+            <summary>What feature matters most?</summary>
             <div class="leaf-structured">
-              <p><strong>Yes - Scripting and automation</strong> → Use wong2/mcp-cli</p>
+              <p><strong>Scripting and automation</strong> → Use wong2/mcp-cli</p>
               <ul class="projects">
                 <li>wong2/mcp-cli</li>
               </ul>
               <p class="notes"><em>Scriptable automation, bypasses interactive prompts</em></p>
             </div>
             <div class="leaf-structured">
-              <p><strong>No - Interactive shell is fine</strong> → Use f/mcptools</p>
+              <p><strong>Interactive exploration</strong> → Use f/mcptools</p>
               <ul class="projects">
                 <li>f/mcptools</li>
               </ul>
               <p class="notes"><em>1.4k stars, Go-based, interactive shell with persistent connection</em></p>
             </div>
+            <div class="leaf-structured">
+              <p><strong>Server inspection (list tools/prompts/resources)</strong> → Use winterfx/mcpcli or Deniscartin/mcp-cli</p>
+              <ul class="projects">
+                <li>winterfx/mcpcli</li>
+                <li>Deniscartin/mcp-cli</li>
+              </ul>
+              <p class="notes"><em>Inspection-focused CLIs for listing and managing MCP server capabilities</em></p>
+            </div>
           </details>
         </details>
+        <div class="leaf-structured">
+          <p><strong>HTTP transport with OAuth authentication</strong> → Use apify/mcp-cli (mcpc)</p>
+          <ul class="projects">
+            <li>apify/mcp-cli</li>
+          </ul>
+          <p class="notes"><em>BEST-IN-CLASS OAuth 2.1 support, --header flag, OS keychain storage, persistent sessions</em></p>
+        </div>
+        <div class="leaf-structured">
+          <p><strong>TypeScript type generation from MCP</strong> → Use steipete/mcporter</p>
+          <ul class="projects">
+            <li>steipete/mcporter</li>
+          </ul>
+          <p class="notes"><em>emit-ts generates TypeScript types and clients from MCP server definitions</em></p>
+        </div>
+        <div class="leaf-structured">
+          <p><strong>R language ecosystem</strong> → Use posit-dev/mcptools</p>
+          <ul class="projects">
+            <li>posit-dev/mcptools</li>
+          </ul>
+          <p class="notes"><em>Official Posit project - R as both MCP server and client, integrates with Claude/Copilot</em></p>
+        </div>
+        <div class="leaf-structured">
+          <p><strong>Expose CLI commands TO LLMs (MCP server)</strong> → Use MladenSU/cli-mcp-server</p>
+          <ul class="projects">
+            <li>MladenSU/cli-mcp-server</li>
+          </ul>
+          <p class="notes"><em>Secure CLI execution with command whitelisting and path validation for LLM access</em></p>
+        </div>
       </details>
     </details>
     <details>
       <summary>REST API - Expose MCP as HTTP endpoints</summary>
       <details>
-        <summary>Need OpenAPI/Swagger documentation?</summary>
+        <summary>What API format do you need?</summary>
         <div class="leaf-structured">
-          <p><strong>Yes - Full OpenAPI spec</strong> → Use acehoss/mcp-gateway</p>
+          <p><strong>Full OpenAPI/Swagger spec generation</strong> → Use acehoss/mcp-gateway</p>
           <ul class="projects">
             <li>acehoss/mcp-gateway</li>
           </ul>
@@ -124,31 +167,31 @@
     <details>
       <summary>Transport Bridge - stdio ↔ HTTP/SSE/WebSocket</summary>
       <details>
-        <summary>Which transport do you need?</summary>
+        <summary>Which transport protocol?</summary>
         <div class="leaf-structured">
           <p><strong>SSE (Server-Sent Events)</strong> → Use sparfenyuk/mcp-proxy</p>
           <ul class="projects">
             <li>sparfenyuk/mcp-proxy</li>
           </ul>
-          <p class="notes"><em>2.1k stars, most popular transport bridge</em></p>
+          <p class="notes"><em>2.1k stars, most popular transport bridge, bidirectional stdio↔HTTP</em></p>
         </div>
         <details>
           <summary>WebSocket</summary>
           <details>
-            <summary>Need Nginx/scalable infrastructure?</summary>
+            <summary>Need production-scale infrastructure?</summary>
             <div class="leaf-structured">
-              <p><strong>Yes - Production scale</strong> → Use ConechoAI/nchan-mcp-transport</p>
+              <p><strong>Yes - Nginx/Nchan scalability</strong> → Use ConechoAI/nchan-mcp-transport</p>
               <ul class="projects">
                 <li>ConechoAI/nchan-mcp-transport</li>
               </ul>
-              <p class="notes"><em>Nchan-based, supports WebSocket, SSE, HTTP</em></p>
+              <p class="notes"><em>High-performance Nchan-based, supports WebSocket, SSE, HTTP</em></p>
             </div>
             <div class="leaf-structured">
-              <p><strong>No - Simple WebSocket</strong> → Use supercorp-ai/supergateway</p>
+              <p><strong>No - Simple WebSocket bridge</strong> → Use supercorp-ai/supergateway</p>
               <ul class="projects">
                 <li>supercorp-ai/supergateway</li>
               </ul>
-              <p class="notes"><em>stdio to SSE/WebSocket bridge</em></p>
+              <p class="notes"><em>Multi-protocol adapter: stdio↔SSE, stdio↔WS, SSE↔stdio</em></p>
             </div>
           </details>
         </details>
@@ -158,7 +201,7 @@
             <li>EvalsOne/MCP-connect</li>
             <li>nccgroup/http-mcp-bridge</li>
           </ul>
-          <p class="notes"><em>Both support stdio to HTTP bridging</em></p>
+          <p class="notes"><em>Both support stdio to HTTP bridging; nccgroup focused on security testing</em></p>
         </div>
       </details>
     </details>
@@ -171,28 +214,35 @@
           <ul class="projects">
             <li>microsoft/mcp-gateway</li>
           </ul>
-          <p class="notes"><em>Kubernetes-native with StatefulSets, headless services</em></p>
+          <p class="notes"><em>K8s-native with StatefulSets, headless services, session-aware routing</em></p>
         </div>
         <div class="leaf-structured">
           <p><strong>Docker/Containers</strong> → Use docker/mcp-gateway</p>
           <ul class="projects">
             <li>docker/mcp-gateway</li>
           </ul>
-          <p class="notes"><em>Official Docker gateway with container-based isolation</em></p>
+          <p class="notes"><em>Official Docker gateway with container-based isolation and lifecycle management</em></p>
         </div>
         <div class="leaf-structured">
-          <p><strong>Azure cloud</strong> → Use Azure API Management MCP integration</p>
+          <p><strong>Azure cloud</strong> → Use microsoft/azure-api-management-mcp</p>
           <ul class="projects">
             <li>microsoft/azure-api-management-mcp</li>
           </ul>
-          <p class="notes"><em>Native Azure integration</em></p>
+          <p class="notes"><em>Native Azure integration, cloud-based API management service</em></p>
         </div>
         <div class="leaf-structured">
-          <p><strong>Security-focused (PII, guardrails)</strong> → Use lasso-security/mcp-gateway</p>
+          <p><strong>Security-focused (PII masking, guardrails)</strong> → Use lasso-security/mcp-gateway</p>
           <ul class="projects">
             <li>lasso-security/mcp-gateway</li>
           </ul>
-          <p class="notes"><em>PII masking, security guardrails</em></p>
+          <p class="notes"><em>Security-first gateway with guardrail plugins, PII masking</em></p>
+        </div>
+        <div class="leaf-structured">
+          <p><strong>Multi-server aggregation</strong> → Use TBXark/mcp-proxy</p>
+          <ul class="projects">
+            <li>TBXark/mcp-proxy</li>
+          </ul>
+          <p class="notes"><em>592 stars, aggregates multiple MCP servers behind single HTTP endpoint</em></p>
         </div>
       </details>
     </details>
@@ -200,8 +250,55 @@
       <summary>OpenAPI ↔ MCP Conversion</summary>
       <details>
         <summary>Which direction?</summary>
-        <p class="leaf"><strong>OpenAPI → MCP (expose REST as MCP)</strong> → See openapi-to-mcp category in comparisons/auto-generated.md</p>
-        <p class="leaf"><strong>MCP → OpenAPI (generate OpenAPI from MCP)</strong> → See mcp-to-openapi category in comparisons/auto-generated.md</p>
+        <details>
+          <summary>OpenAPI → MCP (expose REST APIs as MCP tools)</summary>
+          <details>
+            <summary>What&#x27;s your priority?</summary>
+            <div class="leaf-structured">
+              <p><strong>Quick TypeScript solution</strong> → Use ouvreboite/openapi-to-mcp</p>
+              <ul class="projects">
+                <li>ouvreboite/openapi-to-mcp</li>
+              </ul>
+              <p class="notes"><em>Fastest path for OpenAPI to MCP, npm package, TypeScript-based</em></p>
+            </div>
+            <div class="leaf-structured">
+              <p><strong>Swagger 2.0 support (legacy APIs)</strong> → Use Vizioz/Swagger-MCP</p>
+              <ul class="projects">
+                <li>Vizioz/Swagger-MCP</li>
+              </ul>
+              <p class="notes"><em>Supports both Swagger 2.0 and OpenAPI 3.0</em></p>
+            </div>
+            <div class="leaf-structured">
+              <p><strong>Enterprise / CI/CD integration</strong> → Use cnoe-io/openapi-mcp-codegen</p>
+              <ul class="projects">
+                <li>cnoe-io/openapi-mcp-codegen</li>
+              </ul>
+              <p class="notes"><em>Cisco-backed, Python-based code generator, enterprise CI/CD focus</em></p>
+            </div>
+            <div class="leaf-structured">
+              <p><strong>Go-based / Cloud gateway ecosystem</strong> → Use higress-group/openapi-to-mcpserver</p>
+              <ul class="projects">
+                <li>higress-group/openapi-to-mcpserver</li>
+              </ul>
+              <p class="notes"><em>Go implementation, Alibaba Cloud Gateway / Higress ecosystem</em></p>
+            </div>
+            <div class="leaf-structured">
+              <p><strong>Runtime server (no code generation)</strong> → Use ivo-toby/mcp-openapi-server or janwilmake/openapi-mcp-server</p>
+              <ul class="projects">
+                <li>ivo-toby/mcp-openapi-server</li>
+                <li>janwilmake/openapi-mcp-server</li>
+              </ul>
+              <p class="notes"><em>TypeScript runtime servers that serve OpenAPI specs as MCP</em></p>
+            </div>
+          </details>
+        </details>
+        <div class="leaf-structured">
+          <p><strong>MCP → OpenAPI (generate REST API from MCP)</strong> → Use open-webui/mcpo</p>
+          <ul class="projects">
+            <li>open-webui/mcpo</li>
+          </ul>
+          <p class="notes"><em>MCP-to-OpenAPI proxy with automatic spec generation and Swagger UI</em></p>
+        </div>
       </details>
     </details>
     <div class="leaf-structured">
@@ -209,7 +306,7 @@
       <ul class="projects">
         <li>redpanda-data/protoc-gen-go-mcp</li>
       </ul>
-      <p class="notes"><em>protoc plugin generating MCP servers from gRPC/Connect service definitions</em></p>
+      <p class="notes"><em>protoc plugin generating MCP servers from gRPC/ConnectRPC service definitions</em></p>
     </div>
     <details>
       <summary>Specialized - CLI wrapping, Windows, Kubernetes</summary>
@@ -220,21 +317,21 @@
           <ul class="projects">
             <li>eirikb/any-cli-mcp-server</li>
           </ul>
-          <p class="notes"><em>Maps tools from existing CLI help output to MCP</em></p>
+          <p class="notes"><em>Maps tools from existing CLI help output to MCP automatically</em></p>
         </div>
         <div class="leaf-structured">
           <p><strong>Windows PowerShell/CMD</strong> → Use simon-ami/win-cli-mcp-server</p>
           <ul class="projects">
             <li>simon-ami/win-cli-mcp-server</li>
           </ul>
-          <p class="notes"><em>Secure Windows CLI server for PowerShell and CMD</em></p>
+          <p class="notes"><em>Secure Windows CLI server for PowerShell, CMD, Git Bash with blocking rules</em></p>
         </div>
         <div class="leaf-structured">
-          <p><strong>Kubernetes/OpenShift</strong> → Use containers/kubernetes-mcp-server</p>
+          <p><strong>Kubernetes/OpenShift management</strong> → Use containers/kubernetes-mcp-server</p>
           <ul class="projects">
             <li>containers/kubernetes-mcp-server</li>
           </ul>
-          <p class="notes"><em>Native Go K8s/OpenShift MCP server</em></p>
+          <p class="notes"><em>Native Go K8s/OpenShift MCP server (not a kubectl wrapper)</em></p>
         </div>
         <div class="leaf-structured">
           <p><strong>Run arbitrary shell commands</strong> → Use g0t4/mcp-server-commands</p>
@@ -245,8 +342,37 @@
         </div>
       </details>
     </details>
+    <details>
+      <summary>Framework - Build MCP servers from scratch</summary>
+      <details>
+        <summary>Which programming language?</summary>
+        <div class="leaf-structured">
+          <p><strong>Python</strong> → Use jlowin/fastmcp</p>
+          <ul class="projects">
+            <li>jlowin/fastmcp</li>
+          </ul>
+          <p class="notes"><em>FastAPI-inspired Python framework with decorator-based server definition</em></p>
+        </div>
+        <div class="leaf-structured">
+          <p><strong>Java / Spring</strong> → Use spring-ai-community/mcp-annotations</p>
+          <ul class="projects">
+            <li>spring-ai-community/mcp-annotations</li>
+          </ul>
+          <p class="notes"><em>Spring AI annotations for enterprise Java MCP development with OpenAPI</em></p>
+        </div>
+      </details>
+    </details>
+    <div class="leaf-structured">
+      <p><strong>Testing/Debugging - Inspect and test MCP servers</strong> → Use modelcontextprotocol/inspector</p>
+      <ul class="projects">
+        <li>modelcontextprotocol/inspector</li>
+      </ul>
+      <p class="notes"><em>Official Anthropic visual testing tool with CLI and web UI modes</em></p>
+    </div>
   </details>
 </section>
 
+
+<!-- Generated: 2026-01-11T17:07:02+01:00 | Source commit: 1fb70a9 -->
 </body>
 </html>
