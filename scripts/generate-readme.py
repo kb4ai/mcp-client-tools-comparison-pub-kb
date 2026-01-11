@@ -18,12 +18,20 @@ except ImportError:
     print("Error: PyYAML not installed. Run: pip install pyyaml")
     sys.exit(1)
 
+from git_metadata import get_reproducible_footer, warn_uncommitted
+
 
 SCRIPT_DIR = Path(__file__).parent
 PROJECT_ROOT = SCRIPT_DIR.parent
 PROJECTS_DIR = PROJECT_ROOT / "projects"
 TEMPLATE_FILE = PROJECT_ROOT / "README.template.md"
 OUTPUT_FILE = PROJECT_ROOT / "README.md"
+
+# Input patterns for reproducible metadata
+INPUT_PATTERNS = [
+    "README.template.md",
+    "projects/*.yaml"
+]
 
 
 def load_projects():
@@ -343,12 +351,20 @@ def main():
         print("No project files found in projects/")
         sys.exit(1)
 
+    # Check for uncommitted changes and generate reproducible metadata footer
+    warn_uncommitted(INPUT_PATTERNS, PROJECT_ROOT)
+    metadata_footer = get_reproducible_footer(INPUT_PATTERNS, PROJECT_ROOT)
+    print(f"Metadata: {metadata_footer}")
+
     template = TEMPLATE_FILE.read_text()
     readme = process_template(template, projects)
 
     # Add auto-generated header
     header = "<!-- AUTO-GENERATED from README.template.md - Run: ./scripts/generate-readme.py -->\n\n"
     readme = header + readme
+
+    # Add reproducible metadata footer
+    readme += f"\n\n---\n\n*{metadata_footer}*\n"
 
     if dry_run:
         print(readme)

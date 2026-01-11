@@ -25,10 +25,17 @@ except ImportError:
     print("Error: PyYAML not installed. Run: pip install pyyaml")
     sys.exit(1)
 
+from git_metadata import get_reproducible_footer, warn_uncommitted
+
 
 SCRIPT_DIR = Path(__file__).parent
 PROJECT_ROOT = SCRIPT_DIR.parent
 PROJECTS_DIR = PROJECT_ROOT / "projects"
+
+# Input patterns for reproducible metadata
+INPUT_PATTERNS = [
+    "projects/*.yaml"
+]
 
 
 def load_projects():
@@ -384,6 +391,10 @@ def main():
         print(json.dumps(projects, indent=2, default=str))
         return
 
+    # Check for uncommitted changes and generate reproducible metadata footer
+    warn_uncommitted(INPUT_PATTERNS, PROJECT_ROOT)
+    metadata_footer = get_reproducible_footer(INPUT_PATTERNS, PROJECT_ROOT)
+
     output_parts = []
 
     if '--by-category' in args:
@@ -421,6 +432,12 @@ def main():
             output_parts.append(installation)
             output_parts.append("")
         output_parts.append(generate_by_category(projects))
+
+    # Add reproducible metadata footer
+    output_parts.append("")
+    output_parts.append("---")
+    output_parts.append("")
+    output_parts.append(f"*{metadata_footer}*")
 
     print("\n".join(output_parts))
 

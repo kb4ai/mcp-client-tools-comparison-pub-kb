@@ -19,6 +19,8 @@ from pathlib import Path
 
 import yaml
 
+from git_metadata import get_reproducible_footer, warn_uncommitted
+
 # Add decision_tree package to path
 SCRIPT_DIR = Path(__file__).parent
 PROJECT_ROOT = SCRIPT_DIR.parent
@@ -35,16 +37,24 @@ OUTPUT_UNFOLDABLE = PROJECT_ROOT / "comparisons" / "decision-tree-unfoldable.md"
 OUTPUT_HTML = PROJECT_ROOT / "comparisons" / "decision-tree-interactive.html"
 PROJECTS_DIR = PROJECT_ROOT / "projects"
 
+# Input patterns for reproducible metadata
+INPUT_PATTERNS = [
+    "r-and-d/decision-tree-generator/examples/mcp-tool-chooser.yaml"
+]
 
-def generate_mermaid_markdown(tree_data: dict, split: bool = True) -> str:
+
+def generate_mermaid_markdown(tree_data: dict, metadata_footer: str = "", split: bool = True) -> str:
     """Generate markdown file with Mermaid decision tree.
 
     Args:
         tree_data: Tree dict with 'tree' key
+        metadata_footer: Reproducible metadata footer string
         split: If True, split into overview + per-category sections (default)
     """
     title = tree_data['tree'].get('title', 'Decision Tree')
     description = tree_data['tree'].get('description', '')
+
+    footer_line = f"\n*{metadata_footer}*" if metadata_footer else ""
 
     if not split:
         # Single large diagram (legacy mode)
@@ -58,7 +68,7 @@ def generate_mermaid_markdown(tree_data: dict, split: bool = True) -> str:
 ```
 
 ---
-*Auto-generated from `r-and-d/decision-tree-generator/examples/mcp-tool-chooser.yaml`*
+*Auto-generated from `r-and-d/decision-tree-generator/examples/mcp-tool-chooser.yaml`*{footer_line}
 """
 
     # Split mode: overview + sections
@@ -102,25 +112,44 @@ def generate_mermaid_markdown(tree_data: dict, split: bool = True) -> str:
     lines.append('**Other views:** [Unfoldable Tree](decision-tree-unfoldable.md) | [Full Tables](auto-generated.md)')
     lines.append('')
     lines.append('*Auto-generated from `r-and-d/decision-tree-generator/examples/mcp-tool-chooser.yaml`*')
+    if metadata_footer:
+        lines.append('')
+        lines.append(f'*{metadata_footer}*')
 
     return '\n'.join(lines)
 
 
-def generate_html_page(tree_data: dict) -> str:
-    """Generate standalone HTML page with interactive details tree."""
-    return render_html(tree_data, full_page=True)
+def generate_html_page(tree_data: dict, metadata_footer: str = "") -> str:
+    """Generate standalone HTML page with interactive details tree.
+
+    Args:
+        tree_data: Tree dict with 'tree' key
+        metadata_footer: Reproducible metadata footer string
+    """
+    html = render_html(tree_data, full_page=True)
+    # Insert metadata footer as HTML comment before closing body tag
+    if metadata_footer:
+        footer_comment = f"\n<!-- {metadata_footer} -->\n"
+        html = html.replace("</body>", f"{footer_comment}</body>")
+    return html
 
 
-def generate_unfoldable_markdown(tree_data: dict) -> str:
+def generate_unfoldable_markdown(tree_data: dict, metadata_footer: str = "") -> str:
     """Generate markdown file with embedded HTML <details>/<summary> tree.
 
     Uses only basic HTML that GitHub renders natively (no <style> tags).
+
+    Args:
+        tree_data: Tree dict with 'tree' key
+        metadata_footer: Reproducible metadata footer string
     """
     title = tree_data['tree'].get('title', 'Decision Tree')
     description = tree_data['tree'].get('description', '')
 
     # Generate clean HTML without wrapper classes (GitHub strips most attributes)
     html_fragment = _render_details_tree(tree_data['tree']['root'], is_root=True)
+
+    footer_line = f"\n\n*{metadata_footer}*" if metadata_footer else ""
 
     return f"""# {title}
 
@@ -136,7 +165,7 @@ def generate_unfoldable_markdown(tree_data: dict) -> str:
 
 **Other views:** [Mermaid Flowchart](decision-tree.md) | [Full comparison tables](auto-generated.md) | [Security analysis](security.md)
 
-*Auto-generated from `r-and-d/decision-tree-generator/examples/mcp-tool-chooser.yaml`*
+*Auto-generated from `r-and-d/decision-tree-generator/examples/mcp-tool-chooser.yaml`*{footer_line}
 """
 
 
@@ -296,8 +325,13 @@ def main():
         all_covered = run_coverage_check(tree_data, verbose=verbose)
         sys.exit(0 if all_covered else 1)
 
+    # Check for uncommitted changes and generate reproducible metadata footer
+    warn_uncommitted(INPUT_PATTERNS, PROJECT_ROOT)
+    metadata_footer = get_reproducible_footer(INPUT_PATTERNS, PROJECT_ROOT)
+    print(f"Metadata: {metadata_footer}")
+
     # Generate Mermaid markdown
-    mermaid_md = generate_mermaid_markdown(tree_data)
+    mermaid_md = generate_mermaid_markdown(tree_data, metadata_footer=metadata_footer)
     if dry_run:
         print("\n=== Mermaid Markdown ===")
         print(mermaid_md[:500] + "...")
@@ -306,7 +340,7 @@ def main():
         print(f"Generated: {OUTPUT_MERMAID}")
 
     # Generate unfoldable markdown (HTML <details> in markdown)
-    unfoldable_md = generate_unfoldable_markdown(tree_data)
+    unfoldable_md = generate_unfoldable_markdown(tree_data, metadata_footer=metadata_footer)
     if dry_run:
         print("\n=== Unfoldable Markdown ===")
         print(unfoldable_md[:500] + "...")
@@ -315,7 +349,7 @@ def main():
         print(f"Generated: {OUTPUT_UNFOLDABLE}")
 
     # Generate standalone HTML page
-    html = generate_html_page(tree_data)
+    html = generate_html_page(tree_data, metadata_footer=metadata_footer)
     if dry_run:
         print("\n=== HTML (first 500 chars) ===")
         print(html[:500] + "...")
