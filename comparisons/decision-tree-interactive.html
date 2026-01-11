@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Choose an MCP Ecosystem Tool</title>
+  <style>
+.decision-tree {
+  font-family: system-ui, -apple-system, sans-serif;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+.decision-tree details {
+  margin-left: 1.25rem;
+  padding: 0.25rem 0;
+}
+.decision-tree summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.25rem;
+}
+.decision-tree summary:hover {
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+.decision-tree .leaf {
+  margin-left: 2.5rem;
+  padding: 0.5rem;
+  background: #e8f5e9;
+  border-radius: 4px;
+  border-left: 3px solid #4caf50;
+}
+.decision-tree .leaf-structured {
+  margin-left: 2.5rem;
+  padding: 0.5rem;
+  background: #e3f2fd;
+  border-radius: 4px;
+  border-left: 3px solid #2196f3;
+}
+.decision-tree .projects {
+  margin: 0.25rem 0;
+  padding-left: 1.5rem;
+}
+.decision-tree .notes {
+  color: #666;
+  font-size: 0.9em;
+  margin-top: 0.25rem;
+}
+  </style>
+</head>
+<body>
+  <h1>Choose an MCP Ecosystem Tool</h1>
+<!-- Decision Tree: Choose an MCP Ecosystem Tool -->
+<section class="decision-tree" id="mcp-tool-chooser" aria-label="Choose an MCP Ecosystem Tool">
+  <details open>
+    <summary>What&#x27;s your primary use case?</summary>
+    <details>
+      <summary>CLI - Interactive command-line usage</summary>
+      <details>
+        <summary>Do you need LLM integration (chat with AI)?</summary>
+        <details>
+          <summary>Yes - Chat interface with LLM</summary>
+          <details>
+            <summary>Which LLM provider?</summary>
+            <div class="leaf-structured">
+              <p><strong>OpenAI-compatible (OpenAI, Groq, local)</strong> → Use adhikasp/mcp-client-cli</p>
+              <ul class="projects">
+                <li>adhikasp/mcp-client-cli</li>
+              </ul>
+              <p class="notes"><em>LLM-agnostic, supports OpenAI, Groq, and local LLMs</em></p>
+            </div>
+            <div class="leaf-structured">
+              <p><strong>Multiple providers / flexible</strong> → Use chrishayuk/mcp-cli</p>
+              <ul class="projects">
+                <li>chrishayuk/mcp-cli</li>
+              </ul>
+              <p class="notes"><em>1.8k stars, multiple modes: chat, interactive shell, command-line</em></p>
+            </div>
+          </details>
+        </details>
+        <details>
+          <summary>No - Just call MCP tools directly</summary>
+          <details>
+            <summary>Need scriptable/automation support?</summary>
+            <div class="leaf-structured">
+              <p><strong>Yes - Scripting and automation</strong> → Use wong2/mcp-cli</p>
+              <ul class="projects">
+                <li>wong2/mcp-cli</li>
+              </ul>
+              <p class="notes"><em>Scriptable automation, bypasses interactive prompts</em></p>
+            </div>
+            <div class="leaf-structured">
+              <p><strong>No - Interactive shell is fine</strong> → Use f/mcptools</p>
+              <ul class="projects">
+                <li>f/mcptools</li>
+              </ul>
+              <p class="notes"><em>1.4k stars, Go-based, interactive shell with persistent connection</em></p>
+            </div>
+          </details>
+        </details>
+      </details>
+    </details>
+    <details>
+      <summary>REST API - Expose MCP as HTTP endpoints</summary>
+      <details>
+        <summary>Need OpenAPI/Swagger documentation?</summary>
+        <div class="leaf-structured">
+          <p><strong>Yes - Full OpenAPI spec</strong> → Use acehoss/mcp-gateway</p>
+          <ul class="projects">
+            <li>acehoss/mcp-gateway</li>
+          </ul>
+          <p class="notes"><em>REST API exposure with automatic OpenAPI/Swagger generation</em></p>
+        </div>
+        <div class="leaf-structured">
+          <p><strong>OpenAI-compatible API format</strong> → Use SecretiveShell/MCP-Bridge</p>
+          <ul class="projects">
+            <li>SecretiveShell/MCP-Bridge</li>
+          </ul>
+          <p class="notes"><em>882 stars, middleware providing OpenAI-compatible endpoints</em></p>
+        </div>
+      </details>
+    </details>
+    <details>
+      <summary>Transport Bridge - stdio ↔ HTTP/SSE/WebSocket</summary>
+      <details>
+        <summary>Which transport do you need?</summary>
+        <div class="leaf-structured">
+          <p><strong>SSE (Server-Sent Events)</strong> → Use sparfenyuk/mcp-proxy</p>
+          <ul class="projects">
+            <li>sparfenyuk/mcp-proxy</li>
+          </ul>
+          <p class="notes"><em>2.1k stars, most popular transport bridge</em></p>
+        </div>
+        <details>
+          <summary>WebSocket</summary>
+          <details>
+            <summary>Need Nginx/scalable infrastructure?</summary>
+            <div class="leaf-structured">
+              <p><strong>Yes - Production scale</strong> → Use ConechoAI/nchan-mcp-transport</p>
+              <ul class="projects">
+                <li>ConechoAI/nchan-mcp-transport</li>
+              </ul>
+              <p class="notes"><em>Nchan-based, supports WebSocket, SSE, HTTP</em></p>
+            </div>
+            <div class="leaf-structured">
+              <p><strong>No - Simple WebSocket</strong> → Use supercorp-ai/supergateway</p>
+              <ul class="projects">
+                <li>supercorp-ai/supergateway</li>
+              </ul>
+              <p class="notes"><em>stdio to SSE/WebSocket bridge</em></p>
+            </div>
+          </details>
+        </details>
+        <div class="leaf-structured">
+          <p><strong>HTTP (stateless)</strong> → Use EvalsOne/MCP-connect or nccgroup/http-mcp-bridge</p>
+          <ul class="projects">
+            <li>EvalsOne/MCP-connect</li>
+            <li>nccgroup/http-mcp-bridge</li>
+          </ul>
+          <p class="notes"><em>Both support stdio to HTTP bridging</em></p>
+        </div>
+      </details>
+    </details>
+    <details>
+      <summary>Enterprise - Production infrastructure</summary>
+      <details>
+        <summary>What&#x27;s your deployment environment?</summary>
+        <div class="leaf-structured">
+          <p><strong>Kubernetes</strong> → Use microsoft/mcp-gateway</p>
+          <ul class="projects">
+            <li>microsoft/mcp-gateway</li>
+          </ul>
+          <p class="notes"><em>Kubernetes-native with StatefulSets, headless services</em></p>
+        </div>
+        <div class="leaf-structured">
+          <p><strong>Docker/Containers</strong> → Use docker/mcp-gateway</p>
+          <ul class="projects">
+            <li>docker/mcp-gateway</li>
+          </ul>
+          <p class="notes"><em>Official Docker gateway with container-based isolation</em></p>
+        </div>
+        <div class="leaf-structured">
+          <p><strong>Azure cloud</strong> → Use Azure API Management MCP integration</p>
+          <ul class="projects">
+            <li>microsoft/azure-api-management-mcp</li>
+          </ul>
+          <p class="notes"><em>Native Azure integration</em></p>
+        </div>
+        <div class="leaf-structured">
+          <p><strong>Security-focused (PII, guardrails)</strong> → Use lasso-security/mcp-gateway</p>
+          <ul class="projects">
+            <li>lasso-security/mcp-gateway</li>
+          </ul>
+          <p class="notes"><em>PII masking, security guardrails</em></p>
+        </div>
+      </details>
+    </details>
+    <details>
+      <summary>OpenAPI ↔ MCP Conversion</summary>
+      <details>
+        <summary>Which direction?</summary>
+        <p class="leaf"><strong>OpenAPI → MCP (expose REST as MCP)</strong> → See openapi-to-mcp category in comparisons/auto-generated.md</p>
+        <p class="leaf"><strong>MCP → OpenAPI (generate OpenAPI from MCP)</strong> → See mcp-to-openapi category in comparisons/auto-generated.md</p>
+      </details>
+    </details>
+    <div class="leaf-structured">
+      <p><strong>gRPC/Protobuf - Convert gRPC to MCP</strong> → Use redpanda-data/protoc-gen-go-mcp</p>
+      <ul class="projects">
+        <li>redpanda-data/protoc-gen-go-mcp</li>
+      </ul>
+      <p class="notes"><em>protoc plugin generating MCP servers from gRPC/Connect service definitions</em></p>
+    </div>
+    <details>
+      <summary>Specialized - CLI wrapping, Windows, Kubernetes</summary>
+      <details>
+        <summary>What specialization?</summary>
+        <div class="leaf-structured">
+          <p><strong>Wrap existing CLI tools as MCP</strong> → Use eirikb/any-cli-mcp-server</p>
+          <ul class="projects">
+            <li>eirikb/any-cli-mcp-server</li>
+          </ul>
+          <p class="notes"><em>Maps tools from existing CLI help output to MCP</em></p>
+        </div>
+        <div class="leaf-structured">
+          <p><strong>Windows PowerShell/CMD</strong> → Use simon-ami/win-cli-mcp-server</p>
+          <ul class="projects">
+            <li>simon-ami/win-cli-mcp-server</li>
+          </ul>
+          <p class="notes"><em>Secure Windows CLI server for PowerShell and CMD</em></p>
+        </div>
+        <div class="leaf-structured">
+          <p><strong>Kubernetes/OpenShift</strong> → Use containers/kubernetes-mcp-server</p>
+          <ul class="projects">
+            <li>containers/kubernetes-mcp-server</li>
+          </ul>
+          <p class="notes"><em>Native Go K8s/OpenShift MCP server</em></p>
+        </div>
+        <div class="leaf-structured">
+          <p><strong>Run arbitrary shell commands</strong> → Use g0t4/mcp-server-commands</p>
+          <ul class="projects">
+            <li>g0t4/mcp-server-commands</li>
+          </ul>
+          <p class="notes"><em>MCP server to run shell commands and scripts</em></p>
+        </div>
+      </details>
+    </details>
+  </details>
+</section>
+
+</body>
+</html>

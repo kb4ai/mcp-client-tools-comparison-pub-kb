@@ -8,6 +8,7 @@ A comprehensive comparison of tools in the **MCP (Model Context Protocol)** ecos
 
 | I want to... | Go here |
 |--------------|---------|
+| **Find the right tool for me** | [Interactive Decision Tree](comparisons/decision-tree.md) |
 | **Use a CLI with MCP servers** | [CLI Clients](#-cli-clients) |
 | **Expose my MCP server as REST/HTTP** | [REST API Bridges](#-rest-api-bridges) |
 | **Bridge MCP across transports** | [Transport Bridges](#-transport-bridges) |
@@ -136,6 +137,7 @@ Unique use cases and integrations.
 
 ## Detailed Comparisons
 
+* **[Decision tree guide](comparisons/decision-tree.md)** - Interactive flowchart to find the right tool
 * **[Auto-generated tables](comparisons/auto-generated.md)** - Full comparison data with all projects
 * **[Feature comparison](comparisons/features.md)** - Features by category, cross-cutting analysis
 * **[Security analysis](comparisons/security.md)** - Code patterns, recommendations, per-project findings
@@ -169,6 +171,7 @@ See **[spec.yaml](spec.yaml)** for the full schema.
 | `scripts/check-yaml.py` | Validate YAML files against spec |
 | `scripts/generate-tables.py` | Generate comparison tables |
 | `scripts/generate-readme.py` | Generate README.md from template |
+| `scripts/generate-decision-tree.py` | Generate decision tree visualizations |
 
 ### Generate Tables
 
@@ -178,6 +181,9 @@ See **[spec.yaml](spec.yaml)** for the full schema.
 
 # Generate README from template
 ./scripts/generate-readme.py
+
+# Generate decision tree visualizations
+./scripts/generate-decision-tree.py
 
 # Specific views
 ./scripts/generate-tables.py --by-category
@@ -196,6 +202,8 @@ See **[spec.yaml](spec.yaml)** for the full schema.
 ├── projects/                    # Project YAML files
 ├── scripts/                     # Utility scripts
 ├── comparisons/                 # Detailed comparisons
+├── r-and-d/                     # Research & development
+│   └── decision-tree-generator/ # Reusable decision tree library
 ├── ramblings/                   # Research notes
 └── tmp/                         # Cloned repos (gitignored)
 ```
