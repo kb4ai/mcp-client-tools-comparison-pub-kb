@@ -99,54 +99,64 @@ def generate_unfoldable_markdown(tree_data: dict) -> str:
 """
 
 
-def _render_details_tree(node: dict, is_root: bool = False) -> str:
-    """Render node as clean HTML <details>/<summary> for GitHub markdown."""
+def _render_details_tree(node: dict, depth: int = 0, is_root: bool = False) -> str:
+    """Render node as clean HTML <details>/<summary> for GitHub markdown.
+
+    Uses visual indentation prefix at each level for hierarchy.
+    """
     lines = []
+    # Visual indent: use box-drawing chars for tree structure
+    indent = '│  ' * depth if depth > 0 else ''
+    branch = '├─ ' if depth > 0 else ''
 
     if 'question' in node:
         open_attr = ' open' if is_root else ''
         lines.append(f'<details{open_attr}>')
-        lines.append(f'<summary><strong>{node["question"]}</strong></summary>')
-        lines.append('')  # Blank line for markdown parsing
+        if is_root:
+            lines.append(f'<summary>🔍 <strong>{node["question"]}</strong></summary>')
+        else:
+            lines.append(f'<summary>{indent}{branch}❓ {node["question"]}</summary>')
+        lines.append('')
 
-        for branch in node.get('branches', []):
-            condition = branch['condition']
-            next_node = branch['next']
+        for i, branch_item in enumerate(node.get('branches', [])):
+            condition = branch_item['condition']
+            next_node = branch_item['next']
+            child_indent = '│  ' * (depth + 1)
+            is_last = (i == len(node.get('branches', [])) - 1)
+            child_branch = '└─ ' if is_last else '├─ '
 
             if 'leaf' in next_node:
-                # Simple leaf - render as blockquote
                 lines.append(f'<details>')
-                lines.append(f'<summary>{condition}</summary>')
+                lines.append(f'<summary>{child_indent}{child_branch}📌 {condition}</summary>')
                 lines.append('')
-                lines.append(f'> ✅ **{next_node["leaf"]}**')
+                lines.append(f'{child_indent}│')
+                lines.append(f'{child_indent}└── ✅ **{next_node["leaf"]}**')
                 lines.append('')
                 lines.append('</details>')
                 lines.append('')
 
             elif 'leaf-structured' in next_node:
-                # Structured leaf with projects and notes
                 ls = next_node['leaf-structured']
                 lines.append(f'<details>')
-                lines.append(f'<summary>{condition}</summary>')
+                lines.append(f'<summary>{child_indent}{child_branch}📌 {condition}</summary>')
                 lines.append('')
-                lines.append(f'> ✅ **{ls["recommendation"]}**')
+                lines.append(f'{child_indent}│')
+                lines.append(f'{child_indent}├── ✅ **{ls["recommendation"]}**')
                 if ls.get('projects'):
-                    lines.append('>')
                     for proj in ls['projects']:
-                        lines.append(f'> - `{proj}`')
+                        lines.append(f'{child_indent}│   • `{proj}`')
                 if ls.get('notes'):
-                    lines.append('>')
-                    lines.append(f'> *{ls["notes"]}*')
+                    lines.append(f'{child_indent}│')
+                    lines.append(f'{child_indent}└── *{ls["notes"]}*')
                 lines.append('')
                 lines.append('</details>')
                 lines.append('')
 
             else:
-                # Nested question
                 lines.append(f'<details>')
-                lines.append(f'<summary>{condition}</summary>')
+                lines.append(f'<summary>{child_indent}{child_branch}📂 {condition}</summary>')
                 lines.append('')
-                nested = _render_details_tree(next_node)
+                nested = _render_details_tree(next_node, depth + 2)
                 lines.append(nested)
                 lines.append('</details>')
                 lines.append('')
@@ -154,18 +164,16 @@ def _render_details_tree(node: dict, is_root: bool = False) -> str:
         lines.append('</details>')
 
     elif 'leaf' in node:
-        lines.append(f'> ✅ **{node["leaf"]}**')
+        lines.append(f'{indent}└── ✅ **{node["leaf"]}**')
 
     elif 'leaf-structured' in node:
         ls = node['leaf-structured']
-        lines.append(f'> ✅ **{ls["recommendation"]}**')
+        lines.append(f'{indent}├── ✅ **{ls["recommendation"]}**')
         if ls.get('projects'):
-            lines.append('>')
             for proj in ls['projects']:
-                lines.append(f'> - `{proj}`')
+                lines.append(f'{indent}│   • `{proj}`')
         if ls.get('notes'):
-            lines.append('>')
-            lines.append(f'> *{ls["notes"]}*')
+            lines.append(f'{indent}└── *{ls["notes"]}*')
 
     return '\n'.join(lines)
 
