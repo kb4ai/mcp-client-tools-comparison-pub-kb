@@ -76,6 +76,31 @@
 | [supergateway](https://github.com/supercorp-ai/supergateway) | ? | TypeScript | http-bridge | stdio, sse, websocket |
 | [mcpcli](https://github.com/winterfx/mcpcli) | ? |  | cli-client | stdio |
 
+## Authentication Support Matrix
+
+Projects with documented authentication capabilities:
+
+| Project | OAuth 2.0 | PKCE | Bearer | API Key | Headers | Keychain | Notes |
+|---------|:---------:|:----:|:------:|:-------:|:-------:|:--------:|-------|
+| [mcp-proxy](https://github.com/sparfenyuk/mcp-proxy) | ✓ |  | ✓ | ✓ |  |  | --api-access-token flag |
+| [mcp-cli](https://github.com/chrishayuk/mcp-cli) |  |  | ✓ | ✓ |  |  | Custom header support via CLI ... |
+| [mcptools](https://github.com/f/mcptools) |  |  | ✗ |  |  |  | STDIO: env vars work via confi... |
+| [mcp-proxy (TBXark)](https://github.com/TBXark/mcp-proxy) |  |  | ✓ |  |  |  | Multi-server aggregator with t... |
+| [mcp-cli (wong2)](https://github.com/wong2/mcp-cli) |  |  |  |  |  |  |  |
+| [mcp-gateway](https://github.com/microsoft/mcp-gateway) | ✓ | ✓ | ✓ |  |  |  | Envoy-based with session-aware... |
+| [mcpc](https://github.com/apify/mcp-cli) | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | BEST-IN-CLASS: Full OAuth 2.1 ... |
+| [Lasso MCP Gateway](https://github.com/lasso-security/mcp-gateway) |  |  | ✓ | ✓ |  |  | Plugin-based security (PII det... |
+| Azure API Management MCP |  |  |  | ✓ |  |  |  |
+| [MCP Inspector](https://github.com/modelcontextprotocol/inspector) |  |  | ✓ |  | ✓ |  | CLI mode: npx @modelcontextpro... |
+| [mcpo](https://github.com/open-webui/mcpo) | ✓ | ✓ | ✓ |  |  |  | Full OAuth 2.1 with DCR |
+
+## Enterprise Authentication Features
+
+| Project | Entra ID | RBAC | Multi-Tenant | Auth Bridging | OIDC |
+|---------|:--------:|:----:|:------------:|:-------------:|:----:|
+| [Lasso MCP Gateway](https://github.com/lasso-security/mcp-gateway) |  | ✓ |  |  |  |
+| [mcp-gateway](https://github.com/microsoft/mcp-gateway) | ✓ | ✓ | ✓ | ✓ |  |
+
 ## Reputable/Official Sources
 
 | Project | Organization | Category | Description |
@@ -136,6 +161,28 @@
 | [mcporter](https://github.com/steipete/mcporter) | ✓ |  |  |  |  |
 | [supergateway](https://github.com/supercorp-ai/supergateway) | ✓ | ✓ |  | ✓ |  |
 | [mcpcli](https://github.com/winterfx/mcpcli) | ✓ |  |  |  |  |
+
+## Installation Methods
+
+| Project | npm | pip | brew | docker | go install |
+|---------|:---:|:---:|:----:|:------:|:----------:|
+| [mcp-proxy](https://github.com/sparfenyuk/mcp-proxy) |  | ✓ |  | ✓ |  |
+| [mcp-cli](https://github.com/chrishayuk/mcp-cli) |  | ✓ |  |  |  |
+| [mcptools](https://github.com/f/mcptools) |  |  | ✓ |  | ✓ |
+| [mcp-client-cli](https://github.com/adhikasp/mcp-client-cli) |  | ✓ |  |  |  |
+| [mcpc](https://github.com/apify/mcp-cli) | ✓ |  |  |  |  |
+| [cli-mcp-server](https://github.com/MladenSU/cli-mcp-server) |  | ✓ |  |  |  |
+| [mcp-use-cli](https://github.com/mcp-use/mcp-use-cli) | ✓ |  |  |  |  |
+| [Swagger-MCP](https://github.com/Vizioz/Swagger-MCP) |  |  |  |  |  |
+| [openapi-mcp-codegen](https://github.com/cnoe-io/openapi-mcp-codegen) |  | ✓ |  |  |  |
+| [openapi-to-mcpserver](https://github.com/higress-group/openapi-to-mcpserver) |  |  |  |  | ✓ |
+| [mcp-openapi-server](https://github.com/ivo-toby/mcp-openapi-server) |  |  |  |  |  |
+| [openapi-mcp-server](https://github.com/janwilmake/openapi-mcp-server) |  |  |  |  |  |
+| [fastmcp](https://github.com/jlowin/fastmcp) |  | ✓ |  |  |  |
+| [MCP Inspector](https://github.com/modelcontextprotocol/inspector) | ✓ |  |  | ✓ |  |
+| [openapi-to-mcp](https://github.com/ouvreboite/openapi-to-mcp) | ✓ |  |  |  |  |
+| [mcp-annotations](https://github.com/spring-ai-community/mcp-annotations) |  |  |  |  |  |
+| [supergateway](https://github.com/supercorp-ai/supergateway) | ✓ |  |  | ✓ |  |
 
 ## Projects by Category
 
